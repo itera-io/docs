@@ -50,45 +50,7 @@ Update your docs to your brand and add valuable content for the best user conver
 
 
 
-flowchart LR
-    %% Client visiting the site
-    client[Client visits Taikun CloudWorks site]
 
-    %% First options for the client
-    client --> taikunInfra[Option 1: Use Taikun Infra]
-    client --> ownCloud[Option 2: Connect own Cloud Provider]
-
-    %% Next step after choosing an option
-    taikunInfra --> createProject[Create Project]
-    ownCloud --> createProject
-
-    %% Create Kubernetes Cluster in Taikun CloudWorks
-    createProject --> addServers[Add Servers]
-    
-    %% Add Server Configuration
-    addServers --> serverConfig[Minimal Config: Bastion, Worker, Master]
-    
-    %% Deploy
-    serverConfig --> deploy[Click "Deploy"]
-
-    %% Application Installation
-    deploy --> installApps[Install Applications]
-
-    %% Options for installing applications
-    installApps --> taikunRepo[Option 1: Use Taikun CloudWorks Repositories]
-    installApps --> ownRepo[Option 2: Connect Own Repository]
-
-    %% Subgraph for Server Configuration Steps
-    subgraph "Server Configuration"
-        addServers --> serverConfig
-        serverConfig --> deploy
-    end
-
-    %% Subgraph for Application Installation
-    subgraph "Application Options"
-        installApps --> taikunRepo
-        installApps --> ownRepo
-    end
 
 
 
