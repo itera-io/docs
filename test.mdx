@@ -1,57 +1,88 @@
 # Create a Project
 
+![Create a Project](path/to/your/image.png)
+
+[Click here to view the image](path/to/your/image.png)
+
 ## Roles: Manager | Partner
 
 You can create a new project right after adding your cloud credentials! During project creation, you have the option to specify various settings and configurations to suit your needs.
 
 ### Steps to Create a New Project
-1. **Go to the Projects menu** in Taikun.
-2. Click **Add Project** in the top right corner.
-3. Enter your **Project’s name** and choose a **Cloud** provider in the pop-up.
 
-   - **Optional Profiles**: Access, Alerting, Kubernetes, and Policy profiles are populated with default options at first. Custom profiles should be created before adding them to your projects.
+<Accordion title="Steps to Create a New Project">
+  1. **Go to the Projects menu** in Taikun.
+  2. Click **Add Project** in the top right corner.
+  3. Enter your **Project’s name** and choose a **Cloud** provider in the pop-up.
 
-4. Certain features in Taikun, such as **Alerting Profiles**, **Monitoring**, **Backup**, and **Expiration Dates**, can be configured or enabled after the project is created.
+     - **Optional Profiles**: Access, Alerting, Kubernetes, and Policy profiles are populated with default options at first. Custom profiles should be created before adding them to your projects.
+
+  4. Certain features in Taikun, such as **Alerting Profiles**, **Monitoring**, **Backup**, and **Expiration Dates**, can be configured or enabled after the project is created.
+</Accordion>
 
 ### 🔥 Warning
 If you intend to use a specific **Access Profile** in your project, create it *before* starting the project creation process. This profile can then be selected from the drop-down menu during project creation.
 
 ---
 
+***
+
 ### Project Details
 
-- **Project Name**: Enter a unique name for your project. Only lowercase alphanumeric characters and dashes are allowed (3-30 characters; no underscores). Example: `my-project1`
-- **Cloud**: Select where to store your project. For instructions on connecting a new cloud, see [Cloud Credentials](#cloud-credentials).
+* **Project Name**: Enter a unique name for your project. Only lowercase alphanumeric characters and dashes are allowed (3-30 characters; no underscores). Example: `my-project1`
+
+* **Cloud**: Select where to store your project. For instructions on connecting a new cloud, see [Cloud Credentials](#cloud-credentials).
 
 #### Optional Settings
-- **Kubernetes Version**: Choose a specific Kubernetes version, if needed.
-- **CIDR**: Specify a network or sub-network if required.
-- **Access Profile**: Choose a profile for project access. (For setup instructions, see [Access Profiles](#access-profiles)).
-- **Alerting Profile**: Select an alerting profile from the dropdown if already created.
-- **Kubernetes Profile**: Choose a profile after creating it in Kubernetes Profiles.
-   - **For OpenStack**: If you choose a profile with an enabled Taikun Load Balancer, you’ll need to configure the **Taikun Load Balancer Flavor**, **Router Id Start Range**, and **Router Id End Range**.
 
-- **Policy Profile**: Select a policy profile for this project.
-- **Monitoring**: Enables monitoring of Kubernetes clusters to help manage containerized infrastructure, track resource utilization (memory, CPU, storage).
-- **Backup**: Choose backup credentials, or create new ones in [Backup Credentials](#backup-credentials). You can change this later if needed.
-- **Expiration Date**: Set a project expiration date. By default, this is set to infinity. Note: Projects remain unaffected after the expiration date.
-- **Serverless**: Enable serverless options to manage events and triggers. DNS setup is required.
-- **Spot Features**: Enable spot features (AWS, Azure, Google supported).
-   - **Allow Spot VMs**: Enable spots for standalone VMs.
-   - **Allow Full Spot Kubernetes**: Enable full spot for Kubernetes.
-   - **Allow Spot Workers**: Enable spots for workers only.
-   - **No Spot for Kubernetes**: Disable spots for Kubernetes.
+* **Kubernetes Version**: Choose a specific Kubernetes version, if needed.
 
-- **Flavor**: Bind specific flavors to the project. Multiple flavors can be added and managed in **Flavor Info**.
-  
+* **CIDR**: Specify a network or sub-network if required.
+
+* **Access Profile**: Choose a profile for project access. (For setup instructions, see [Access Profiles](#access-profiles)).
+
+* **Alerting Profile**: Select an alerting profile from the dropdown if already created.
+
+* **Kubernetes Profile**: Choose a profile after creating it in Kubernetes Profiles.
+
+  * **For OpenStack**: If you choose a profile with an enabled Taikun Load Balancer, you’ll need to configure the **Taikun Load Balancer Flavor**, **Router Id Start Range**, and **Router Id End Range**.
+
+* **Policy Profile**: Select a policy profile for this project.
+
+* **Monitoring**: Enables monitoring of Kubernetes clusters to help manage containerized infrastructure, track resource utilization (memory, CPU, storage).
+
+* **Backup**: Choose backup credentials, or create new ones in [Backup Credentials](#backup-credentials). You can change this later if needed.
+
+* **Expiration Date**: Set a project expiration date. By default, this is set to infinity. Note: Projects remain unaffected after the expiration date.
+
+* **Serverless**: Enable serverless options to manage events and triggers. DNS setup is required.
+
+* **Spot Features**: Enable spot features (AWS, Azure, Google supported).
+
+  * **Allow Spot VMs**: Enable spots for standalone VMs.
+
+  * **Allow Full Spot Kubernetes**: Enable full spot for Kubernetes.
+
+  * **Allow Spot Workers**: Enable spots for workers only.
+
+  * **No Spot for Kubernetes**: Disable spots for Kubernetes.
+
+* **Flavor**: Bind specific flavors to the project. Multiple flavors can be added and managed in **Flavor Info**.
+
 #### Autoscaler Configuration
-Enable autoscaling by specifying server parameters:
-- **Name**: Define a name for the server.
-- **Minimum Workers**: Set the minimum number of workers.
-- **Maximum Workers**: Set the maximum number of workers.
-- **Disk Size**: Define disk size.
-- **Flavor**: Select a flavor for the server.
 
----
+Enable autoscaling by specifying server parameters:
+
+* **Name**: Define a name for the server.
+
+* **Minimum Workers**: Set the minimum number of workers.
+
+* **Maximum Workers**: Set the maximum number of workers.
+
+* **Disk Size**: Define disk size.
+
+* **Flavor**: Select a flavor for the server.
+
+***
 
 For additional configuration details and advanced settings, refer to the relevant profile and credential sections in this documentation.
