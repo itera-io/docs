@@ -114,33 +114,3 @@ flowchart LR
 
 
 
----
-title: Initial Registration and Project Setup
----
-erDiagram
-    CLIENT ||--o{ PROJECT : "can create"
-    PROJECT ||--|{ SERVER : "contains"
-    PROJECT }|..|{ CLOUD_PROVIDER : "uses"
-    SERVER ||--o| KUBERNETES_CLUSTER : "deploys"
-
-    CLIENT {
-        string name
-        string email
-    }
-    PROJECT {
-        string project_name
-        string cloud_provider
-    }
-    SERVER {
-        string type
-        int quantity
-    }
-    CLOUD_PROVIDER {
-        string provider_name
-        string credentials
-    }
-    KUBERNETES_CLUSTER {
-        bool deployed
-        list applications
-    }
-
