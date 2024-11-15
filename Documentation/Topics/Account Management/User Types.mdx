@@ -6,13 +6,13 @@ title: "User Types"
 
 Understanding Taikun’s User Types is important as it will determine the privileges and permissions that each user has within your structure. There are three main roles that we will be covering: User, Manager, and Partner.
 
-<Icon icon="user" iconType="solid" /> User
+<Icon icon="user" iconType="solid" /> **User**
 Users are the most basic type of user on our platform. They have the least amount of privileges and are typically used for accessing and interacting with the platform on a basic level. Users are able to perform tasks such as viewing Projects, monitoring their health, and accessing them via Kubeconfig files.
 
-<Icon icon="user-tie" iconType="solid" /> Manager
+<Icon icon="user-tie" iconType="solid" /> **Manager**
 Managers have more privileges than users and are typically responsible for managing an Organization within Taikun. In addition to the privileges that users have, managers are also able to create and manage Credentials, assign Projects to team members, and install Applications to clusters.
 
-<Icon icon="handshake" iconType="solid" /> Partner
+<Icon icon="handshake" iconType="solid" /> **Partner**
 Partners have the most privileges of all three user roles. They typically have a strategic relationship with our company and are able to access advanced features and resources within the platform. Partners are able to create and manage multiple Projects and Organizations, as well as access Billing information and additional reporting tools.
 
 <Tip>Taikun also has Owner User which can be assigned only to one member of an account. Owner Users have the full set of permissions similarly to Partner and are also granted additional access to management of payments.</Tip>
@@ -23,23 +23,23 @@ Below you can find the table describing the rights of each user type in Taikun.
 # Permissions by User Type
 
 |                                | <Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner |
-| ------------------------------ | ---- | ------- | ------- |
-| Create a cluster               | ✔    | ✔       | ✔       |
-| Manage Kubernetes              | ✔    | ✔       | ✔       |
-| Add Servers to Projects        | ✔    | ✔       | ✔       |
-| Repair Projects                | ✔    | ✔       | ✔       |
-| Create/delete Kubeconfig       | ✔    | ✔       | ✔       |
-| Share Projects                 |      | ✔       | ✔       |
-| Delete Projects                |      | ✔       | ✔       |
-| Bind Flavor to Projects        |      | ✔       | ✔       |
-| Bind Image to Projects         |      | ✔       | ✔       |
-| Install Applications           |      | ✔       | ✔       |
-| Lock/Unlock Projects           |      | ✔       | ✔       |
-| Assign Projects                |      | ✔       | ✔       |
-| Adding Cloud Credentials       |      | ✔       | ✔       |
-| Project Quotas                 |      | ✔       | ✔       |
-| Enable/Disable Backup          |      | ✔       | ✔       |
-| Enforce Policies               |      | ✔       | ✔       |
-| Attach/Detach Alerting Profile |      | ✔       | ✔       |
-| Access Project History         |      | ✔       | ✔       |
-| Configure Backup Policy        |      | ✔       | ✔       |
+| ------------------------------ | ------------------------------------------ | ------------------------------------------------- | -------------------------------------------------- |
+| Create a cluster               | ✔                                          | ✔                                                 | ✔                                                  |
+| Manage Kubernetes              | ✔                                          | ✔                                                 | ✔                                                  |
+| Add Servers to Projects        | ✔                                          | ✔                                                 | ✔                                                  |
+| Repair Projects                | ✔                                          | ✔                                                 | ✔                                                  |
+| Create/delete Kubeconfig       | ✔                                          | ✔                                                 | ✔                                                  |
+| Share Projects                 |                                            | ✔                                                 | ✔                                                  |
+| Delete Projects                |                                            | ✔                                                 | ✔                                                  |
+| Bind Flavor to Projects        |                                            | ✔                                                 | ✔                                                  |
+| Bind Image to Projects         |                                            | ✔                                                 | ✔                                                  |
+| Install Applications           |                                            | ✔                                                 | ✔                                                  |
+| Lock/Unlock Projects           |                                            | ✔                                                 | ✔                                                  |
+| Assign Projects                |                                            | ✔                                                 | ✔                                                  |
+| Adding Cloud Credentials       |                                            | ✔                                                 | ✔                                                  |
+| Project Quotas                 |                                            | ✔                                                 | ✔                                                  |
+| Enable/Disable Backup          |                                            | ✔                                                 | ✔                                                  |
+| Enforce Policies               |                                            | ✔                                                 | ✔                                                  |
+| Attach/Detach Alerting Profile |                                            | ✔                                                 | ✔                                                  |
+| Access Project History         |                                            | ✔                                                 | ✔                                                  |
+| Configure Backup Policy        |                                            | ✔                                                 | ✔                                                  |
