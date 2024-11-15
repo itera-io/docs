@@ -3,20 +3,27 @@ title: "Our Lingo"
 description: "Taikun Terminology"
 ---
 
-**Access Profile** – a profile using HTTP proxy, ssh (we support RSA, ECDSA or Ed25519), DNS or NTP to access your cluster, the condition is that you add it to the project during creation.
+### **Access Profile**
 
-**Alerting Profile** – a profile attached to a Project, provides notifications about alerts in your Project.
+profile using HTTP proxy, ssh (we support RSA, ECDSA or Ed25519), DNS or NTP to access your cluster, the condition is that you add it to the project during creation.
 
-**Audit Log** – summary of changes made in Projects.
+### **Alerting Profile**
 
-**Backup credentials** – Taikun uses S3-compatible backup. S3 (Simple Storage Service) Backup is a desktop application using Amazon’s infrastructure for remote backups and secure online file storage. It features strong encryption, compression, easy access to your backed-up files, and built-in backup scheduling.
+profile attached to a Project, provides notifications about alerts in your Project.
 
-**Backup policy** – defines the ground rules for planning, executing, and validating backups and includes specific activities to ensure that critical data is backed up to secure storage media located in a secure location.
+### **Audit Log**
+
+summary of changes made in Projects.
+
+### **Backup credentials**
+Taikun uses S3-compatible backup. S3 (Simple Storage Service) Backup is a desktop application using Amazon’s infrastructure for remote backups and secure online file storage. It features strong encryption, compression, easy access to your backed-up files, and built-in backup scheduling.
+
+### **Backup policy**
+defines the ground rules for planning, executing, and validating backups and includes specific activities to ensure that critical data is backed up to secure storage media located in a secure location.
 
 schedules = policies
 backups = a copy created based on policy
 restores = a copy from backup data
-
 
 **Billing Rules** – rules for Chargeback. Every rule is based on an external source, metrics, and price.
 
@@ -26,11 +33,9 @@ restores = a copy from backup data
 
 Taikun supports OpenStack, Amazon Web Services (AWM), Microsoft Azure, and Google Cloud Platform (GCP)
 
-
 **Cluster** – Taikun Project – a set of computers that work together so that they can be viewed as a single system
 
 **Kubernetes cluster** – a set of nodes that run containerized applications. Containerizing applications package an app with its dependencies and some necessary services. They are more lightweight and flexible than virtual machines. This way, Kubernetes clusters allow applications to be more easily developed, moved and managed.
-
 
 **CNI** – Container Network Interface, consists of a specification and libraries for writing plugins to configure network interfaces in Linux containers, along with a number of supported plugins.
 
@@ -72,7 +77,6 @@ Taikun supports OpenStack, Amazon Web Services (AWM), Microsoft Azure, and Googl
 
 HARD – the power to the system is physically turned off and back again causing an initial boot
 SOFT – system restarts without the need to interrupt the power
-
 
 **Role** – defines the rights and permissions granted to user accounts. In Taikun there are Users, Managers (Owner), or Partners. You can take a look at each role in our User Types article.
 
