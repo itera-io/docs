@@ -2,7 +2,7 @@
 title: "LoadBalancer"
 ---
 
-\| <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner |
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
 
 <Warning>LoadBalancing Flavor should have at least: **\* 1GB RAM \* 1 vCPU**</Warning>
 
@@ -52,14 +52,57 @@ Command to add an image to OpenStack:
 
   ```Third Third
   WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: admin.conf
-WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: admin.conf
-Release "itera-lb" has been upgraded. Happy Helming!
-NAME: itera-lb
-LAST DEPLOYED: Thu Mar  4 11:28:31 2021
-NAMESPACE: default
-STATUS: deployedInfrastructure removal
+  WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: admin.conf
+  Release "itera-lb" has been upgraded. Happy Helming!
+  NAME: itera-lb
+  LAST DEPLOYED: Thu Mar  4 11:28:31 2021
+  NAMESPACE: default
+  STATUS: deployedInfrastructure removal
 
-REVISION: 4
-TEST SUITE: None
+  REVISION: 4
+  TEST SUITE: None
   ```
 </CodeGroup>
+
+## Check taikun-lb is installed
+
+```
+export KUBECONFIG=admin.conf; kubectl get pod
+
+NAME                                   READY   STATUS             RESTARTS   AGE
+itera-lb-deployment-69c44bb45c-wtwgm   1/1     Running            0          38m
+```
+
+## Install a test application (in this case WordPress from bitnami)
+
+```
+helm install test-lb bitnami/wordpress --kubeconfig=admin.conf
+```
+
+## Wait for the service to get a floating IP assigned
+
+```
+kubectl get svc test-lb-wordpress
+
+NAME                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+test-lb-wordpress   LoadBalancer   10.233.55.232   10.3.228.10   80:30634/TCP,443:31760/TCP   2m27s
+```
+
+### To enable proxy service for the service, add the following annotation to the service:
+
+```
+loadbalancer.taikun.cloud/proxy-protocol: "true"
+```
+
+### This is the way to restrict which IP has access to the service (https://www.haproxy.com/blog/haproxy/proxy-protocol/) for example:
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.taikun.cloud/proxy-protocol: "true"
+    meta.helm.sh/release-name: test-lb
+    meta.helm.sh/release-namespace: default
+...
+```
