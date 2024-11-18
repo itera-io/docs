@@ -5,3 +5,22 @@ title: "LoadBalancer"
 \| <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner |
 
 <Warning>LoadBalancing Flavor should have at least: **\* 1GB RAM \* 1 vCPU**</Warning>
+
+# Prepare the configuration file prod.yaml
+
+```yaml YAML
+prod.yaml:
+  tenantName: "kubernetes"
+  clusterName: "<cluster_name>"
+  subnetId: "<kubernetes_subnet_id>"
+  flavorId: "<flavorId_for_loadbalancing_instances>"
+  publicKey: "<public_key_matching_the_ssh_key_below>"
+  floatingNetworkId: "<floating_network_id_for_loadbalancing>"
+  identityEndpoint: "<openstack_identity_endpoint>"
+  userName:         "<openstack_username>>"
+  password:         "<openstack_password>"
+  domainName: "default"
+  keepalivedRouterIdRange: "1-255"
+  ssh_key: |
+  SSH_PRIVATE_KEY
+```
