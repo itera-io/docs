@@ -40,15 +40,50 @@ Signing in to Taikun The Taikun CLI reads environment variables to authenticate 
     AIKUN_KEYCLOAK_PASSWORD
     ```
   </Accordion>
-  
+
   <Accordion title="The default API host is api.taikun.cloud. To override it, set the following environment variable:">
     ```
     TAIKUN_API_HOST (default value is: api.taikun.cloud)
     ```
   </Accordion>
+
   <Accordion title="Run the following command to check whether you are properly authenticated:">
     ```
     taikun whoami
     ```
   </Accordion>
 </AccordionGroup>
+
+## Configure Autocompletion
+
+Autocompletion is available for the following shells:
+
+* Bash
+
+* Zsh
+
+* Fish
+
+* PowerShell
+
+The command taikun completion generates an autocompletion script for the specified shell. For instructions on how to use the generated script, see the help command of the corresponding shell.
+
+For example, `taikun completion bash -h` provides instructions on how to set up autocompletion for the Bash shell.
+
+## Command overview
+
+To overview all the commands available, see the [generated command tree](https://github.com/itera-io/taikun-cli/blob/dev/COMMAND_TREE.md).
+
+## CLI Help
+
+To get information on how to use a command, type
+
+<Tabs>
+  <Tab title="Long command">
+    `taikun [command] –help`
+  </Tab>
+
+  <Tab title="Short command">
+    `taikun [command] -h`
+  </Tab>
+</Tabs>
