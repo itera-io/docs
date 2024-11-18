@@ -27,13 +27,28 @@ Signing in to Taikun The Taikun CLI reads environment variables to authenticate 
 ## To authenticate with your Taikun account:
 
 <AccordionGroup>
-  <Accordion title="FAQ without Icon" />
-
-  <Accordion title="FAQ with Icon" icon="alien-8bit">
-    Check out the [Accordion](/content/components/accordions) docs for all the supported props.
+  <Accordion title="set the following environment variables:">
+    ```
+    TAIKUN_EMAIL
+    TAIKUN_PASSWORD
+    ```
   </Accordion>
 
-  <Accordion title="FAQ without Icon">
-    Check out the [Accordion](/content/components/accordions) docs for all the supported props.
+  <Accordion title="To authenticate with Keycloak, set the following environment variables:">
+    ```
+    TAIKUN_KEYCLOAK_EMAIL
+    AIKUN_KEYCLOAK_PASSWORD
+    ```
+  </Accordion>
+  
+  <Accordion title="The default API host is api.taikun.cloud. To override it, set the following environment variable:">
+    ```
+    TAIKUN_API_HOST (default value is: api.taikun.cloud)
+    ```
+  </Accordion>
+  <Accordion title="Run the following command to check whether you are properly authenticated:">
+    ```
+    taikun whoami
+    ```
   </Accordion>
 </AccordionGroup>
