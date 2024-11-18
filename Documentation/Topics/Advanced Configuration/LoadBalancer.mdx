@@ -6,7 +6,7 @@ title: "LoadBalancer"
 
 <Warning>LoadBalancing Flavor should have at least: **\* 1GB RAM \* 1 vCPU**</Warning>
 
-# Prepare the configuration file prod.yaml
+## Prepare the configuration file prod.yaml
 
 ```yaml YAML
 prod.yaml:
@@ -23,4 +23,13 @@ prod.yaml:
   keepalivedRouterIdRange: "1-255"
   ssh_key: |
   SSH_PRIVATE_KEY
+```
+
+## Add Itera Helm Chart Repository
+```
+helm repo add itera https://repo.itera.io/repository/itera --kubeconfig=admin.conf
+
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: admin.conf
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: admin.conf
+"itera" has been added to your repositories
 ```
