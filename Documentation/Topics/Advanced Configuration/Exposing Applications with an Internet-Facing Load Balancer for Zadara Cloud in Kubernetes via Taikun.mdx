@@ -4,7 +4,7 @@ title: "Exposing Applications with an Internet-Facing Load Balancer for Zadara C
 
 When deploying applications on Zadara Cloud through Taikun, it is important to configure your service to be accessible online, particularly for public-facing applications. For platforms like AWS, this is typically done with the following annotation:
 
-```
+```yaml YAML
 annotations:
   service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 ```
