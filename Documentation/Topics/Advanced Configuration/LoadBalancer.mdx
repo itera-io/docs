@@ -26,6 +26,7 @@ prod.yaml:
 ```
 
 ## Add Itera Helm Chart Repository
+
 ```
 helm repo add itera https://repo.itera.io/repository/itera --kubeconfig=admin.conf
 
@@ -33,3 +34,28 @@ WARNING: Kubernetes configuration file is group-readable. This is insecure. Loca
 WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: admin.conf
 "itera" has been added to your repositories
 ```
+
+## Install taikun-lb using helm
+
+<Note>taikun-lb is only available for OpenStack with Octavia disabled. You need to add the image https://repo.itera.io/repository/images/taikun-lb.qcow2 to OpenStack with the tag “taikun-lb”.</Note>
+
+Command to add an image to OpenStack:
+
+<CodeGroup>
+  ```
+  helm upgrade --install itera-lb -f prod.yaml --namespace=kube-system itera/taikun-lb --kubeconfig=admin.conf
+  ```
+
+  ```
+  WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: admin.conf
+  WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: admin.conf
+  Release "itera-lb" has been upgraded. Happy Helming!
+  NAME: itera-lb
+  LAST DEPLOYED: Thu Mar  4 11:28:31 2021
+  NAMESPACE: default
+  STATUS: deployedInfrastructure removal
+
+  REVISION: 4
+  TEST SUITE: None
+  ```
+</CodeGroup>
