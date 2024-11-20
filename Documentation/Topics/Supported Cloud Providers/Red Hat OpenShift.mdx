@@ -1,1 +1,31 @@
--Red Hat OpenShift
+# Red Hat OpenShift
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
+
+## Overview
+
+OpenShift is a containerization and Kubernetes platform developed by Red Hat, a leading open-source software company. It is designed to simplify containerized applications’ deployment, management, and scaling. OpenShift provides a comprehensive set of tools and features for building, deploying, and running container-based applications in a cloud-native and DevOps-friendly manner.
+
+## Connecting OpenShift to Taikun
+
+1. Switch to the *Cloud credentials* in Taikun 
+
+2. Hit the *Add Cloud Credentials* button in the top-right corner
+
+3. Select the *Openshift* option
+
+4. Specify the parameters:
+
+   * *Cloud Name* – choose a name with 3-30 alphanumeric characters
+
+   * Kubeconfig File: configuration file used by the Kubernetes and OpenShift command-line tools to authenticate and interact with a Kubernetes or an OpenShift cluster. It contains information about the cluster, user credentials, context, and other configuration details.
+
+   * Pull Secret: a Kubernetes secret that stores authentication information required to pull container images from container registries. It contains the necessary credentials, such as username, password, or token, and the registry URL for accessing container images.
+
+   * Storage Class: a resource that defines how the cluster’s dynamic provisioning of storage volumes should work. It specifies parameters such as the storage backend, access modes, and other storage characteristics to be provisioned.
+
+   * Base Domain: the root domain that is the foundation for creating route hostnames within your OpenShift cluster. Routes are used to expose applications running in OpenShift to the external world.
+
+5. Click *Add Cloud Credentials*.
+
+![src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/openshift.webp)
