@@ -2,3 +2,87 @@
 title: 'New file'
 description: 'Description of your new file.'
 ---
+
+# VMware vSphere
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
+
+## Overview
+
+*vSphere* is a virtualization platform developed by VMware. It enables organizations to create and manage virtualized IT environments, including virtual machines (VMs), on a large scale. It also provides features such as virtualization of compute, storage, and networking resources.
+
+## Connecting vSphere to Taikun
+
+1. Switch to the *Cloud credentials* in Taikun 
+
+2. Hit the *Add Cloud Credentials* button in the top-right corner
+
+3. Select the *vSphere* option
+
+4. Specify the parameters:
+
+* Cloud Settings:
+
+  * *Cloud Name* – choose a name with 3-30 alphanumeric characters
+
+  * *Region* – select your region (grouping of resources within a data center or across multiple data centers)
+
+* *vSphere* Credentials:
+
+  * *Username* – fill in your username to authenticate and allow access to the *vSphere* environment
+
+  * *Password* – fill in your *vSphere* password
+
+  * *API URL* – fill in API URL, endpoint URL used to interact with the *vSphere* API
+
+* *vSphere* Cloud Settings:
+
+  * *Data center* – logical grouping of ESXi hosts and associated virtual machines. It provides a way to organize and manage resources at a higher level
+
+  * *Resource Pool* – a resource pool aggregates physical resources (such as CPU and memory) across multiple ESXi hosts
+
+  * *Data Store* – storage location where virtual machine files, including virtual disks and configuration files, are stored. It can be a local disk on an ESXi host, a SAN (Storage Area Network), or a NAS (Network Attached Storage)
+
+  * *DRS Enabled* – DRS (Distributed Resource Scheduler) is a feature in vSphere that dynamically balances computing resources (CPU and memory) across multiple ESXi hosts in a *vSphere* cluster. When DRS is enabled, it automatically monitors resource usage and migrates virtual machines between hosts to optimize performance and resource utilization
+
+  * *Hypervisors* – enables virtualization by abstracting physical hardware resources and creating multiple virtual machines (VMs) on a single physical host
+
+  * *VM Template* – A VM template is a master copy or blueprint of a virtual machine that contains the operating system, software configurations, and other settings. Instead of creating a new VM from scratch, administrators can deploy VMs from templates, saving time and ensuring consistency across deployments.
+
+* Public Network:
+
+  * Info: a public network is accessible from outside the vSphere environment, such as the internet or an external corporate network
+
+  * *Network Name* – name assigned to a specific network. It helps identify and differentiate between different networks, particularly in environments with multiple network segments
+
+  * *Network Address/Mask* – the network address identifies the network itself, while the subnet mask determines the size of the network and the range of IP addresses available within it.
+
+  * *Gateway* – IP address of the router or gateway device that serves as the exit point from the local network to other networks, such as the internet or another network segment
+
+  * *Allocation Range* – the range of IP addresses within a network that are available for assignment to devices or virtual machines. It consists of a starting IP address and an ending IP address, defining the range of usable addresses within the network subnet
+
+##### ℹ️&#xA; Info
+
+A public network is accessible from outside the vSphere environment, such as the internet or an external corporate network.
+
+* Private Network:
+
+  * *Network Name* – name assigned to a specific network. It helps identify and differentiate between different networks, particularly in environments with multiple network segments
+
+  * *Network Address/Mask* – the network address identifies the network itself, while the subnet mask determines the size of the network and the range of IP addresses available within it.
+
+  * *Gateway* – IP address of the router or gateway device that serves as the exit point from the local network to other networks, such as the internet or another network segment
+
+  * *Allocation Range* – the range of IP addresses within a network that are available for assignment to devices or virtual machines. It consists of a starting IP address and an ending IP address, defining the range of usable addresses within the network subnet
+
+##### ℹ️&#xA; Info
+
+A private network is isolated and accessible only within the vSphere environment itself.
+
+5\. Click *Add Cloud Credentials*.
+
+##### 📄&#xA; Note
+
+To prevent IP collisions, it’s important that the allocation ranges for all networks do not include the IP addresses of the hypervisors, which are 10.3.1.11 and 10.3.1.12. To mitigate any potential conflicts, it’s recommended to initiate the allocation range for the network 10.3.1.0 from 10.3.1.20.
+
+![Taikun Requests](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/managing-your-projects/vsphere/vsphere.teste.webp "Taikun Requests")
