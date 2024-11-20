@@ -1,1 +1,71 @@
-Zadara
+# Zadara
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
+
+## Overview
+
+Zadara’s storage infrastructure is built for high availability and reliability, offering a wide range of storage options, including block, file, and object storage, as well as specialized solutions for specific use cases such as high-performance computing (HPC) and big data analytics.
+
+## Connecting Zadara to Taikun CloudWorks
+
+
+
+1. Switch to the *Cloud credentials* in Taikun 
+
+2. Hit the *Add Cloud Credentials* button in the top-right corner
+
+3. Select the *Zadara* option
+
+4. Specify the parameters:
+
+   * *Cloud Name:* choose a name with 3-30 alphanumeric characters
+
+   * *Zadara API URL:* the endpoint URL for accessing Zadara’s API (Application Programming Interface). The API allows you to programmatically interact with and manage your Zadara storage resources, such as provisioning volumes, monitoring performance, and configuring settings
+
+   * *Zadara Key ID:* . it is used for authentication and authorization purposes when accessing Zadara services and resources through the API
+
+   * *Secret Access Key:* confidential credential used along with the Zadara Key ID for authentication when making API requests. It provides secure access to your Zadara storage resources and should be kept confidential
+
+   * *Region:* the region setting specifies the location where your Zadara storage resources are provisioned
+
+   * *Zadara Zone Count:* by configuring the Zadara Zone Count, users can determine the level of resilience and redundancy for their storage environment. Increasing the zone count typically enhances data protection by replicating data across multiple zones, while reducing the count may optimize resource utilization or cost
+
+   * *Zadara Volume Type:* selecting the appropriate volume type ensures that users can meet their storage needs efficiently and effectively, aligning performance, cost, and features with the requirements of their applications
+
+   * *Continent:* it provides additional context about the physical location of your data within the global infrastructure
+
+##### 📄&#xA; Note
+
+To guarantee optimal performance and compatibility with Zadara’s storage solutions, it’s imperative to utilize compute resources running on version 23.08.2 or higher.
+
+For configuration and management of VPC peering, it can be easily set up through the Zadara Graphical User Interface (GUI). Use Zadara official documentation for more information [https://vpsa-api.zadarastorage.com/](https://vpsa-api.zadarastorage.com/)
+
+A zCompute [machine image ](https://guides.zadarastorage.com/cs-compute-guide/latest/machine-images.html)named with the prefix “taikun” (eg “taikun-server”) either created from the Zadara marketplace or direct from the following image URL: [https://rgw.cloudpoint.tcpro.cz/taikun-cloud-files/images/ubuntu-jammy-22.04.qcow2](https://rgw.cloudpoint.tcpro.cz/taikun-cloud-files/images/ubuntu-jammy-22.04.qcow2)
+
+![Taikun Requests](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/managing-your-projects/zadara.1.webp "Taikun Requests")
+
+When creating a new user account in Zadara, users must select from a range of permissions to define the access rights and privileges for the user:
+
+1. *IAMFullAccess*:
+
+   * This permission level provides full access to the Identity and Access Management (IAM) capabilities within Zadara
+
+   * Users with “*IAMFullAccess*” can manage user accounts, groups, roles, and permissions within the Zadara system
+
+   * This level of access is typically suitable for administrators or users responsible for managing user access and permissions across the organization’s Zadara environment.
+
+2. *MemberFullAccess:*
+
+   * This permission level provides full access to the Zadara storage resources and functionalities, but not the IAM capabilities
+
+   * Users with “*MemberFullAccess*” can create, modify, and delete storage resources, such as volumes, snapshots, and file shares, within their assigned Zadara environment
+
+   * However, they do not have the ability to manage user accounts, groups, roles, or permissions within the system.
+
+![Taikun Requests](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/zadaranew.webp "Taikun Requests")
+
+
+
+
+
+For further information on getting started with Zadara zCompute see this [blog post.](https://www.zadara.com/blog/2024/05/13/establishing-your-vpc-project-on-zadaras-zcompute-platform/)
