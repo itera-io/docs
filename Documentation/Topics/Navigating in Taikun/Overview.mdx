@@ -1,4 +1,81 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Overview"
+description: "Description of your new file."
 ---
+
+# Outline
+
+<Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+User panel is a section available to every User type of Taikun. Up here, you and your colleagues can access an overview of all your created Projects, create new Projects, and make your additions to the already existing ones. It is the main menu of Taikun, where all team members can locate all the necessary information about the state of your Clusters.
+
+The User section consists of 2 sub-sections: Dashboard and Projects
+
+# Dashboard
+
+Dashboard menu contains eight interactive widgets and four tables that provide you with an overview of the state of all your Projects.
+
+The following widgets are shown:
+
+<AccordionGroup>
+  <Accordion title="Projects">
+    this widget displays the state of your Projects via four statuses (Succeeded/Failed/Pending/Updating)
+  </Accordion>
+
+  <Accordion title="Server Statuses">
+    to dive deeper into your Projects, the widget indicates the state of each particular server in your Projects (using the same Succeeded/Failed/Pending/Updating statuses)
+  </Accordion>
+
+  <Accordion title="Servers">
+    this widget is a graphical representation of the number of servers running on connected Clouds
+  </Accordion>
+
+  <Accordion title="Cloud Credentials">
+    the number of connected Cloud services is shown here
+  </Accordion>
+
+  <Accordion title="Nodes Overview">
+    here you can find the state of every Node of your Projects
+  </Accordion>
+
+  <Accordion title="Pods Overview">
+    similarly to Nodes, this widget displays the amount of healthy/unhealthy Pods running on your servers
+  </Accordion>
+
+  <Accordion title="Projects with Alerts">
+    this widget indicates the number of Projects having various alerts
+  </Accordion>
+
+  <Accordion title="Kubernetes Health">
+    an indication of the health of your Kubernetes in active Projects is shown here
+  </Accordion>
+</AccordionGroup>
+
+<Frame caption="Dashboard">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Navigating%20in%20Taikun/overview.1.webp)
+</Frame>
+
+Our Tables include information about: 
+<AccordionGroup>
+
+  <Accordion title="Nodes">
+    overview of Nodes for each particular project showing their state of Disk, Memory, PIDs, and readiness 
+  </Accordion>
+
+  <Accordion title="Pods">
+    detailed information on every Pod of a specified Project 
+  </Accordion>
+
+  <Accordion title="Project Resources Allocation">
+    allocation of resources per Project 
+  </Accordion>
+
+  <Accordion title="Recent Events">
+    log of all events related to existing Projects 
+  </Accordion>
+
+</AccordionGroup>
+
+<Frame caption="Dashboard details">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Navigating%20in%20Taikun/overview.2.webp)
+</Frame>
