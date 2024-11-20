@@ -1,1 +1,224 @@
-Microsoft Azure
+# Microsoft Azure
+
+## Overview
+
+[Microsoft Azure](https://azure.microsoft.com/), commonly referred to as Azure, is a comprehensive cloud computing platform provided by Microsoft. It offers a wide range of services and tools for building, deploying, and managing applications and services through Microsoft’s global network of data centers.
+
+
+
+## Requirements for Microsoft Azure
+
+Before adding the Azure account, you must create an application registration with commands. ([source](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/cloud_providers/azure.md))
+
+##### ℹ️&#xA; Info
+
+The provided instructions are specific to Linux. It might look different with another Operating System.
+
+1\) If you haven’t installed Azure CLI, you can do it with the following command:
+
+`sudo apt install azure-cli -y`
+
+2\) Login
+
+`sudo apt-get install azure-cli`
+
+You will be redirected to an Azure page where you can choose your account:
+
+![Web login](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/azure-web.webp "Azure Web Login")
+
+CLI output will be similar to this: 
+
+`[`
+`  {`
+`    "cloudName": "AzureCloud",`
+`    "id": "c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6",`
+`    "isDefault": true,`
+`    "name": "Bezplatná zkušební verze",`
+`    "state": "Enabled",`
+`    "tenantId": "32xxxxb3-xxx-46b3-xxxx-0exxxxc46d1",`
+`    "user": {`
+`      "name": "usermail@gmail.com",`
+`      "type": "user"`
+`    }`
+`  }`
+`]`
+
+You’ll need to fetch the Azure Subscription ID (**“id”**) and Azure Tenant ID (**“tenantID”**) fields from the output. Here’s what we would use in our test instance:
+
+`"id": "c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6”`
+
+`"tenantId": "32xxxxb3-xxx-46b3-xxxx-0exxxxc46d1"`
+
+3\) Create a new Azure App with the following command: 
+
+`az ad app create --display-name kubernetes --identifier-uris http://kubernetes --homepage `[`http://example.com`](http://example.com)` --password CLIENT_SECRET`
+
+You’ll need to use your Client Secret in this command, which can be deleted later (e.g. “Ue9)Qj^V\\\~UYES3(C”)
+
+CLI output will look like this: 
+
+`{`
+`  "acceptMappedClaims": null,`
+`  "addIns": [],`
+`  "allowGuestsSignIn": null,`
+`  "allowPassthroughUsers": null,`
+`! "appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558", !`
+`  "appLogoUrl": null,`
+`  "appPermissions": null,`
+`  "appRoles": [],`
+`  "applicationTemplateId": null,`
+`  "availableToOtherTenants": false,`
+`  "deletionTimestamp": null,`
+`  "displayName": "kubernetes",`
+`  "errorUrl": null,`
+`  "groupMembershipClaims": null,`
+`  "homepage": "http://example.com",`
+`  "identifierUris": [`
+`    "http://kubernetes"`
+`  ],`
+`  }`
+`  ...`
+`  {`
+`    "adminConsentDescription": "Allow the application to access kubernetes on behalf of the signed-in user.",`
+`    "adminConsentDisplayName": "Access kubernetes",`
+`    "id": "59xxx87-xxxx-47b8-xxxx-1708xxxxefcd",`
+`    "isEnabled": true,`
+`    "type": "User",`
+`    "userConsentDescription": "Allow the application to access kubernetes on your behalf.",`
+`    "userConsentDisplayName": "Access kubernetes",`
+`    "value": "user*impersonation"`
+`  }`
+`...`
+`}`
+
+You’ll need to use the “appID” parameter from this output. In our example, it would be:
+
+
+`"appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558"`
+
+4\) Create a service principal for the app:
+
+`az ad sp create --id appId`
+
+Use “appId” from the previous step here: 
+
+`az ad sp create -id 7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558`
+
+CLI output example:
+
+`{`
+`  "accountEnabled": true,`
+`  ...`
+`}`
+`...`
+`"objectId": "85xxxxcb-xxxx-4761-xxxx-63fxxxx515e",`
+`  "objectType": "ServicePrincipal",`
+`  "odata.metadata": "https://graph.windows.net/32xxxxb3-xxxx-46b3-xxxx-0e33xxxx46d1/$metadata#directoryObjects/@Element",`
+`  "odata.type": "Microsoft.DirectoryServices.ServicePrincipal",`
+`}`
+`...`
+
+5\) Create a role assignment:
+
+`az role assignment create --role "Owner" --assignee http://kubernetes --subscription SUBSCRIPTION_ID</code>`
+
+In this case, you will use the subscription ID from step №2:
+
+`az role assignment create --role "Owner" --assignee http://kubernetes --subscription c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6`
+
+You’ll find the following CLI output:
+
+`{`
+`  "canDelegate": null,`
+`  "id": "/subscriptions/c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6/providers/Microsoft.Authorization/roleAssignments/4fxxxx7f-xxxx-4ccf-xxxx-7287xxxxfa14",`
+`  "name": "4fxxxx7f-xxxx-4ccf-xxxx-7287xxxxfa14",`
+`  "principalId": "85xxxxcb-xxxx-4761-xxxx-63ffxxxx515e",`
+`  "principalType": "ServicePrincipal",`
+`  "roleDefinitionId": "/subscriptions/c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6/providers/Microsoft.Authorization/roleDefinitions/8exxxx57-xxxx-443c-xxxx-2fe8xxxxb635",`
+`  "scope": "/subscriptions/c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6",`
+`  "type": "Microsoft.Authorization/roleAssignments"`
+`}`
+
+Please be careful when inserting the credentials. If you add incorrect credentials, you cannot add flavor and create a cluster.
+
+You can switch to Taikun and add your Azure credentials now:
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/azure.1.webp)
+
+***Taikun –*** Azure cloud credentials
+
+1. Switch to **Cloud credentials** in Taikun 
+
+2. Hit **Add Cloud Credentials** in the top-right corner
+
+3. Specify the necessary parameters in the **Azure** section:
+
+* *Cloud Name* – choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test)
+
+* Azure Client ID
+
+* *Azure Client Secret*
+
+* *Azure Tenant ID*
+
+
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/azure.2.webp)
+
+
+
+#### Where to find the Azure credentials
+
+You can find the guidelines here if you haven’t created your application via CLI.
+
+Credentials for Azure are located in different tabs. Instructions on where to find them are posted below.
+
+Please be careful when inserting the credentials. If you add incorrect credentials, you cannot add flavor and create a cluster.
+
+##### Azure Client and Tenant ID
+
+* Azure Active Directory – App registrations – All Applications – *application* -> Application (client) ID (=Azure Client Id) and Directory (tenant) ID (Azure Tenant Id)
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-tenant-id-1.webp "Azure 1: Azure Active Directory")
+
+Azure Active Directory
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-tenant-id-2.webp "Azure 2: App registration")
+
+Azure client secrets
+
+* Azure Active Directory – App registrations – All Applications – *application* – Certificates & secrets – Client secrets -> Value (=Azure Secret Id)
+
+
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-secret-1.webp "Azure 1: Azure Active Directory")
+
+Azure Secret Id
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-secret-2.webp "Azure 2: App registration")
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-secret-3.webp "Azure 3: Certificates & secrets")
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-secret-4.webp "Azure 4: Client secrets Value")
+
+##### 🔥&#xA; Warning
+
+Client Secret is shown only for the first time, we recommend to save it somewhere else.
+
+##### Azure Subscription Id
+
+##### 📄&#xA; Note
+
+Subscription is chosen from drop-down selection, but you can find below where to find your Subscription ID.
+
+* Subscriptions -> Subscription ID (=Azure Subscription Id)
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-subscription-1.webp "Azure 1: Subscription")
+
+Azure Subscription
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-subscription-2.webp "Azure 2: Subscription ID")
+
+Azure Subscription Id
+
+More information is provided in the [Azure guideline](https://www.inkoop.io/blog/how-to-get-azure-api-credentials/)
