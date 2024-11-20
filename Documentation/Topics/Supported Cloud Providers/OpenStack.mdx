@@ -1,1 +1,70 @@
-OpenStack
+# OpenStack
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
+
+## Requirements for OpenStack
+
+To successfully connect your OpenStack account, the following configuration needs to be applied in your OpenStack environment:
+
+* An Ubuntu image must exist in the OpenStack environment. The requirement is an Ubuntu 20; we recommend using the most recent kernel (e.g., a base Ubuntu image with HWE kernel available here: [`https://repo.itera.io/repository/images/taikun-image.qcow2)`.](https://repo.itera.io/repository/images/taikun-image.qcow2\).) To use an image in Taikun you need to use the tags *taikun* and *ubuntu\{number}*. By default, Taikun takes an image with the latest \{number}.
+
+* The *load-balancer* member role is required to deploy and manage Kubernetes and load balancer in OpenStack. It grants users the necessary permissions to manage and configure the load balancer service. It allows registering and managing backend servers, configuring health monitoring, scaling the application infrastructure, and handling configuration settings and monitoring.
+
+* A router between the public and internal networks should exist if you import a network from OpenStack. There should be internal access to the internal network, either from the router or directly. Additionally, DNS created in the Access Profiles section will be ignored when importing a network.
+
+## Adding OpenStack connection to Taikun
+
+1. Switch to the **Cloud credentials** tab in Taikun 
+
+2. Hit **Add Cloud Credentials** in the top-right corner and choose *OpenStack* from the list
+
+3. Specify the following parameters:
+
+
+   * *Cloud Name* – choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test)
+
+   * *User –* your OpenStack username
+
+   * *Password* – your password to OpenStack
+
+   * *URL* – Endpoint-Identity (refer to the *Where to find the OpenStack credentials* below)
+
+   * *Domain* – insert domain name
+
+   * *Project* – select an OpenStack Project
+
+   * *Region* – select an OpenStack Region
+
+   * *Public Network* – choose a network, if available
+
+   * Optional:
+
+     * Specify Availability Zone
+
+     * *Volume Types* 
+
+     * Enable Import Network
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/openstack.1.webp)
+
+***Taikun –*** Cloud Credentials
+
+![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/openstack.2.webp)
+
+**Taikun –** Openstack cloud credentials
+
+##### ℹ️&#xA; Info
+
+Alternatively, you can use Application credentials issued by the administrator of your OpenStack account.
+
+### Where to find the OpenStack credentials
+
+After entering your OpenStack *username* and *password*, the other data from OpenStack will be added to Taikun automatically after filling in the *URL.*
+
+To find the URL:  
+
+1. Log into your OpenStack account 
+
+2. Locate the Project – API Access section in the left-hand navigation panel
+
+3. Find the *Identity* row and copy its *Service Endpoint*
