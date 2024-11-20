@@ -11,14 +11,14 @@ You get real-time notifications via Inbox but you can also preview all the chang
 See who (User Name) made a change (Category, Message), where (Project), and what time (When). Choose Start and End dates, Hours, and Minutes for filtering if needed.
 
 <CardGroup cols={2}>
-  <Card title="Inbox" icon="square-1" horizontal>
-    Learn more about Inbox HERE. 
+  <Card title="Inbox" icon="inbox" horizontal={true}>
+    Learn more about Inbox HERE.
   </Card>
-  <Card title="Manager" icon="square-2" horizontal>
+
+  <Card title="Manager" icon="user-tie" horizontal={true}>
     Learn more about Manager HERE.
   </Card>
 </CardGroup>
-
 
 <Frame caption="Audit Log">
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/audit.log.1.webp)
@@ -31,3 +31,25 @@ Choose Start and End dates, Hours, and Minutes for filtering if needed.
 <Frame caption="Logs">
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/audit.log.2.webp)
 </Frame>
+
+### Events also can be filtered by:
+
+<Tabs>
+  <Tab title="Organization">
+    Select an organization, which affects which projects or data are available for filtering.
+  </Tab>
+
+  <Tab title="Project">
+    Filter based on a specific project within the selected organization.
+  </Tab>
+
+  <Tab title="Filtred by">
+    Additional filtering criteria.
+  </Tab>
+
+  <Tab title="Availibility">
+    Filters results based on availability or deleted.
+  </Tab>
+</Tabs>
+
+You can download the report from the Audit log via the "Download" button in the .CSV format; filters remain applied in the download.
