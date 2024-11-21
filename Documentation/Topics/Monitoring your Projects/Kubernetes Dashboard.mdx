@@ -1,4 +1,36 @@
 ---
 title: "Kubernetes dashboard."
 ---
+
 <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+At your Project page, select   "Dashboard"
+
+Users can compare metrics across different periods and namespaces without the need for extensive command-line knowledge by using Prometheus queries (PromQL). It helps monitor resource utilization, enabling effective capacity planning and allocation.
+
+<CardGroup cols={2}>
+  <Card title="Monitoring" icon="desktop" href="/content/components/card-group" horizontal>
+    The Dashboard is available for your Project if monitoring is enabled. You can read more about monitoring HERE.
+  </Card>
+
+  <Card title="Cluster Creation" icon="plus" href="/content/components/card-group" horizontal>
+    At least four nodes are required. Read more details about cluster creation HERE.
+  </Card>
+</CardGroup>
+
+# Taikun Tab
+
+<AccordionGroup>
+  <Accordion title="Node Overview" icon="circle-check">
+    Display information about cluster nodes, such as CPU and memory utilization, pod count, and other relevant metrics.
+  </Accordion>
+
+  <Accordion title="Pod Overview" icon="circle-check">
+    Show the status of pods within the project, including their current state, restart counts, and resource usage.
+  </Accordion>
+  <Accordion title="Overcommitment" icon="circle-check">
+    CPU and Memory overcommit.
+  </Accordion>
+</AccordionGroup>
