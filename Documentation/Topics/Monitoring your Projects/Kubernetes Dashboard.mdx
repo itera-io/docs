@@ -108,7 +108,7 @@ Show the status of pods within the project, including their current state, resta
   </Accordion>
 </AccordionGroup>
 
-### Nodes 
+### Nodes
 
 Display information about cluster nodes, such as CPU and memory utilization, pod count, and other relevant metrics.
 
@@ -126,14 +126,14 @@ Display information about cluster nodes, such as CPU and memory utilization, pod
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node2.png)
     </Frame>
   </Accordion>
-  
-<Accordion title="Node Load 5">
+
+  <Accordion title="Node Load 5">
     The average number of processes in the run queue or waiting for CPU time over the last 5 minutes.
     <Frame caption="Load by last 5 minutes">
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node4.png)
     </Frame>
   </Accordion>
-  
+
   <Accordion title="Node Load 15">
     The average number of processes in the run queue or waiting for CPU time over the last 15 minutes.
     <Frame caption="Load by last 15 minutes">
@@ -141,3 +141,50 @@ Display information about cluster nodes, such as CPU and memory utilization, pod
     </Frame>
   </Accordion>
 </AccordionGroup>
+
+### Overcommitment
+
+CPU and Memory overcommit.
+
+<AccordionGroup>
+  <Accordion title="CPU overcommit">
+    Compares the requested CPU resources (limits) of pods to the total available CPU capacity of the cluster.
+    <Frame caption="overcommit">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.over2.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Memory overcommit">
+    Compares the requested memory of pods to the total available memory capacity of the cluster.
+    <Frame caption="memory overcommit">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.over1.png)
+    </Frame>
+  </Accordion>
+</AccordionGroup>
+
+# Organization Tab
+
+The organization tab shows the list of Queries added by the user.
+
+To add a Query, follow these steps: 
+
+<Steps>
+  <Step title="First Step">
+    Click "Add Query"
+  </Step>
+  <Step title="Second Step">
+    Name: The name of the query, which briefly describes its purpose or what it intends to retrieve.
+  </Step>
+  <Step title="Third Step">
+    Expression: The actual PromQL expression that defines how to retrieve and process the metrics. This expression specifies the mathematical and logical operations to be applied to the metrics.
+  </Step>
+  <Step title="Fourth Step">
+    Description: A brief explanation of what the query does or what kind of insight it provides. This description helps other users understand the query’s purpose and usage.
+  </Step>
+  <Step title="Fifth Step">
+    Category name: Categories can be related to the type of metric, the aspect of monitoring, or any other relevant grouping.
+  </Step>
+  <Step title="Sixth Step">
+    Click "Add"
+  </Step>
+</Steps>
