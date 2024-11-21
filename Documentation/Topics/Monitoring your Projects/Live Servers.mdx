@@ -1,3 +1,28 @@
 ---
 title: "Live Servers"
 ---
+
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+Managers of Taikun can access the Servers menu from the left-hand navigation panel to see the list of all running servers in created Project to Monitor their state.
+
+Every server in this menu is described by ID, Server Name, IP Address, Flavor, CPU/RAM/Disk Size, Role, Status, K8s Health, Created, and Actions. If you expand the table, you can see Created By, Last Modified, and Last Modified By.
+
+<Frame caption="Live Server">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/live_servers.webp)
+</Frame>
+
+Server status can be one of the following:
+
+- Deleting
+- Failure
+- Pending
+- Pending Delete
+- Pending Upgrade
+- Ready
+- Updating
+- Upgrading
+
+The table can be filtered by the specific configuration of your hardware (for instance, the number of CPUs of RAM) as well as sorted by Project, Organization, Role, Status, Kubernetes Health, and Creation time.
