@@ -22,15 +22,41 @@ Users can compare metrics across different periods and namespaces without the ne
 
 # Taikun Tab
 
+On Cluster Dashboard you can find:
+
 <AccordionGroup>
-  <Accordion title="Node Overview" icon="circle-check">
+  <Accordion title="Node Overview" icon="share-nodes">
     Display information about cluster nodes, such as CPU and memory utilization, pod count, and other relevant metrics.
   </Accordion>
 
-  <Accordion title="Pod Overview" icon="circle-check">
+  <Accordion title="Pod Overview" icon="circle-nodes">
     Show the status of pods within the project, including their current state, restart counts, and resource usage.
   </Accordion>
-  <Accordion title="Overcommitment" icon="circle-check">
+
+  <Accordion title="Overcommitment" icon="microchip">
     CPU and Memory overcommit.
+  </Accordion>
+</AccordionGroup>
+
+You can define a specific time range
+
+<Frame caption="Time Range">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dashboard.date.png)
+</Frame>
+
+### General
+
+<AccordionGroup>
+  <Accordion title="Number of pods per namespace">
+    This query counts the total number of pods running in each namespace of the cluster.
+    <Frame caption="Pod per namespaces">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/Dashboard1.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Number of ready nodes">
+    <Frame caption="Ready nodes">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/Dashboard2.png)
+    </Frame>
   </Accordion>
 </AccordionGroup>
