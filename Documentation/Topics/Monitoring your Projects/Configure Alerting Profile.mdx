@@ -2,4 +2,58 @@
 title: 'Configure Alerting Profiles'
 ---
 
+# Overview of Alerting Profiles
+
 <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+Taikun is designed to inform you of any issues or events in your Kubernetes clusters. If something goes wrong with one of your Projects, our tool can send notifications to any email address, webhook, or available integrations. Alerting Profiles can be added to your account’s new or existing Project.
+
+# Create Alerting Profile
+
+To configure alerts in your Projects follow these steps:
+
+<Steps>
+  <Step title="First Step">
+    Navigate to the “Alerting Profiles” menu
+  </Step>
+
+  <Step title="Second Step">
+    Hit the “Add Alerting Profile” button and
+
+    * Specify a **Name** of your configuration
+
+    * Choose any of the connected **Slack profiles** (optional)
+
+    * Select the **periodicity of notification** (HalfHour/Hourly/Daily/None)
+  </Step>
+</Steps>
+
+Additional menus allow you to configure any E-mail, Webhook, or supported integration to the Alerting Profile.
+
+<Frame caption="Add Alerting Profile">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/alerting.profile.webp)
+</Frame>
+
+<Info>Our list of available integrations includes OpsGenie, Pagerduty, Splunk, and Microsoft Teams. </Info>
+
+# Attach Alerting Profile to your Project
+
+To finalize the setup, you should add the newly-created Alerting Profile to your Project. This can be done during Project creation or directly within an existing Project.
+
+### Add Profile during Project Creation
+
+Whenever you create a new Project, you can specify an already created Alerting Profile in the setup menu:
+
+<Frame caption="Add Alerting Profile in the setup menu">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/alertingprofile.2.webp)
+</Frame>
+
+### Add Profile to existing Project
+
+Alternatively, you can attach your Alerting Profile within existing Projects:
+
+<Frame caption="Add Alerting Profile in Settings">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/alertingprofile.3.webp)
+</Frame>
+
+With that, Taikun will send all notifications from [*Prometheus*](https://prometheus.io/) to the tool of your choice.
