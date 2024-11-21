@@ -49,6 +49,7 @@ You can define a specific time range
 <AccordionGroup>
   <Accordion title="Number of pods per namespace">
     This query counts the total number of pods running in each namespace of the cluster.
+
     <Frame caption="Pod per namespaces">
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/Dashboard1.png)
     </Frame>
@@ -57,6 +58,86 @@ You can define a specific time range
   <Accordion title="Number of ready nodes">
     <Frame caption="Ready nodes">
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/Dashboard2.png)
+    </Frame>
+  </Accordion>
+</AccordionGroup>
+
+### Pods
+
+Show the status of pods within the project, including their current state, restart counts, and resource usage.
+
+<AccordionGroup>
+  <Accordion title="Pod restarts by namespaces">
+    This metric indicates the cumulative count of restarts for each pod and container in your Kubernetes cluster.
+
+    <Frame caption="Pod per namespaces">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/Dashboard3.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Top 10 containers by CPU usage">
+    Running this query will provide you with a list of the top 10 containers based on their recent CPU usage rates.
+
+    <Frame caption="by CPU usage">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.top.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Top 10 containers by memory usage">
+    Running this query will provide you with a list of the top 10 containers based on their recent memory usage rates.
+
+    <Frame caption="by memory usage">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.top10.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Pods not ready">
+    List the number of total pods not ready in each namespace.
+
+    <Frame caption="not ready">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash6.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Total pods">
+    List the number of total pods available in each namespace.
+
+    <Frame caption="total pods">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash7.png)
+    </Frame>
+  </Accordion>
+</AccordionGroup>
+
+### Nodes 
+
+Display information about cluster nodes, such as CPU and memory utilization, pod count, and other relevant metrics.
+
+<AccordionGroup>
+  <Accordion title="Memory Load">
+    This metric indicates the cumulative count of restarts for each pod and container in your Kubernetes cluster.
+    <Frame caption="memory load">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node1.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Node Load 1">
+    The average number of processes in the run queue or waiting for CPU time over the last 1 minute.
+    <Frame caption="Load by last minute">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node2.png)
+    </Frame>
+  </Accordion>
+  
+<Accordion title="Node Load 5">
+    The average number of processes in the run queue or waiting for CPU time over the last 5 minutes.
+    <Frame caption="Load by last 5 minutes">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node4.png)
+    </Frame>
+  </Accordion>
+  
+  <Accordion title="Node Load 15">
+    The average number of processes in the run queue or waiting for CPU time over the last 15 minutes.
+    <Frame caption="Load by last 15 minutes">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/dash.node3.png)
     </Frame>
   </Accordion>
 </AccordionGroup>
