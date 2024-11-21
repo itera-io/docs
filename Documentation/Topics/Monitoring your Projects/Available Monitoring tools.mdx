@@ -3,3 +3,129 @@ title: "Available Monitoring Tools"
 ---
 
 <Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+Taikun offers a variety of tables, dashboards, and logs that allow you to monitor the performance and health of your clusters easily. These features are readily available within the application, giving you quick and easy access to information. Whether you’re looking for a high-level overview of your clusters or need to dig into the details, our monitoring features have you covered.
+
+This article covers available Taikun features that will help you observe the state of your Kubernetes clusters. 
+
+# Dashboard
+
+The first page you’ll see after signing into Taikun is *Dashboard*. With its help, you can see an overview of the state of your existing Projects.
+
+Up here, you can find the 2 main elements for monitoring the state of your resources:
+
+<AccordionGroup>
+  <Accordion title="Charts" icon="chart-column">
+    Projects, Server Statuses, Servers, Cloud Credentials, Nodes Overview, Pod overview, Project with Alerts, and Kubernetes Health
+  </Accordion>
+
+  <Accordion title="Tables" icon="table-columns">
+    Kubernetes, Project Resource Allocation, and Recent Events
+  </Accordion>
+</AccordionGroup>
+
+Our interactive Charts include the following widgets:
+
+<AccordionGroup>
+  <Accordion title="Projects" icon="list-check">
+    This widget displays the state of your Projects via four statuses (Succeeded/Failed/Pending/Updating)
+  </Accordion>
+
+  <Accordion title="Server Statuses" icon="signal">
+    To dive deeper into your Projects, the widget indicates the state of each particular server in your Projects (using the same Succeeded/Failed/Pending/Updating statuses)
+  </Accordion>
+
+  <Accordion title="Servers" icon="server">
+    This widget is a graphical representation of the number of servers running on connected Clouds
+  </Accordion>
+
+  <Accordion title="Cloud Credentials" icon="cloud">
+    The number of connected Cloud services is shown here
+  </Accordion>
+
+  <Accordion title="Nodes Overview" icon="share-nodes">
+    Here you can find the state of every Node of your Projects
+  </Accordion>
+
+  <Accordion title="Pods Overview" icon="circle-nodes">
+    Similarly to Nodes, this widget displays the amount of healthy/unhealthy Pods running on your servers
+  </Accordion>
+
+  <Accordion title="Projects with Alerts" icon="bell">
+    This widget indicates the number of Projects having various alerts
+  </Accordion>
+
+  <Accordion title="Kubernetes Health" icon="notes-medical">
+    An indication of the health of your Kubernetes in active Projects is shown here
+  </Accordion>
+</AccordionGroup>
+
+<Frame caption="Interactive Charts">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/available.tools.webp)
+</Frame>
+
+With Tables, you can access more detailed information about:
+
+<AccordionGroup>
+  <Accordion title="Nodes" icon="share-nodes">
+    Overview of Nodes for each particular project showing their state of Disk, Memory, PIDs, and readiness
+  </Accordion>
+
+  <Accordion title="Pods" icon="circle-nodes">
+    Detailed information on every Pod of a specified Project
+  </Accordion>
+
+  <Accordion title="Project Resources Allocation" icon="list-check">
+    Allocation of resources per Project
+  </Accordion>
+
+  <Accordion title="Recent Events" icon="calendar-days">
+    Log of all events related to existing Projects
+  </Accordion>
+</AccordionGroup>
+
+<Frame caption="Tables">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/available.tools.2.webp)
+</Frame>
+
+<Tip>All widgets presented on the page are interactive – feel free to click on any section to see detailed information</Tip>
+
+# Project Function Buttons
+
+Taikun offers various services to monitor the condition of Kubernetes clusters apart from the main Dashboard menu. To access these services, you need to open a Project where you have established a Kubernetes cluster and click one of the function buttons.
+
+There are several function buttons available, including:
+
+<AccordionGroup>
+  <Accordion title="Hsitory" icon="magnifying-glass">
+    This button allows you to view the history of your cluster, including any changes that have been made and the date and time they were made.
+  </Accordion>
+
+  <Accordion title="K8s Infra" icon="circle-nodes">
+    This button provides information about your Kubernetes cluster, including details on the condition of your Nodes and Pods, Storage classes, Network Policies.
+  </Accordion>
+
+  <Accordion title="Events" icon="list-check">
+    This button allows you to view events that have occurred in your cluster, such as Health checks, Node registrations, and scheduling.
+  </Accordion>
+
+  <Accordion title="Logs" icon="calendar-days">
+    This button allows you to view detailed Grafana logs for your cluster.
+  </Accordion>
+
+  <Accordion title="Alerts" icon="calendar-days">
+    This button allows you to view any alerts that have been triggered in your cluster, such as if a service goes down or if there are any security issues.
+  </Accordion>
+
+  <Accordion title="Metrics" icon="calendar-days">
+    This button allows you to view metrics for your cluster with the help of Prometheus, including CPU and memory usage.
+  </Accordion>
+</AccordionGroup>
+
+<Frame caption="Kubernetes Infra">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/available.tools.3.webp)
+</Frame>
+
+By clicking on these function buttons, you can get a deeper understanding of the condition of your Kubernetes cluster and take necessary actions to ensure it runs smoothly.
