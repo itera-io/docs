@@ -1,5 +1,54 @@
 ---
 title: "Taikun Requests"
+description: "Select an Organization for a better overview of Requests."
 ---
 
 <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+In this tab, you can see all requests made within Taikun by users of your account. In the table, you can see *Organization Name*, *User Name*, *User role*, *Request Type*, *End Point*, *Ip*, *Status*, *Created At,* and *Message*.
+
+<Frame caption="Taikun Requests">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/taikun.requests.webp)
+</Frame>
+
+<AccordionGroup>
+  <Accordion title="Requests type" icon="pen">
+    * failed
+
+    * post
+
+    * put
+
+    * delete
+
+    * get
+  </Accordion>
+
+  <Accordion title="Status" icon="copy">
+    200 – ok
+    400 – bad request
+    403 – forbidden
+    404 – not found
+    500 – server error
+  </Accordion>
+</AccordionGroup>
+
+Messages can be filtered by *Organization*, *Request Type* and/or by date.
+
+<Frame caption="Taikun Requests filtr">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/taikun.requests.2.webp)
+</Frame>
+
+# Export Requests
+
+The data displayed on the page are exported to a .csv file, and used filters are already applied.
+
+# Send Requests to e-mail
+
+Use the button to send selected data to your mail provided in My profile.
+
+<Card title="My Profile" icon="user" horizontal href="/content/components/card-group">
+  You can check how My Profile works HERE.
+</Card>
