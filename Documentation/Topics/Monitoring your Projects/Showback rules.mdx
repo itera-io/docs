@@ -32,28 +32,39 @@ Specify the following parameters:
   <Accordion title="Metric Name">
     Use any valid Prometheus metrics.
   </Accordion>
+
   <Accordion title="Kind">
-    choose kind for the rule
-     * General – data source is Taikun
-     * External – data source is external – you need to make sure correct Showback Credentials are used
+    Choose kind for the rule
+
+    * General – data source is Taikun
+
+    * External – data source is external – you need to make sure correct Showback Credentials are used
   </Accordion>
+
   <Accordion title="Type">
-    choose from
-     * Count (calculate package as a unit – e.g., flavors)
-     * Sum (calculate per quantity – e.g., GBs)
+    Choose from
+
+    * Count (calculate package as a unit – e.g., flavors)
+
+    * Sum (calculate per quantity – e.g., GBs)
   </Accordion>
+
   <Accordion title="Price">
     Billing in CZK per selected unit.
   </Accordion>
+
   <Accordion title="Project Alert Limit">
     Set a limit of alerts for one Project.
   </Accordion>
+
   <Accordion title="Global Alert Limit">
-     Set limit of alerts for all Projects.
+    Set limit of alerts for all Projects.
   </Accordion>
+
   <Accordion title="Showback Credentials">
     Specify the to-be-used Showback Credentials.
   </Accordion>
+
   <Accordion title="Labels">
     The label indicates the variable name (Label) and value of the label (Value).
   </Accordion>
@@ -62,16 +73,17 @@ Specify the following parameters:
 <Note>Once you add the rule, the cron job starts the calculation. The price for Showback Summary starts at the beginning of every hour and it can’t be paused. Rule can be stopped by deletion</Note>
 
 # Available Actions
+
 <AccordionGroup>
-  <Accordion title="Edit Showback Rule">
+  <Accordion title="Edit Showback Rule" icon="pen">
     Change the parameters of your rule.
   </Accordion>
-  
-  <Accordion title="Copy Showback Rule">
+
+  <Accordion title="Copy Showback Rule" icon="copy">
     Create a copy of your rule (don’t forget to change the rule’s name).
   </Accordion>
-  
-  <Accordion title="Delete Rule">
+
+  <Accordion title="Delete Rule" icon="trash">
     Delete a rule if it is not used anymore.
   </Accordion>
 </AccordionGroup>
