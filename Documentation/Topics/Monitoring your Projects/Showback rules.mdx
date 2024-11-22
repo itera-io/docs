@@ -3,3 +3,75 @@ title: "Showback rules"
 ---
 
 <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+Showback rules in Taikun are used to track and report the usage of cloud resources by individual users or departments within an organization. The primary purpose of the Showback Rules is to provide visibility into the costs associated with using Cloud resources and promote accountability for resource usage.
+
+<Frame caption="Showback Rules">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/showback.rules.2.webp)
+</Frame>
+
+Every Showback Rule is described by *ID*, *Name*, *Metric Name*, *Organization*, *Labels* (if any), Kind, Type, Global alert limit, Project alert limit, Price, Showbac*k credentials (if* any), date and time *Created,* and *Actions*.
+
+# Create Showback Rule
+
+Create a new Showback Rule for your Organization by pressing the “*+ Add rule”* button.
+
+<Frame caption="Add Showback Rule">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Monitoring%20your%20Projects/showback.rule.webp)
+</Frame>
+
+Specify the following parameters:
+
+<AccordionGroup>
+  <Accordion title="Name">
+    Choose a name for your rule.
+  </Accordion>
+
+  <Accordion title="Metric Name">
+    Use any valid Prometheus metrics.
+  </Accordion>
+  <Accordion title="Kind">
+    choose kind for the rule
+     * General – data source is Taikun
+     * External – data source is external – you need to make sure correct Showback Credentials are used
+  </Accordion>
+  <Accordion title="Type">
+    choose from
+     * Count (calculate package as a unit – e.g., flavors)
+     * Sum (calculate per quantity – e.g., GBs)
+  </Accordion>
+  <Accordion title="Price">
+    Billing in CZK per selected unit.
+  </Accordion>
+  <Accordion title="Project Alert Limit">
+    Set a limit of alerts for one Project.
+  </Accordion>
+  <Accordion title="Global Alert Limit">
+     Set limit of alerts for all Projects.
+  </Accordion>
+  <Accordion title="Showback Credentials">
+    Specify the to-be-used Showback Credentials.
+  </Accordion>
+  <Accordion title="Labels">
+    The label indicates the variable name (Label) and value of the label (Value).
+  </Accordion>
+</AccordionGroup>
+
+<Note>Once you add the rule, the cron job starts the calculation. The price for Showback Summary starts at the beginning of every hour and it can’t be paused. Rule can be stopped by deletion</Note>
+
+# Available Actions
+<AccordionGroup>
+  <Accordion title="Edit Showback Rule">
+    Change the parameters of your rule.
+  </Accordion>
+  
+  <Accordion title="Copy Showback Rule">
+    Create a copy of your rule (don’t forget to change the rule’s name).
+  </Accordion>
+  
+  <Accordion title="Delete Rule">
+    Delete a rule if it is not used anymore.
+  </Accordion>
+</AccordionGroup>
