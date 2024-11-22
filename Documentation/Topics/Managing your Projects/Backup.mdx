@@ -19,6 +19,71 @@ Fill in the remaining S3 data from Amazon and add new backup credentials. See [
 After you add the credentials, you can back up the project by Enable Backup and adding Backup Policy.
 
 # Backup Credentials list
+
 Use the search field to find the credentials needed.
 
 Every Credential has its:
+
+<Tabs>
+  <Tab title="ID">
+    Unique identifier of the storage
+  </Tab>
+
+  <Tab title="Organization">
+    Name of the organization associated with the storage
+  </Tab>
+
+  <Tab title="S3 Access Key ID">
+    Access key for S3
+  </Tab>
+
+  <Tab title="S3 Endpoint">
+    URL of the S3 endpoint
+  </Tab>
+
+  <Tab title="S3 Name">
+    Name of the storage
+  </Tab>
+
+  <Tab title="Associated Projects">
+    Projects linked to this storage
+  </Tab>
+
+  <Tab title="Actions">
+    Possible actions, such as edit or delete
+  </Tab>
+</Tabs>
+
+<Frame caption="Backup Credentials">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/backup.credentials.webp)
+</Frame>
+
+*ID* and *Organization* are immutable.
+
+*S3 Access Key ID*, *S3 Endpoint,* and *S3 Name* are security credentials.
+
+In *Associated Projects* are listed all projects using these backup credentials.
+
+*Created By* informs you who has made the last change.
+
+Expanding the table shows the previous modification made (*Last Modified*, *Last Modified By*).
+
+# Actions
+
+<AccordionGroup>
+  <Accordion title="Make default">
+    Choose credentials which will be then filled during project creation, lighter color indicates selected credentials.
+  </Accordion>
+
+  <Accordion title="Lock/Unlock Credential">
+    If you lock the Credentials, you disable it for Backup. Unlock it to enable it again.
+  </Accordion>
+
+  <Accordion title="Update Credential">
+    Update S3 Name, S3 Access Key and S3 Secret Key.
+  </Accordion>
+
+  <Accordion title="Delete">
+   You can delete only empty and unlocked Backup Credentials.
+  </Accordion>
+</AccordionGroup>
