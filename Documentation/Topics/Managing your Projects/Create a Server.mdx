@@ -1,4 +1,90 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Create a Server "
 ---
+
+<Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Adding Servers to Projects
+
+To create a new server, click Add Sever button and fill in all the fields.
+
+You will receive an error message if no flavor has been bound to your Project yet. You can also bind the flavor during project creation.
+
+<Warning>For a well-functioning cluster you should NOT use small flavors.</Warning>
+
+Remember that a working cluster consists of at least 1 Bastion, 1 Kubemaster, and 1 Kubeworker. However, you can also create a Multimaster by creating more than 1 Kubemaster; the number of masters must be odd. If you want to make a multimaster, you must do it before deploying.
+
+<Tip>
+  Bastion recommended 2 vCPU + 2GB of RAM
+  Masters recommended 4 vCPU + 8GB of RAM
+</Tip>
+
+<Frame caption="Projects">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.server.webp)
+</Frame>
+
+### To add a new server, fill in the following information:
+
+<AccordionGroup>
+  <Accordion title="Server Name">
+    Only alphanumeric characters and dash are allowed, 1-30 characters, or you can use the shortcuts:
+
+    * b – bastion
+
+    * m – master
+
+    * w – worker
+  </Accordion>
+
+  <Accordion title="Disk Size">
+    Should be at least 30GB.
+  </Accordion>
+
+  <Accordion title="Role">
+    You can choose from several roles for your servers, which are set according to the Kubernetes settings.
+  </Accordion>
+
+  <Accordion title="Number of Servers">
+    Set number for kubeworker or kubemaster, add an odd number of masters (min. 3 for a highly available cluster).
+  </Accordion>
+
+  <Accordion title="Flavor">
+    Choose from the list of offered flavors (e.g. n0.xlarge).
+
+    * You can bind the flavors from clouds to the project in Flavour Info.
+  </Accordion>
+
+  <Accordion title="Kubernetes Node Labels">
+    Label nodes where you want to send or restrict pods; you can add more labels with add label button, for more info, see Kubernetes docs.
+  </Accordion>
+</AccordionGroup>
+
+<Info>The bigger flavor you choose the longer it will take to create.</Info>
+
+<Warning>Control if you have all servers you need, the creation can take some time (approx. 7 min per server).</Warning>
+
+Double-check if you need all of them because you won’t be able to delete them later.
+
+When the required servers are created, press the Deploy button.
+
+<Frame caption="Add server">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.server.2.webp)
+</Frame>
+
+While creating a node, servers get through the stages:
+**PENDING -> UPDATING -> READY**
+
+<Frame caption="Projects">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.server.3.webp)
+</Frame>
+
+Failed creation, the project is Failed or Pending without any action
+* if servers fail during creation, the best way to restore them is with the Repair button
+Delete servers
+* Manager/Partner can delete unnecessary servers
+
+<Frame caption="Projects">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.server.4.webp)
+</Frame>
+
+<Info>You can delete servers to still have working cluster (1 bastion, 1 master and 1 worker) or delete the whole working cluster.</Info>
