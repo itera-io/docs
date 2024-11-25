@@ -1,4 +1,105 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Overview of Taikun Projects"
 ---
+
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+On the Projects tab, you can preview all existing projects for your organization.
+
+<Frame caption="Overview">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.project.webp)
+</Frame>
+
+# Project Properties
+
+### Project ID, Name, Organization
+
+Changeless descriptions for each Project.
+
+### Status
+
+The status shows your servers’ current status and actions in the project in real-time. Below are all possible statuses with their description.
+
+<AccordionGroup>
+  <Accordion title="Ready">
+    All servers in the project are prepared without any issues.
+  </Accordion>
+
+  <Accordion title="Deleting">
+    One or more servers in your current project are being deleted.
+  </Accordion>
+
+  <Accordion title="Failure">
+    One or more servers failed for some reason during the action (for instance, booting or creating).
+  </Accordion>
+  <Accordion title="Pending">
+    One or more servers are pending, which means that, for example, they have not yet been created on the hosted platform.
+  </Accordion>
+  <Accordion title="Updating">
+    One or more servers in the project are being updated by Taikun during the creation process.
+  </Accordion>
+  <Accordion title="Upgrading">
+    One or more servers upgrade Kubernetes, cloud credentials, or others.
+  </Accordion>
+</AccordionGroup>
+
+
+### Health
+
+This column describes the condition of the project cluster. Keep in mind that a good-working project should always be Healthy.
+
+<AccordionGroup>
+  <Accordion title="Healthy">
+    Cluster id without any further problems.
+  </Accordion>
+
+  <Accordion title="None">
+    Cluster is probably empty, and there is nothing to check.
+  </Accordion>
+
+  <Accordion title="Unhealthy">
+    Problems with connection to Kubernetes or Monitoring API.
+  </Accordion>
+  <Accordion title="Unknown">
+    Cannot connect Kubernetes API.
+  </Accordion>
+  <Accordion title="Warning">
+    Minor Issues.
+  </Accordion>
+</AccordionGroup>
+
+### Creation Date
+
+The exact timestamp when the project was created.
+
+### Kubernetes Version
+
+Shows the current Kubernetes version for each project.
+
+### Cloud Type
+
+Shows which provider is hosting your project cluster
+* AWS
+* Azure
+* OpenStack
+* Google
+
+### K8's 
+* Kubernetes active
+* Kubernetes not active
+
+### Expiration Date
+
+This feature helps you manage your project – its shelf life. By default, the expiration date of your project is set to infinite. You can set it during the project creation or change it after the project creation with Extend Project Lifetime.
+
+<Warning>After the expiration date, your project is NOT affected, deleted, or locked. It will stay the same.</Warning>
+
+### Assigned Users
+
+Edit which users should have access to the project and confirm with the Update button
+
+<Info>You can also assign the user to a project in Users.</Info>
+
+### Show hidden columns 
+
+Click the small arrow on the right side of the table to see more details.
