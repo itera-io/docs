@@ -32,17 +32,19 @@ The status shows your servers’ current status and actions in the project in re
   <Accordion title="Failure">
     One or more servers failed for some reason during the action (for instance, booting or creating).
   </Accordion>
+
   <Accordion title="Pending">
     One or more servers are pending, which means that, for example, they have not yet been created on the hosted platform.
   </Accordion>
+
   <Accordion title="Updating">
     One or more servers in the project are being updated by Taikun during the creation process.
   </Accordion>
+
   <Accordion title="Upgrading">
     One or more servers upgrade Kubernetes, cloud credentials, or others.
   </Accordion>
 </AccordionGroup>
-
 
 ### Health
 
@@ -60,9 +62,11 @@ This column describes the condition of the project cluster. Keep in mind that a 
   <Accordion title="Unhealthy">
     Problems with connection to Kubernetes or Monitoring API.
   </Accordion>
+
   <Accordion title="Unknown">
     Cannot connect Kubernetes API.
   </Accordion>
+
   <Accordion title="Warning">
     Minor Issues.
   </Accordion>
@@ -79,13 +83,19 @@ Shows the current Kubernetes version for each project.
 ### Cloud Type
 
 Shows which provider is hosting your project cluster
+
 * AWS
+
 * Azure
+
 * OpenStack
+
 * Google
 
-### K8's 
+### K8's
+
 * Kubernetes active
+
 * Kubernetes not active
 
 ### Expiration Date
@@ -100,6 +110,70 @@ Edit which users should have access to the project and confirm with the Update b
 
 <Info>You can also assign the user to a project in Users.</Info>
 
-### Show hidden columns 
+### Show hidden columns
 
 Click the small arrow on the right side of the table to see more details.
+
+<Frame caption="Overview">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.project.webp)
+</Frame>
+
+Expand the table to see:
+
+* Alerts count - number of firing alerts in a project
+
+* Created by
+
+* Last Modified
+
+* Last Modified by
+
+### Sorting
+
+Projects can be sorted by Project Name, Organization Name, Status, Creation Date, Kubernetes version, or Cloud Type. Also, the search bar can be used to find specific projects.
+
+### Extend Project Lifetime
+
+This feature helps the user to manage their project’s lifetime. By default, the expiration date of projects is set to infinite, or the user can set it during the creation Of projects. Users can use this feature to select  projects’ expiration dates or extend the lifetime of projects.
+
+### Reset Project Status
+
+This feature helps the users to manage their project status. By using this feature, users can reset their project status. In some cases, we need to change the status of the projects, So we do it with this feature. Below are all possible statuses that we use with this feature
+
+* Deleting
+
+* Pending
+
+* Pending Delete
+
+* Pending Purge
+
+* Pending Upgrade
+
+* Purging
+
+* Ready
+
+* Updating
+
+* Upgrading
+
+<Frame caption="Project Details">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/overview.project.webp)
+</Frame>
+
+# Lock/Unlock or Delete a Project
+
+<AccordionGroup>
+  <Accordion title="Lock Project" icon="unlock">
+    Disable all buttons which can cause some changes in the project.
+  </Accordion>
+
+  <Accordion title="Unlock Project" icon="lock">
+    Enable action buttons.
+  </Accordion>
+
+  <Accordion title="Delete" icon="trash">
+    To delete a project. The project must be empty with the status Ready.
+  </Accordion>
+</AccordionGroup>
