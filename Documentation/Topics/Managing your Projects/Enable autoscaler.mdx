@@ -1,4 +1,52 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Enable Autoscaler"
+description: "Description of your new file."
 ---
+
+Autoscaling is an essential aspect of cloud computing and Kubernetes deployment, as it enables organizations to manage resources more effectively, optimize costs, and ensure the high availability of their applications.
+
+With Taikun’s autoscaling, organizations can define the rules and conditions that determine when and how the system should scale. For example, organizations can set a rule that when CPU utilization exceeds a certain threshold, new workers should be added to the cluster.
+
+# Enabling autoscaler during a Project creation
+
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+The first way to enable auto-scaling is during a Project creation.
+
+<Frame caption="Enabling autoscaler during project creation">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/autoscaler.webp)
+</Frame>
+
+### Define auto-scaling
+
+<AccordionGroup>
+  <Accordion title="Name" icon="pen">
+    Specify a name for an atoscaler.
+  </Accordion>
+
+  <Accordion title="Minimum Workers count" icon="minimize">
+    Define a minimum count of workers.
+  </Accordion>
+
+  <Accordion title="Maximum Workers count" icon="maximize">
+    Define a maximum count of workers
+  </Accordion>
+
+  <Accordion title="Disk Size (GB)" icon="hard-drive">
+    Define the size of the disk.
+  </Accordion>
+
+  <Accordion title="Flavor" icon="list">
+    Bind the flavor for this server.
+  </Accordion>
+</AccordionGroup>
+
+# Enabling autoscaler in existing Project
+
+<Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+Also, you can enable autoscaling when the Project is created
+
+<Frame caption="Enabling autoscaler from settings after a project’s creation">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/autoscaler.2.webp)
+</Frame>
