@@ -9,17 +9,80 @@ title: "Installing Applications"
 In Taikun, you can find more than 200 public and private repositories, which you can import with the Helm Repo URL.
 
 <AccordionGroup>
-  <Accordion title="Public Repositories">
+  <Accordion title="Public Repositories" icon="unlock">
     Public repositories provide access to a wide range of pre-built applications and software packages. You can enable or disable public repositories based on your organization’s needs.
+
     <Frame caption="Public Repositories">
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/repo1.webp)
     </Frame>
   </Accordion>
 
-  <Accordion title="Private Repositories">
+  <Accordion title="Private Repositories" icon="lock">
     Taikun supports the addition of private repositories, allowing users to upload and manage their own custom applications and software packages. Additionally, Taikun offers support for OCI (Open Container Initiative) images, ensuring compatibility and flexibility in managing containerized applications.
+
     <Frame caption="Public Repositories">
       ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/repo2.webp)
     </Frame>
   </Accordion>
 </AccordionGroup>
+
+# How to install an Application in a cluster
+
+### Enable required repositories for your application
+
+<Frame caption="Public Repositories">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/repo3.webp)
+</Frame>
+
+### Create a catalog for adding applications and binding projects
+
+<Frame caption="Create Catalog">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/catalog1.webp)
+</Frame>
+
+Catalogs are curated collections of applications and software packages available for deployment within Taikun. To create a catalog, navigate to the Catalogs section in the Taikun dashboard and follow the prompts to define the catalog name, description, and any relevant metadata.  
+
+<Frame caption="Catalogs">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/catalog2.webp)
+</Frame>
+
+* When creating a catalog in Taikun, it’s essential to provide a clear description of the catalog and the applications it contains
+* Only applications whose repositories have been enabled will be visible
+* To ensure a successful installation, it is recommended only to bind Projects that are healthy and in a ready state
+* Parameter configurations can easily be located by browsing or searching applications within Taikun
+* When installing an application, it is possible to specify a version or use the latest version automatically
+* If the parameters are set to be both editable when installing and after installation, it is mandatory to configure them before proceeding with the installation
+
+### Install the application in the cluster
+<Frame caption="Application in the cluster">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/app1.webp)
+</Frame>
+
+* In the Instance name, only alphanumeric characters are allowed
+* Multiple projects can be bound to any catalog. When installing, a list of bonded projects will be visible
+* Custom Namespace can be input
+* If autosync is enabled, applications will automatically sync whenever any updates are made
+* Selected parameters can be added/removed while installing applications. Only parameters that are set as “Editable when installing” can have their values changed during installation
+* Extra values can be added to the application during installation
+
+<Frame caption="Add Application">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/app2.webp)
+</Frame>
+
+### After Application
+
+After installing the application, users can find the status of the application in
+catalogs ➡ select user catalog ➡ select installed application ➡ bound projects 
+
+<Frame caption="Add Application">
+      ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/app3.webp)
+</Frame>
+
+* Inside the application, basic details, parameters, and default values can be found
+* Parameters can be edited and applications can be synced again
+* Different versions of applications can be selected, note that users can only select the latest version, not an older one
+* A catalog can only be deleted if it is empty and has no applications or projects attached, otherwise, it cannot be deleted if a project is bound to it and an application has been added
+
+### Find all installed applictions
+* In the Applications section, you can find a list of all installed applications with information such as namespace, catalog name, and bound projects
+* It is possible to directly uninstall any of the installed applications from this section
