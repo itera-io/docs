@@ -32,66 +32,86 @@ Here is how you can create your first Project, follow these steps:
 
 <Warning>If you want to use your Access Profile in a project, you need to create it prior to creation of a Project and choose it from a drop-down selection during Project creation.</Warning>
 
-
-Some of Taikun’s features (such as alerting or policy profiles,  monitoring, backup, and expiration date) can be added/enabled after your Project is created:
+Some of Taikun’s features (**such as alerting or policy profiles,  monitoring, backup, and expiration date**) can be added/enabled **after** your Project is created:
 
 <AccordionGroup>
-  <Accordion title="Project Name">
+  <Accordion title="Project Name" icon="pencil">
     Fill in your project name (only alphanumeric lowercase characters and dash are allowed, 3-30 characters; no underscore; e.g., my-project1).
   </Accordion>
 
-  <Accordion title="Cloud">
+  <Accordion title="Cloud" icon="cloud">
     Choose where you want to store your Project. How to connect a new Cloud, see Cloud Credentials.
   </Accordion>
 
-  <Accordion title="Specify Kubernetes version">
+  <Accordion title="Specify Kubernetes version" icon="cloud-arrow-up">
     (optional) If you need a specific version of Kubernetes, select it from the list.
   </Accordion>
 
-  <Accordion title="Specify CIDR">
-  (optional) If you need you can specify a network or a sub-network.
+  <Accordion title="Specify CIDR" icon="wifi">
+    (optional) If you need you can specify a network or a sub-network.
   </Accordion>
-  <Accordion title="Access Profile">
-  Choose a profile that can access the project. For how to create a new profile, see Access Profiles.
+
+  <Accordion title="Access Profile" icon="unlock">
+    Choose a profile that can access the project. For how to create a new profile, see Access Profiles.
   </Accordion>
-  <Accordion title="Alerting Profile">
-  If you have created a profile in Alerting Profiles, you can choose it from the drop-down selection.
+
+  <Accordion title="Alerting Profile" icon="bell">
+    If you have created a profile in Alerting Profiles, you can choose it from the drop-down selection.
   </Accordion>
-  <Accordion title="Kubernetes Profile">
-  First, create a new profile in Kubernetes Profiles and then select from the drop-down selection.
-    - For OpenStack: if you choose a profile with enabled Taikun Load Balancer, you also have to fill in Taikun Load Balancer Flavor, Router Id Start Range, and Router Id End Range.
+
+  <Accordion title="Kubernetes Profile" icon="server">
+    First, create a new profile in Kubernetes Profiles and then select from the drop-down selection.
+
+    * For OpenStack: if you choose a profile with enabled Taikun Load Balancer, you also have to fill in Taikun Load Balancer Flavor, Router Id Start Range, and Router Id End Range.
   </Accordion>
-  <Accordion title="Add Policy Profile">
-  Select a Policy profile for the project.
+
+  <Accordion title="Add Policy Profile" icon="scale-balanced">
+    Select a Policy profile for the project.
   </Accordion>
-  <Accordion title="Enable Monitoring">
-  Monitoring a Kubernetes cluster allows easy management of containerized infrastructure by tracking the utilization of cluster resources, including memory, CPU, and storage.
+
+  <Accordion title="Enable Monitoring" icon="desktop">
+    Monitoring a Kubernetes cluster allows easy management of containerized infrastructure by tracking the utilization of cluster resources, including memory, CPU, and storage.
   </Accordion>
-  <Accordion title="Enable Backup">
-  Choose credentials; you can create a new one in Backup Credentials. If you decide not to enable it, you can change it later.
+
+  <Accordion title="Enable Backup" icon="upload">
+    Choose credentials; you can create a new one in Backup Credentials. If you decide not to enable it, you can change it later.
   </Accordion>
-  <Accordion title="Add Expiration Date">
-  Set project durability; by default, it is set to infinity. After the expiration date, your project is NOT affected, deleted, or locked. It will stay the same.
+
+  <Accordion title="Add Expiration Date" icon="calendar-days">
+    Set project durability; by default, it is set to infinity. After the expiration date, your project is NOT affected, deleted, or locked. It will stay the same.
   </Accordion>
-  <Accordion title="Enable Serverless">
-  Enabling this component allows you to handle events and triggers for your serverless functions. Setting up the DNS records is required.
+
+  <Accordion title="Enable Serverless" icon="check">
+    Enabling this component allows you to handle events and triggers for your serverless functions. Setting up the DNS records is required.
   </Accordion>
-  <Accordion title="Enable Spot">
-  Enable spots (works for AWS, Azure, Google).
+
+  <Accordion title="Enable Spot" icon="toggle-on">
+    Enable spots (works for AWS, Azure, Google).
+
     * Allow Spot VMs – allow spots in standalone VMs
+
     * Allow Full Spot Kubernetes – allow full spot on Kubernetes
+
     * Allow Spot Workers – allow spot-on workers
+
     * No Spot for Kubernetes
   </Accordion>
-  <Accordion title="Add Flavor">
-  Bind the flavor to the project; you can bind more than one flavor and un/bind them later in Flavor Info.
+
+  <Accordion title="Add Flavor" icon="plus">
+    Bind the flavor to the project; you can bind more than one flavor and un/bind them later in Flavor Info.
   </Accordion>
-  <Accordion title="Enable Autoscaler">
-  define auto-scaling
+
+  <Accordion title="Enable Autoscaler" icon="up-right-and-down-left-from-center">
+    define auto-scaling
+
     * Name – specify a name for a new server
+
     * Minimum Workers count – define a minimum count of workers
+
     * Maximum Workers count – define a maximum count of workers
+
     * Disk size – define the size of the disk
+
     * Flavor – bind the flavor for this server
   </Accordion>
 </AccordionGroup>
