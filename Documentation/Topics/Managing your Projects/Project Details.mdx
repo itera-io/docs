@@ -1,4 +1,77 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Project Details"
 ---
+
+<Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+By clicking the selected Project, you are redirected to the **Servers**. Here you can see all servers for the project with their description.
+
+<Frame caption="Overview">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.project.webp)
+</Frame>
+
+# Project Info
+
+Under the **Servers** title is a brief description of the project – such as *Project*, *Organization, Project Status*, *Cloud Type*, *Kubernetes Version*, *Access Profile*, *Cloud Credentials*, *Kubernetes Profile*, *Alerting Profile*, *Policy Profile*, *Access IP Address* (if you use this address to ssh connect, please do not use user ubuntu, it’s in use by Taikun for managing the cluster) and *Kubernetes Health*. Some of these include links to e.g. cloud or profiles.
+
+<Frame caption="Project info">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/project.contents.2.webp)
+</Frame>
+
+You can also see here ETC = Estimated Time to Complete. It is approx time (in minutes) until the cluster will be completed.
+
+<Frame caption="ETC">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/etc.png)
+</Frame>
+
+# Servers
+
+Every server is described by *ID*, *Server Name*, *IP Address*, *Flavor*, *CPU/RAM/Disk Size*, *Role*, *Status,* *K8s Health*, *Created,* and *Actions*. If you expand the table, you can see *Created By*, *Last Modified,* and *Last Modified By*.
+
+<Frame caption="Details">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/project.contents.3.webp)
+</Frame>
+
+Serves status can be:
+
+* Deleting
+
+* Pending
+
+* Pending Delete
+
+* Pending Purge
+
+* Pending Upgrade
+
+* Purging
+
+* Ready
+
+* Updating
+
+* Upgrading
+
+# Reboot Servers
+
+You can reboot servers directly from Taikun
+
+<Frame caption="Details">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/project.contents.4.webp)
+</Frame>
+
+<AccordionGroup>
+  <Accordion title="Show Status" icon="server">
+    Shows current status from the cloud for 3 seconds.
+  </Accordion>
+
+  <Accordion title="Reboot" icon="power-off">
+    You can choose HARD or SOFT reboot for each server.
+
+    * HARD – the power to the system is physically turned off and back again causing an initial boot.
+
+    * SOFT – system restarts without the need to interrupt the power.
+  </Accordion>
+</AccordionGroup>
+
+<Info>Hard or soft reboot can be chosen only for Openstack. For AWS and Azure there is only simple reboot available.</Info>
