@@ -2,9 +2,9 @@
 
 ## Overview
 
-Skydive is an open source real-time network topology and protocols analyzer. It aims to provide a comprehensive way of understanding what is happening in the network infrastructure.
+Skydive is an open-source real-time network topology and protocols analyzer. It aims to provide a comprehensive understanding of what is happening in the network infrastructure.
 
-Skydive agents collect topology informations and flows and forward them to a central agent for further analysis. All the informations are stored in an Elasticsearch database.
+Skydive agents collect topology information, flow it, and forward it to a central agent for further analysis. All the information is stored in an Elasticsearch database.
 
 Skydive is SDN-agnostic but provides SDN drivers in order to enhance the topology and flows informations.
 
@@ -14,7 +14,7 @@ Topology probes are used to construct the graph comprising:
 
 * Graph nodes: depicted as cycles (in contracted form) or areas (in expanded form)
 
-* Graph edges: depicted as strait lines (with arrowheads when directional)
+* Graph edges: depicted as straight lines (with arrowheads when directional)
 
 ### Agent Topology Probes
 
@@ -68,11 +68,11 @@ Graph nodes:
 
 * storage: persistentvolumeclaim (pvc), persistentvolume (pv), storageclass
 
-* network: networkpolicy, service, endpoints, ingress
+* network: network policy, service, endpoints, ingress
 
-* deployment: deployment, statefulset, replicaset, replicationcontroller, cronjob, job
+* deployment: deployment, stateful set, replica set, replication controller, cronjob, job
 
-* configuration: configmap, secret
+* configuration: config map, secret
 
 Graph edges:
 
@@ -84,7 +84,7 @@ Graph edges:
 
 Graph node metadata:
 
-* indexed fields: standard fields such as `Type`, `Name` plus k8s specific such as `K8s.Namespace`
+* Indexed fields: standard fields such as `Type`, `Name` plus k8s specific such as `K8s.Namespace`
 
 * stored-only fields: the entire content of k8s resource stored under `K8s.Extra`
 
@@ -94,7 +94,7 @@ Graph node status:
 
 * with values Up (white) / Down (red)
 
-* currently implemented for resources: pod, persistentvolumeclaim (pvc) and persistentvolume (pv)
+* currently implemented for resources: pod, persistent volume claim (PVC) and persistent volume (PV)
 
 ## Flow Probes supported
 
@@ -122,15 +122,15 @@ Flow probes currently implemented :
 
 ### Graph engine
 
-Skydive relies on a event based graph engine, which means that notifications are sent for each modification. Graphs expose notifications over WebSocket connections. Skydive support multiple graph backends for the Graph. The `memory` backend will be always used by agents while the backend for analyzers can be choosen. Each modification is kept in the datastore so that we have a full history of the graph. This is really useful to troubleshoot even if interfaces do not exist anymore.
+Skydive relies on an event-based graph engine, meaning notifications are sent for each modification. Graphs expose notifications over WebSocket connections. Skydive supports multiple graph backends for the Graph. The `memory` backend will always be used by agents, while the analyzer backend can be chosen. Each modification is kept in the datastore so that we have a full history of the graph. This is really useful to troubleshoot even if interfaces do not exist anymore.
 
 ### Topology probes
 
-Fill the graph with topology informations collected. Multiple probes fill the graph in parallel. As an example there are probes filling graph with network namespaces, netlink or OVSDB information.
+Fill the graph with the topology information collected. Multiple probes fill the graph in parallel. For example, probes fill graphs with network namespaces, Netlink, or OVSDB information.
 
 ### Flow table
 
-Skydive keep a track of packets captured in flow tables. It allows Skydive to keep metrics for each flows. At a given frequency or when the flow expires (see the config file) flows are forwarded from agents to analyzers and then to the datastore.
+Skydive keeps track of packets captured in flow tables. It allows Skydive to keep metrics for each flow. At a given frequency or when the flow expires (see the config file), the flows are forwarded from agents to analyzers and then to the datastore.
 
 ### Flow enhancer
 
@@ -377,4 +377,4 @@ In order to use the Grafana datasource plugin we need to use a data store, pleas
 
 A docker image with the datasource plugin available can be use as following:
 
-`docker run -d --name=grafana -p 3000:3000 skydive/skydive-grafana-datasource`
+`docker run -d --name=grafana -p 3000:3000 skydive/skydive-grafana-datasource`open-source
