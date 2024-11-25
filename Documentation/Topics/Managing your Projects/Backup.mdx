@@ -71,19 +71,47 @@ Expanding the table shows the previous modification made (*Last Modified*, *Las
 # Actions
 
 <AccordionGroup>
-  <Accordion title="Make default">
+  <Accordion title="Make default" icon="arrow-rotate-right">
     Choose credentials which will be then filled during project creation, lighter color indicates selected credentials.
   </Accordion>
 
-  <Accordion title="Lock/Unlock Credential">
+  <Accordion title="Lock/Unlock Credential" icon="lock">
     If you lock the Credentials, you disable it for Backup. Unlock it to enable it again.
   </Accordion>
 
-  <Accordion title="Update Credential">
+  <Accordion title="Update Credential" icon="pen">
     Update S3 Name, S3 Access Key and S3 Secret Key.
   </Accordion>
 
-  <Accordion title="Delete">
+  <Accordion title="Delete" icon="trash">
     You can delete only empty and unlocked Backup Credentials.
   </Accordion>
 </AccordionGroup>
+
+# Enable/Disable Backup in Projects
+
+You can enable backup during creation.
+
+<Frame caption="Enable Backup">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/backup.credentials.2.webp)
+</Frame>
+
+Backup can also be enabled after the project is created.
+
+First, you have to enable back and then choose credentials.
+
+<Frame caption="Enable Backup in settings">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/backup.credentials.3.webp)
+</Frame>
+
+### Backup Policy
+
+After you enable backup, you must set up a backup policy.
+
+<Frame caption="Backup Policy">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/backup.credentials.4.webp)
+</Frame>
+
+<Note>Once the policy is add, the cronjob starts.</Note>
+
+<Info>To terminate the backup, delete the policy. If you no longer want to use backup, disable it.</Info>
