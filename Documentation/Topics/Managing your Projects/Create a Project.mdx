@@ -1,4 +1,97 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Create a Project"
 ---
+
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+You can create a new Project straight after adding your Cloud credentials! During the project creation, you can specify various functions to be used.
+
+# Create a New Project
+
+<Frame caption="Projects">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.project.webp)
+</Frame>
+
+Here is how you can create your first Project, follow these steps:
+
+<Steps>
+  <Step title="First Step">
+    Go to the Projects menu in Taikun.
+  </Step>
+
+  <Step title="Second Step">
+    Hit Add Project button in the top right corner.
+  </Step>
+
+  <Step title="Third Step">
+    Specify your Project’s name and use Cloud in the pop-up.
+
+    * (optional) Access, Alerting, Kubernetes, and Policy Profile are initially populated with a default option. These profiles are created with every new organization. Custom Profiles need to be created before being used in your Projects.
+  </Step>
+</Steps>
+
+<Warning>If you want to use your Access Profile in a project, you need to create it prior to creation of a Project and choose it from a drop-down selection during Project creation.</Warning>
+
+
+Some of Taikun’s features (such as alerting or policy profiles,  monitoring, backup, and expiration date) can be added/enabled after your Project is created:
+
+<AccordionGroup>
+  <Accordion title="Project Name">
+    Fill in your project name (only alphanumeric lowercase characters and dash are allowed, 3-30 characters; no underscore; e.g., my-project1).
+  </Accordion>
+
+  <Accordion title="Cloud">
+    Choose where you want to store your Project. How to connect a new Cloud, see Cloud Credentials.
+  </Accordion>
+
+  <Accordion title="Specify Kubernetes version">
+    (optional) If you need a specific version of Kubernetes, select it from the list.
+  </Accordion>
+
+  <Accordion title="Specify CIDR">
+  (optional) If you need you can specify a network or a sub-network.
+  </Accordion>
+  <Accordion title="Access Profile">
+  Choose a profile that can access the project. For how to create a new profile, see Access Profiles.
+  </Accordion>
+  <Accordion title="Alerting Profile">
+  If you have created a profile in Alerting Profiles, you can choose it from the drop-down selection.
+  </Accordion>
+  <Accordion title="Kubernetes Profile">
+  First, create a new profile in Kubernetes Profiles and then select from the drop-down selection.
+    - For OpenStack: if you choose a profile with enabled Taikun Load Balancer, you also have to fill in Taikun Load Balancer Flavor, Router Id Start Range, and Router Id End Range.
+  </Accordion>
+  <Accordion title="Add Policy Profile">
+  Select a Policy profile for the project.
+  </Accordion>
+  <Accordion title="Enable Monitoring">
+  Monitoring a Kubernetes cluster allows easy management of containerized infrastructure by tracking the utilization of cluster resources, including memory, CPU, and storage.
+  </Accordion>
+  <Accordion title="Enable Backup">
+  Choose credentials; you can create a new one in Backup Credentials. If you decide not to enable it, you can change it later.
+  </Accordion>
+  <Accordion title="Add Expiration Date">
+  Set project durability; by default, it is set to infinity. After the expiration date, your project is NOT affected, deleted, or locked. It will stay the same.
+  </Accordion>
+  <Accordion title="Enable Serverless">
+  Enabling this component allows you to handle events and triggers for your serverless functions. Setting up the DNS records is required.
+  </Accordion>
+  <Accordion title="Enable Spot">
+  Enable spots (works for AWS, Azure, Google).
+    * Allow Spot VMs – allow spots in standalone VMs
+    * Allow Full Spot Kubernetes – allow full spot on Kubernetes
+    * Allow Spot Workers – allow spot-on workers
+    * No Spot for Kubernetes
+  </Accordion>
+  <Accordion title="Add Flavor">
+  Bind the flavor to the project; you can bind more than one flavor and un/bind them later in Flavor Info.
+  </Accordion>
+  <Accordion title="Enable Autoscaler">
+  define auto-scaling
+    * Name – specify a name for a new server
+    * Minimum Workers count – define a minimum count of workers
+    * Maximum Workers count – define a maximum count of workers
+    * Disk size – define the size of the disk
+    * Flavor – bind the flavor for this server
+  </Accordion>
+</AccordionGroup>
