@@ -26,7 +26,7 @@ Remember that a working cluster consists of at least 1 Bastion, 1 Kubemaster, an
 ### To add a new server, fill in the following information:
 
 <AccordionGroup>
-  <Accordion title="Server Name">
+  <Accordion title="Server Name" icon="pen">
     Only alphanumeric characters and dash are allowed, 1-30 characters, or you can use the shortcuts:
 
     * b – bastion
@@ -36,25 +36,25 @@ Remember that a working cluster consists of at least 1 Bastion, 1 Kubemaster, an
     * w – worker
   </Accordion>
 
-  <Accordion title="Disk Size">
+  <Accordion title="Disk Size" icon="hard-drive">
     Should be at least 30GB.
   </Accordion>
 
-  <Accordion title="Role">
+  <Accordion title="Role" icon="address-book">
     You can choose from several roles for your servers, which are set according to the Kubernetes settings.
   </Accordion>
 
-  <Accordion title="Number of Servers">
+  <Accordion title="Number of Servers" icon="server">
     Set number for kubeworker or kubemaster, add an odd number of masters (min. 3 for a highly available cluster).
   </Accordion>
 
-  <Accordion title="Flavor">
+  <Accordion title="Flavor" icon="list">
     Choose from the list of offered flavors (e.g. n0.xlarge).
 
     * You can bind the flavors from clouds to the project in Flavour Info.
   </Accordion>
 
-  <Accordion title="Kubernetes Node Labels">
+  <Accordion title="Kubernetes Node Labels" icon="cloud-arrow-up">
     Label nodes where you want to send or restrict pods; you can add more labels with add label button, for more info, see Kubernetes docs.
   </Accordion>
 </AccordionGroup>
@@ -79,9 +79,12 @@ While creating a node, servers get through the stages:
 </Frame>
 
 Failed creation, the project is Failed or Pending without any action
-* if servers fail during creation, the best way to restore them is with the Repair button
+
+* If servers fail during creation, the best way to restore them is with the **Repair button**.
+
 Delete servers
-* Manager/Partner can delete unnecessary servers
+
+* Manager/Partner can delete unnecessary servers.
 
 <Frame caption="Projects">
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.server.4.webp)
