@@ -1,4 +1,73 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'VMs Management'
 ---
+
+<Icon icon="user" iconType="solid" /> User | <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+By clicking the VMs button on the Servers page or VMs View in Project page you are redirected to the VM Servers. Here you can see all the virtual machines for your Project with their description.
+
+<Frame caption="Vms">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/vm.1.webp)
+</Frame>
+
+# Project Info
+
+Under Servers, the title is a brief description of the project – such as Project Name (with locked/unlocked image), Project Status, Cloud Type, or Cloud Credentials.
+
+<Frame caption="project info">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/project-details-vms.png)
+</Frame>
+
+When there is some operation going on, you can also see here ETC=Estimated Time to Complete. It is approx time (in minutes) until the cluster will be completed.
+
+<Frame caption="ETC">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/etc.png)
+</Frame>
+
+# Servers
+
+Every Server is described by ID, Name, Flavor, IP Address, Public IP Address, Status, Profile, Image and Created. If you expand the table, you can see the last modification made (Created By, Last Modified, Last Modified By).
+
+<Frame caption="Actions">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/vm2.webp)
+</Frame>
+
+Serves status can be:
+
+* Deleting
+
+* Failure
+
+* Pending
+
+* Pending Delete
+
+* Pending Upgrade
+
+* Ready
+
+* Updating
+
+* Upgrading
+
+# Actions
+
+### Commit 
+
+Sends the changes to the repository.
+
+Once the cluster is committed, you will see ETC in the project info.
+
+### Repair
+
+When the servers are Failing, use the repair button.
+
+### Add VM
+
+To create a new server, click "Add VM" button and fill in all the fields. You, as a user, can’t delete servers – think twice about which and how many servers you want to create.
+
+<Note>To create a Virtual Machine, Manager of your Taikun account needs to bind a Flavor and an Image to your Project along with creating a Stanalone Profile</Note>
+
+<Frame caption="Add VM">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/vm.webp)
+</Frame>
