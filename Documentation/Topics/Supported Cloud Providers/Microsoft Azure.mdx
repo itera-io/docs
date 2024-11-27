@@ -1,10 +1,10 @@
-# Microsoft Azure
+---
+title: "Microsoft Azure"
+---
 
-## Overview
+# Overview
 
 [Microsoft Azure](https://azure.microsoft.com/), commonly referred to as Azure, is a comprehensive cloud computing platform provided by Microsoft. It offers a wide range of services and tools for building, deploying, and managing applications and services through Microsoft’s global network of data centers.
-
-
 
 ## Requirements for Microsoft Azure
 
@@ -12,7 +12,7 @@ Before adding the Azure account, you must create an application registration wit
 
 ##### ℹ️&#xA; Info
 
-The provided instructions are specific to Linux. It might look different with another Operating System.
+The provided instructions are specific to Linux. It might look different from another operating system.
 
 1\) If you haven’t installed Azure CLI, you can do it with the following command:
 
@@ -93,7 +93,6 @@ CLI output will look like this: 
 
 You’ll need to use the “appID” parameter from this output. In our example, it would be:
 
-
 `"appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558"`
 
 4\) Create a service principal for the app:
@@ -139,7 +138,7 @@ You’ll find the following CLI output:
 `  "type": "Microsoft.Authorization/roleAssignments"`
 `}`
 
-Please be careful when inserting the credentials. If you add incorrect credentials, you cannot add flavor and create a cluster.
+Please be careful when inserting the credentials. You cannot add flavor and create a cluster if you add incorrect credentials.
 
 You can switch to Taikun and add your Azure credentials now:
 
@@ -161,19 +160,15 @@ You can switch to Taikun and add your Azure credentials now:
 
 * *Azure Tenant ID*
 
-
-
 ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/azure.2.webp)
-
-
 
 #### Where to find the Azure credentials
 
-You can find the guidelines here if you haven’t created your application via CLI.
+If you haven’t created your application via CLI, you can find the guidelines here.
 
 Credentials for Azure are located in different tabs. Instructions on where to find them are posted below.
 
-Please be careful when inserting the credentials. If you add incorrect credentials, you cannot add flavor and create a cluster.
+Please be careful when inserting the credentials. You cannot add flavor and create a cluster if you add incorrect credentials.
 
 ##### Azure Client and Tenant ID
 
@@ -188,8 +183,6 @@ Azure Active Directory
 Azure client secrets
 
 * Azure Active Directory – App registrations – All Applications – *application* – Certificates & secrets – Client secrets -> Value (=Azure Secret Id)
-
-
 
 ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-client-secret-1.webp "Azure 1: Azure Active Directory")
 
@@ -209,7 +202,7 @@ Client Secret is shown only for the first time, we recommend to save it somewher
 
 ##### 📄&#xA; Note
 
-Subscription is chosen from drop-down selection, but you can find below where to find your Subscription ID.
+Subscription is chosen from the drop-down selection, but you can find below where to find your Subscription ID.
 
 * Subscriptions -> Subscription ID (=Azure Subscription Id)
 
