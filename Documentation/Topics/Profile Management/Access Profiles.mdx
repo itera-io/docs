@@ -1,44 +1,69 @@
 ---
 title: "Access Profiles"
-description: "An access profile defines user permissions and system access levels."
 ---
 
-\| <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner |
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
 
-## Overview
+# Overview
 
-<Note>When using SSH to connect to the servers, **<u>do not</u>** use the user ubuntu; it is reserved by Taikun for cluster management.</Note>
+<Note>When using SSH to connect to the servers, **<u>do not</u>** use the user ubuntu; it is used by Taikun for management of the cluster.</Note>
 
-Access Profiles allow secure connections to your Bastion server. You can also view the last modification details (Last Modified and Last Modified By) in the table.
+Access Profiles allow you to connect to your Bastion server securely.
 
-## Actions
+<Frame caption="Access Profiles">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/access.profiles.webp)
+</Frame>
 
-* <Icon icon="pencil" iconType="solid" /> **Edit HTTP Proxy** – Update the access profile.
+You can extend the table to see the last modification (Last Modified and Last Modified By).
 
-* <Icon icon="trash" iconType="solid" /> **Delete** – Delete an access profile; however, the default profile cannot be deleted.
+### Actions
 
-## Add Access Profile
+<AccordionGroup>
+  <Accordion title="Edit HTTP Proxy" icon="pen">
+    Update access profile.
+  </Accordion>
 
-Create a new Access Profile to access a specific Project by pressing the **+ Add Alerting Profile** button.
+  <Accordion title="Delete Access profile" icon="trash">
+    Delete Access profile, but cannot delete the default profile.
+  </Accordion>
+</AccordionGroup>
 
-### Parameters
+# Add Access Profile
 
-* **Name** – Choose a name for the new profile (3-30 characters).
+Create a new Access Profile to access a specific Project by pressing the “+ Add Alerting Profile” button.
 
-* **HTTP Proxy** – Set a proxy server to create a secure gateway between the cluster and the Internet, enabling access to external packages, docker images, etc. This setup will help preserve your security as it keeps your IP private.
+<Frame caption="Add Access Profiles">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/access.profile.2.webp)
+</Frame>
 
-* **Add:**
+Specify the following parameters:
 
-  * **SSH Users** – Allow a user to access the Kubernetes API by adding their Public Key. The key type must be RSA, ECDSA, or Ed25519.
+* Name: Choose a name for a new profile, 3-30 characters.
 
-  * **DNS** – Resolves names to IP addresses. Select a DNS server for your setup.
+* HTTP Proxy: You can set a proxy server, create a gateway between the cluster and the Internet, and allow access to external packages, docker images, etc. This will also preserve your security, as your own IP will be preserved.
 
-  * **NTP Server** – Synchronizes local time with a specified time server, ensuring all clusters are in the same time zone.
+* Add:
 
-  * **Allowed Hosts** – Specify an IP address or range to restrict Kubernetes access.
+<AccordionGroup>
+  <Accordion title="SSH Users">
+    Allow a user to access the Kubernetes API by adding the Public Key (the key type must be RSA, ECDSA, or Ed25519).
+  </Accordion>
 
-<Note>If your Public Key contains special characters (such as `:` or `+`), Taikun may fail to create the servers in Proxmox.</Note>
+  <Accordion title="DNS">
+    Resolves alphabetic names to IP addresses. You can choose a DNS for your server.
+  </Accordion>
 
-<Note>DNS settings will be ignored if you opt to import a network while establishing Cloud Credentials.</Note>
+  <Accordion title="NTP Server">
+    Accurately synchronizes local time clocks with a selected time server. All your clusters will automatically work in the same time zone.
+  </Accordion>
 
-If you wish to modify any of these parameters later, use the **Show** button to update the fields as needed.
+  <Accordion title="Allowed hosts">
+    You can add an IP address or range, which restricts access to your Kubernetes.
+  </Accordion>
+</AccordionGroup>
+
+<Note>If your Public Key contains special characters (like : or +), Taikun will fail to create the servers in Proxmox.</Note>
+
+<Note>DNS will be ignored if you choose to import network when establishing Cloud Credentials.</Note>
+
+If you want to change any of these parameters, you can do it with the Show button and update the necessary fields.
