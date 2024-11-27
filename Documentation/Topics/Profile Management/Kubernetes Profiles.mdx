@@ -1,6 +1,91 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Kubernetes Profiles "
 ---
 
 <Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+Each Profile is characterized by *ID*, *Name*, *Organization Name*, *CNI (Container Network Interface)*, *Octavia*, *Proxy on Bastion*, *Projects, and Actions*.
+
+<Frame caption="Kubernetes Profiles">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/kubernetes.profile.1.webp)
+</Frame>
+
+Expand the table to see the last modification (Last Modified and Last Modified By).
+
+# Add Kubernetes Profile
+
+You can create a new profile where you can enable a few features, which you can customize with the CNI plugin.
+
+<Frame caption="Add Kubernetes Profile">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/kubernetes.profile.2.webp)
+</Frame>
+
+<AccordionGroup>
+  <Accordion title="Organization (optional)">
+    Choose an organization for your profile.
+  </Accordion>
+
+  <Accordion title="Profile Name">
+    The name for your Kubernetes profile (3-30 characters).
+  </Accordion>
+
+  <Accordion title="Octavia">
+    Exposes the Service externally using the load balancers from OpenStack.
+  </Accordion>
+
+  <Accordion title="Enable Taikun Load Balancer">
+    Manage your traffic, only available for OpenStack and Octavia disabled.
+  </Accordion>
+
+  <Accordion title="Proxy on bastion">
+    Exposes the Service on each Node’s IP at a static port, the NodePort. You’ll be able to contact the NodePort Service, from outside the cluster, by requesting NodeIP:NodePort.Info
+
+    Choose this profile with enabled features during project creation.
+  </Accordion>
+
+  <Accordion title="Scheduling on Master">
+    Schedule Pods on the control-plane node to maximize resource usage, but we do not recommend it.
+    If Allow Scheduling on Master is equal to false then the Kube worker should have more than 2 CPU
+  </Accordion>
+
+  <Accordion title="Enable Unique Cluster Name">
+    If not enabled, the cluster name will be cluster.local.
+  </Accordion>
+
+  <Accordion title="Enable NVIDIA GPU Operator">
+    The NVIDIA GPU Operator streamlines the deployment and management of NVIDIA GPU resources within a Kubernetes cluster. It automates the installation of critical components, including NVIDIA drivers, the NVIDIA Container Toolkit, and device plugins, ensuring that GPUs are optimally configured and utilized for accelerated workloads. This operator is crucial for efficiently running GPU-intensive applications, such as machine learning, deep learning, and AI, within Kubernetes environments, providing seamless integration and performance enhancements.
+  </Accordion>
+
+  <Accordion title="Enable WebAssembly (Wasm)">
+    WebAssembly (Wasm) enables high-performance execution of compiled code within Kubernetes, allowing workloads written in C, C++, and Rust to run efficiently and securely. By enabling Wasm in a Kubernetes profile, you can take advantage of its portable, sandboxed execution environment, which delivers near-native performance across diverse platforms. This feature is ideal for running complex, resource-intensive applications that require fast, secure, and cross-platform deployment within Kubernetes.
+  </Accordion>
+
+  <Accordion title="Proxmox Storage (optional)">
+    In Taikun, “Proxmox storage” refers to storage managed and installed by Taikun, not the native Proxmox storage. It is integrated into your Kubernetes environment through Taikun for efficient storage management and is tailored specifically for your cloud infrastructure needs. Currently, there are three storage options available.
+
+    * NFS (Network File System): NFS is a file storage protocol that allows multiple servers to share storage over a network. In Taikun, NFS is installed as a Kubernetes storage solution, enabling persistent storage for your Kubernetes pods by allowing them to share files across nodes.
+
+    * OpenEBS: OpenEBS is a container-attached storage solution for Kubernetes. It provides dynamic storage provisioning, allowing you to create and manage storage volumes directly within your Kubernetes environment. Installed by Taikun, OpenEBS is designed for cloud-native applications that require granular control over storage resources.
+
+    * Longhorn: Longhorn is a lightweight, highly available distributed block storage system for Kubernetes. It provides easy-to-use persistent storage with features like snapshots, backups, and self-healing capabilities. Taikun installs Longhorn to offer reliable and scalable storage for your Kubernetes workloads.
+  </Accordion>
+</AccordionGroup>
+
+## Specify Container Network Interface (CNI)
+
+To specify the Container Network Interface to be installed in your Kubernetes cluster, choose one of the options available under the CNI section.
+
+At the moment, Calico CNI is is the default option. Cilium CNI will be added in the future releases.
+
+# Actions
+<AccordionGroup>
+  <Accordion title="Unlock/lock" icon="unlock">
+    Un/Lock the profile to dis-/enable it from the drop-down selection when a new project is created, you cannot lock the default profile.
+  </Accordion>
+
+  <Accordion title="Delete" icon="trash">
+    Delete the profile if it is no longer needed. Only profiles with no associated projects can be deleted. You cannot delete the default profile.
+  </Accordion>
+</AccordionGroup>

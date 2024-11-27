@@ -19,25 +19,28 @@ If you want a new Alerting Profile, use the "Add Alerting Profile" button.
 Fill in the following fields:
 
 <AccordionGroup>
-  <Accordion title="Organization">
+  <Accordion title="Organization" icon="sitemap">
     Choose from the drop-down selection of Organizations.
   </Accordion>
 
-  <Accordion title="Name">
+  <Accordion title="Name" icon="pen">
     Choose a name for your Alerting Profile.
   </Accordion>
 
-  <Accordion title="Slack Configuration">
+  <Accordion title="Slack Configuration" icon="slack">
     If you have created a Slack configuration, you can use it in your Profile.
   </Accordion>
 
-  <Accordion title="Reminder">
+  <Accordion title="Reminder" icon="calendar">
     Set a reminder to None, HalfHour, Hourly, Daily.
   </Accordion>
-   <Accordion title="Add">
-      * E-mails – receive notifications via e-mail
-      * Webhooks – use webhooks for application alert
-      * Integrations – set notifications for supported applications (Opsgenie, Pagerduty, Splunk, and Microsoft Teams)
+
+  <Accordion title="Add" icon="plus">
+    * E-mails – receive notifications via e-mail
+
+    * Webhooks – use webhooks for application alert
+
+    * Integrations – set notifications for supported applications (Opsgenie, Pagerduty, Splunk, and Microsoft Teams)
   </Accordion>
 </AccordionGroup>
 
@@ -54,15 +57,15 @@ You can change or add more E-mails and Webhooks. You can also add multiple heade
 ## Available Actions
 
 <AccordionGroup>
-  <Accordion title="Lock/Unlock">
+  <Accordion title="Lock/Unlock" icon="unlock">
     Make Profile available during Project selection (only non-default Profile can be locked).
   </Accordion>
 
-  <Accordion title="Edit">
+  <Accordion title="Edit" icon="pencil">
     Change Profile’s name, Slack configuration, Reminder.
   </Accordion>
 
-  <Accordion title="Delete">
+  <Accordion title="Delete" icon="trash">
     Remove Profile that is not in use (only Profiles without associated Projects can be deleted).
   </Accordion>
 </AccordionGroup>
@@ -72,7 +75,9 @@ You can change or add more E-mails and Webhooks. You can also add multiple heade
 There are 2 ways to attach your alerting profile to the project:
 
 * When Project is created – check “Add Alerting Profile” box during the Project creation.
+
 * After Project creation – use the drop-down selection Actions in the project, click Attach Alerting Profile, and choose which profile you want to attach to a Project.
 
-# Detach Alerting Profile 
+# Detach Alerting Profile
+
 Use the drop-down selection Actions in a Project, click Detach Alerting Profile, and choose which Profile you want to detach.
