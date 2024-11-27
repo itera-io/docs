@@ -1,1 +1,78 @@
-Alerting Profile
+---
+title: "Alerting Profile"
+---
+
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
+
+# Overview
+
+Alerting Profiles allow you to receive notifications about the state of your Project in the tool of your choice.
+
+# Add Alerting Profile
+
+If you want a new Alerting Profile, use the "Add Alerting Profile" button.
+
+<Frame caption="Add Alerting Profile">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/alerting.profile.2.webp)
+</Frame>
+
+Fill in the following fields:
+
+<AccordionGroup>
+  <Accordion title="Organization">
+    Choose from the drop-down selection of Organizations.
+  </Accordion>
+
+  <Accordion title="Name">
+    Choose a name for your Alerting Profile.
+  </Accordion>
+
+  <Accordion title="Slack Configuration">
+    If you have created a Slack configuration, you can use it in your Profile.
+  </Accordion>
+
+  <Accordion title="Reminder">
+    Set a reminder to None, HalfHour, Hourly, Daily.
+  </Accordion>
+   <Accordion title="Add">
+      * E-mails – receive notifications via e-mail
+      * Webhooks – use webhooks for application alert
+      * Integrations – set notifications for supported applications (Opsgenie, Pagerduty, Splunk, and Microsoft Teams)
+  </Accordion>
+</AccordionGroup>
+
+# Alerting Profile Details
+
+<Frame caption="Alerting Profiles">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/alerting.profile.1.webp)
+</Frame>
+
+Each Profile is described by ID, Name, Organization Name, Slack Configuration Name, Associated Projects, E-mail, Webhooks, Created By, and Reminder.
+
+You can change or add more E-mails and Webhooks. You can also add multiple headers (Key, Value) to every webhook. The table can be extended to see the last modification parameters (Last Modified and Last Modified By).
+
+## Available Actions
+
+<AccordionGroup>
+  <Accordion title="Lock/Unlock">
+    Make Profile available during Project selection (only non-default Profile can be locked).
+  </Accordion>
+
+  <Accordion title="Edit">
+    Change Profile’s name, Slack configuration, Reminder.
+  </Accordion>
+
+  <Accordion title="Delete">
+    Remove Profile that is not in use (only Profiles without associated Projects can be deleted).
+  </Accordion>
+</AccordionGroup>
+
+# Attaching Alerting Profile to Projects
+
+There are 2 ways to attach your alerting profile to the project:
+
+* When Project is created – check “Add Alerting Profile” box during the Project creation.
+* After Project creation – use the drop-down selection Actions in the project, click Attach Alerting Profile, and choose which profile you want to attach to a Project.
+
+# Detach Alerting Profile 
+Use the drop-down selection Actions in a Project, click Detach Alerting Profile, and choose which Profile you want to detach.
