@@ -1,1 +1,43 @@
-Using Mojo with Taikun OCP
+# Using Mojo with Taikun OCP
+
+### [Available Bundles](https://taikun.cloud/docs/using-mojo-with-taikun-ocp/)
+
+The following OS Bundles are available from Metify. Input the values from this table into the `./mojo-manage --os-image` command. OS Bundles are organized by `name` and `version`. The combination of these two fields is unique within the Mojo Platform.
+
+| Name   | Version  | Architecture |
+| ------ | -------- | ------------ |
+| Ubuntu | 22.04.03 | x64          |
+| RHEL   | 8.8-net  | x64          |
+| RHEL   | 9.2-net  | x64          |
+
+## [Redfish API Overview](https://taikun.cloud/docs/using-mojo-with-taikun-ocp/)
+
+### Overview
+
+RackHD is designed to provide a REST (Representational state transfer) architecture to provide a RESTful API. RackHD currently has two RESTful interfaces: a Redfish API and native REST API 2.0.
+
+The Redfish API is compliant with the Redfish specification as an additional REST API. It provides a common data model for representing bare metal hardware, as an aggregate for multiple backend servers and systems.
+
+The REST API 2.0 provides unique features that are not provided in the Redfish API.
+
+### Redfish API Example
+
+**Redfish API – Chassis**
+
+List the Chassis that is managed by RackHD (equivalent to the enclosure node in REST API 2.0), by running the following command.curl 127.0.0.1:9090/redfish/v1/Chassis| jq ‘.’
+
+```json
+{
+  "@odata.context": "/redfish/v1/$metadata#Systems",
+  "@odata.id": "/redfish/v1/Chassis",
+  "@odata.type": "#ChassisCollection.ChassisCollection",
+  "Oem": {},
+  "Name": "Chassis Collection",
+  "Members@odata.count": 1,
+  "Members": [
+    {
+      "@odata.id": "/redfish/v1/Chassis/58df2a1b83d44813084b45f9"
+    }
+  ]
+}
+```
