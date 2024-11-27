@@ -1,4 +1,4 @@
-Horizontal Pod Autoscaling in Kubernetes
+# Horizontal Pod Autoscaling in Kubernetes
 
 In Kubernetes, a *HorizontalPodAutoscaler* automatically updates a workload resource (such as a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) or [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)), with the aim of automatically scaling the workload to match demand.
 
@@ -39,7 +39,6 @@ The HorizontalPodAutoscaler controller accesses corresponding workload resources
 From the most basic perspective, the HorizontalPodAutoscaler controller operates on the ratio between desired metric value and current metric value:
 
 desiredReplicas = ceil\[currentReplicas \* ( currentMetricValue / desiredMetricValue )]
-
 
 For example, if the current metric value is `200m`, and the desired value is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 == 2.0` If the current value is instead `50m`, you’ll halve the number of replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a globally-configurable tolerance, 0.1 by default).
 
@@ -180,7 +179,6 @@ One or more scaling policies can be specified in the `behavior` section of the
 `    - type: Percent`
 `      value: 10`
 `      periodSeconds: 60`
-
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true. The maximum value that you can set for `periodSeconds` is 1800 (half an hour). The first policy *(Pods)* allows at most 4 replicas to be scaled down in one minute. The second policy *(Percent)* allows at most 10% of the current replicas to be scaled down in one minute.
 
