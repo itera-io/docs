@@ -2,48 +2,48 @@
 
 ## Linux Family: Ubuntu/Debian Derivatives
 
-| Guest                | Guest Bitness | Host Version                       | Host CPU       | Host Bitness | Status      |
-|----------------------|---------------|------------------------------------|----------------|--------------|-------------|
-| Ubuntu 22.04 (LTS)   | 64-bit        | Ubuntu 22.04                       | Intel/AMD      | 64-bit       | Supported   |
-| Ubuntu 20.04 (LTS)   | 64-bit        | Ubuntu 20.04                       | Intel/AMD      | 64-bit       | Supported   |
-| Ubuntu 18.04 (LTS)   | 64-bit        | Ubuntu 18.04                       | Intel/AMD      | 64-bit       | Supported   |
-| Debian 11            | 64-bit        | Debian 11                          | Intel/AMD      | 64-bit       | Supported   |
-| Debian 10            | 64-bit        | Debian 10                          | Intel/AMD      | 64-bit       | Supported   |
-| Debian 9             | 64-bit        | Debian 9                           | Intel/AMD      | 64-bit       | Supported   |
+| Guest              | Guest Bitness | Host Version | Host CPU  | Host Bitness | Status    |    |
+| ------------------ | ------------- | ------------ | --------- | ------------ | --------- | :- |
+| Ubuntu 22.04 (LTS) | 64-bit        | Ubuntu 22.04 | Intel/AMD | 64-bit       | Supported |    |
+| Ubuntu 20.04 (LTS) | 64-bit        | Ubuntu 20.04 | Intel/AMD | 64-bit       | Supported |    |
+| Ubuntu 18.04 (LTS) | 64-bit        | Ubuntu 18.04 | Intel/AMD | 64-bit       | Supported |    |
+| Debian 11          | 64-bit        | Debian 11    | Intel/AMD | 64-bit       | Supported |    |
+| Debian 10          | 64-bit        | Debian 10    | Intel/AMD | 64-bit       | Supported |    |
+| Debian 9           | 64-bit        | Debian 9     | Intel/AMD | 64-bit       | Supported |    |
 
 ## Windows Family
 
-| Guest                                | Guest Bitness | Host Version                                         | Host CPU | Host Bitness | Status      |
-|--------------------------------------|---------------|-----------------------------------------------------|----------|--------------|-------------|
-| Windows Server 2022                  | 64-bit        | Windows Server 2022                                 | Intel    | 64-bit       | Supported   |
-| Windows Server 2019                  | 64-bit        | Windows Server 2019                                 | Intel    | 64-bit       | Supported   |
-| Windows Server 2016                  | 64-bit        | Windows Server 2016                                 | Intel    | 64-bit       | Supported   |
-| Windows 10 Professional build 10240  | 64-bit        | qemu-kvm-2.3.0                                      | Intel    | 64-bit       | Integrated  |
-| Windows 7 Professional (Final)       | 64-bit        | qemu-kvm-0.12.1.2-1 ARCH-2.6.32                    | AMD      | 64-bit       | Integrated  |
+| Guest                               | Guest Bitness | Host Version                    | Host CPU | Host Bitness | Status     |
+| ----------------------------------- | ------------- | ------------------------------- | -------- | ------------ | ---------- |
+| Windows Server 2022                 | 64-bit        | Windows Server 2022             | Intel    | 64-bit       | Supported  |
+| Windows Server 2019                 | 64-bit        | Windows Server 2019             | Intel    | 64-bit       | Supported  |
+| Windows Server 2016                 | 64-bit        | Windows Server 2016             | Intel    | 64-bit       | Supported  |
+| Windows 10 Professional build 10240 | 64-bit        | qemu-kvm-2.3.0                  | Intel    | 64-bit       | Integrated |
+| Windows 7 Professional (Final)      | 64-bit        | qemu-kvm-0.12.1.2-1 ARCH-2.6.32 | AMD      | 64-bit       | Integrated |
 
 ## Red Hat Enterprise Linux (RHEL)
 
-| Guest      | Guest Bitness | Host Version      | Host CPU | Host Bitness | Status      |
-|------------|---------------|-------------------|----------|--------------|-------------|
-| RHEL 8     | 64-bit        | RHEL 8            | Intel    | 64-bit       | Supported   |
-| RHEL 7     | 64-bit        | RHEL 7            | Intel    | 64-bit       | Supported   |
-| RHEL 6     | 64-bit        | RHEL 6            | Intel    | 64-bit       | Supported   |
+| Guest  | Guest Bitness | Host Version | Host CPU | Host Bitness | Status    |
+| ------ | ------------- | ------------ | -------- | ------------ | --------- |
+| RHEL 8 | 64-bit        | RHEL 8       | Intel    | 64-bit       | Supported |
+| RHEL 7 | 64-bit        | RHEL 7       | Intel    | 64-bit       | Supported |
+| RHEL 6 | 64-bit        | RHEL 6       | Intel    | 64-bit       | Supported |
 
 ## Fedora
 
-| Guest     | Guest Bitness | Host Version                          | Host CPU  | Host Bitness | Status      |
-|-----------|---------------|---------------------------------------|-----------|--------------|-------------|
-| Fedora 18 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2     | Intel/AMD | 32, 64       | Integrated  |
-| Fedora 17 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2     | Intel/AMD | 32, 64       | Integrated  |
-| Fedora 16 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2     | Intel/AMD | 32, 64       | Integrated  |
+| Guest     | Guest Bitness | Host Version                      | Host CPU  | Host Bitness | Status     |
+| --------- | ------------- | --------------------------------- | --------- | ------------ | ---------- |
+| Fedora 18 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2 | Intel/AMD | 32, 64       | Integrated |
+| Fedora 17 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2 | Intel/AMD | 32, 64       | Integrated |
+| Fedora 16 | 32, 64        | qemu-kvm 0.14.1+noroms-0ubuntu6.2 | Intel/AMD | 32, 64       | Integrated |
 
 ## Others
 
-| Guest          | Guest Bitness | Host Version       | Host CPU | Host Bitness | Status      |
-|----------------|---------------|--------------------|----------|--------------|-------------|
-| Android 2.2    | 32            | kvm-83            | Intel    | 64-bit       | Integrated  |
-| Haiku OS       | 32            | kvm-12            | AMD      | 64-bit       | Integrated  |
-| QNX 6.4.1      | 32            | qemu-kvm-0.11.0   | Intel    | 32, 64       | Integrated  |
-| Plan 9         | 32            | kvm-68            | Intel    | 64-bit       | Integrated  |
-| FreeDOS 1.0    | 32            | kvm-71            | Intel    | 64-bit       | Integrated  |
-| MS-DOS 6.22    | 32            | kvm-88            | Intel    | 64-bit       | Integrated  |
+| Guest       | Guest Bitness | Host Version    | Host CPU | Host Bitness | Status     |
+| ----------- | ------------- | --------------- | -------- | ------------ | ---------- |
+| Android 2.2 | 32            | kvm-83          | Intel    | 64-bit       | Integrated |
+| Haiku OS    | 32            | kvm-12          | AMD      | 64-bit       | Integrated |
+| QNX 6.4.1   | 32            | qemu-kvm-0.11.0 | Intel    | 32, 64       | Integrated |
+| Plan 9      | 32            | kvm-68          | Intel    | 64-bit       | Integrated |
+| FreeDOS 1.0 | 32            | kvm-71          | Intel    | 64-bit       | Integrated |
+| MS-DOS 6.22 | 32            | kvm-88          | Intel    | 64-bit       | Integrated |
