@@ -10,8 +10,6 @@ On the Projects tab, you can preview all existing projects for your organization
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/create.a.project.webp)
 </Frame>
 
-
-
 # Project Properties
 
 ### Project ID, Name, Organization
@@ -23,27 +21,27 @@ Changeless descriptions for each Project.
 The status shows your servers’ current status and actions in the project in real-time. Below are all possible statuses with their description.
 
 <AccordionGroup>
-  <Accordion title="Ready">
+  <Accordion title="Ready" icon="check">
     All servers in the project are prepared without any issues.
   </Accordion>
 
-  <Accordion title="Deleting">
+  <Accordion title="Deleting" icon="trash">
     One or more servers in your current project are being deleted.
   </Accordion>
 
-  <Accordion title="Failure">
+  <Accordion title="Failure" icon="triangle-exclamation">
     One or more servers failed for some reason during the action (for instance, booting or creating).
   </Accordion>
 
-  <Accordion title="Pending">
+  <Accordion title="Pending" icon="clock">
     One or more servers are pending, which means that, for example, they have not yet been created on the hosted platform.
   </Accordion>
 
-  <Accordion title="Updating">
+  <Accordion title="Updating" icon="circle-down">
     One or more servers in the project are being updated by Taikun during the creation process.
   </Accordion>
 
-  <Accordion title="Upgrading">
+  <Accordion title="Upgrading" icon="arrow-up-from-bracket">
     One or more servers upgrade Kubernetes, cloud credentials, or others.
   </Accordion>
 </AccordionGroup>
@@ -53,23 +51,23 @@ The status shows your servers’ current status and actions in the project in re
 This column describes the condition of the project cluster. Keep in mind that a good-working project should always be Healthy.
 
 <AccordionGroup>
-  <Accordion title="Healthy">
+  <Accordion title="Healthy" icon="notes-medical">
     Cluster id without any further problems.
   </Accordion>
 
-  <Accordion title="None">
+  <Accordion title="None" icon="0">
     Cluster is probably empty, and there is nothing to check.
   </Accordion>
 
-  <Accordion title="Unhealthy">
+  <Accordion title="Unhealthy" icon="xmark">
     Problems with connection to Kubernetes or Monitoring API.
   </Accordion>
 
-  <Accordion title="Unknown">
+  <Accordion title="Unknown" icon="question">
     Cannot connect Kubernetes API.
   </Accordion>
 
-  <Accordion title="Warning">
+  <Accordion title="Warning" icon="exclamation">
     Minor Issues.
   </Accordion>
 </AccordionGroup>
@@ -163,8 +161,6 @@ This feature helps users manage their project status. By using this feature, use
 <Frame caption="Project Details">
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Managing%20your%20Projects/overview.project.webp)
 </Frame>
-
-
 
 # Lock/Unlock or Delete a Project
 
