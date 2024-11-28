@@ -1,8 +1,10 @@
-# OpenStack
+---
+title: "OpenStack"
+---
 
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
 
-## Requirements for OpenStack
+# Requirements for OpenStack
 
 To successfully connect your OpenStack account, the following configuration needs to be applied in your OpenStack environment:
 
@@ -12,59 +14,88 @@ To successfully connect your OpenStack account, the following configuration need
 
 * A router between the public and internal networks should exist if you import a network from OpenStack. There should be internal access to the internal network, either from the router or directly. Additionally, DNS created in the Access Profiles section will be ignored when importing a network.
 
-## Adding OpenStack connection to Taikun
+# Adding OpenStack connection to Taikun
 
-1. Switch to the **Cloud credentials** tab in Taikun 
+<Steps>
+  <Step title="First Step">
+    Switch to the Cloud credentials tab in Taikun.
+  </Step>
 
-2. Hit **Add Cloud Credentials** in the top-right corner and choose *OpenStack* from the list
+  <Step title="Second Step">
+    Hit Add Cloud Credentials in the top-right corner and choose OpenStack from the list.
+  </Step>
 
-3. Specify the following parameters:
+  <Step title="Third Step">
+    Specify the following parameters:
+  </Step>
+</Steps>
 
+<AccordionGroup>
+  <Accordion title="Cloud Name">
+    Choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test).
+  </Accordion>
 
-   * *Cloud Name* – choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test)
+  <Accordion title="User">
+    Your OpenStack username.
+  </Accordion>
 
-   * *User –* your OpenStack username
+  <Accordion title="Password">
+    Your password to OpenStack.
+  </Accordion>
 
-   * *Password* – your password to OpenStack
+  <Accordion title="URL">
+    Endpoint-Identity (refer to the Where to find the OpenStack credentials below).
+  </Accordion>
 
-   * *URL* – Endpoint-Identity (refer to the *Where to find the OpenStack credentials* below)
+  <Accordion title="Domain">
+    Insert domain name.
+  </Accordion>
 
-   * *Domain* – insert domain name
+  <Accordion title="Project">
+    Select an OpenStack Project.
+  </Accordion>
 
-   * *Project* – select an OpenStack Project
+  <Accordion title="Region">
+    Select an OpenStack Region.
+  </Accordion>
 
-   * *Region* – select an OpenStack Region
+  <Accordion title="Public Network">
+    Choose a network, if available.
+  </Accordion>
 
-   * *Public Network* – choose a network, if available
+  <Accordion title="Optional">
+    * Specify Availability Zone
 
-   * Optional:
+    * Volume Types
 
-     * Specify Availability Zone
+    * Enable Import Network
+  </Accordion>
+</AccordionGroup>
 
-     * *Volume Types* 
+<Frame caption="Cloud Credentials">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/openstack.1.webp)
+</Frame>
 
-     * Enable Import Network
+<Frame caption="Add OpenStack Cloud Credentials">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/openstack.2.webp)
+</Frame>
 
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/openstack.1.webp)
+<Info>Alternatively, you can use Application credentials issued by the administrator of your OpenStack account.</Info>
 
-***Taikun –*** Cloud Credentials
+## Where to find the OpenStack credentials
 
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/cloud%20providers/openstack.2.webp)
+After entering your OpenStack username and password, the other data from OpenStack will be added to Taikun automatically after filling in the URL.
 
-**Taikun –** Openstack cloud credentials
+To find the URL follow these steps: 
 
-##### ℹ️&#xA; Info
-
-Alternatively, you can use Application credentials issued by the administrator of your OpenStack account.
-
-### Where to find the OpenStack credentials
-
-After entering your OpenStack *username* and *password*, the other data from OpenStack will be added to Taikun automatically after filling in the *URL.*
-
-To find the URL:  
-
-1. Log into your OpenStack account 
-
-2. Locate the Project – API Access section in the left-hand navigation panel
-
-3. Find the *Identity* row and copy its *Service Endpoint*
+<Steps>
+  <Step title="First Step">
+    Log into your OpenStack account.
+  </Step>
+  <Step title="Second Step">
+    Locate the Project – API Access section in the left-hand navigation panel.
+  </Step>
+  <Step title="Third Step">
+    Find the Identity row and copy its Service Endpoint .
+  </Step>
+</Steps>
