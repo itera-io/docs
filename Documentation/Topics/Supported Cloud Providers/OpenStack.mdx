@@ -31,39 +31,39 @@ To successfully connect your OpenStack account, the following configuration need
 </Steps>
 
 <AccordionGroup>
-  <Accordion title="Cloud Name">
+  <Accordion title="Cloud Name" icon="cloud">
     Choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test).
   </Accordion>
 
-  <Accordion title="User">
+  <Accordion title="User" icon="user">
     Your OpenStack username.
   </Accordion>
 
-  <Accordion title="Password">
+  <Accordion title="Password" icon="key">
     Your password to OpenStack.
   </Accordion>
 
-  <Accordion title="URL">
+  <Accordion title="URL" icon="globe">
     Endpoint-Identity (refer to the Where to find the OpenStack credentials below).
   </Accordion>
 
-  <Accordion title="Domain">
+  <Accordion title="Domain" icon="wifi">
     Insert domain name.
   </Accordion>
 
-  <Accordion title="Project">
+  <Accordion title="Project" icon="rocket">
     Select an OpenStack Project.
   </Accordion>
 
-  <Accordion title="Region">
+  <Accordion title="Region" icon="earth-europe">
     Select an OpenStack Region.
   </Accordion>
 
-  <Accordion title="Public Network">
+  <Accordion title="Public Network" icon="network-wired">
     Choose a network, if available.
   </Accordion>
 
-  <Accordion title="Optional">
+  <Accordion title="Optional" icon="check">
     * Specify Availability Zone
 
     * Volume Types
@@ -86,15 +86,17 @@ To successfully connect your OpenStack account, the following configuration need
 
 After entering your OpenStack username and password, the other data from OpenStack will be added to Taikun automatically after filling in the URL.
 
-To find the URL follow these steps: 
+To find the URL follow these steps:
 
 <Steps>
   <Step title="First Step">
     Log into your OpenStack account.
   </Step>
+
   <Step title="Second Step">
     Locate the Project – API Access section in the left-hand navigation panel.
   </Step>
+
   <Step title="Third Step">
     Find the Identity row and copy its Service Endpoint .
   </Step>
