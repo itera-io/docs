@@ -1,4 +1,6 @@
-# Network Plugins
+---
+title: "Network Plugins"
+---
 
 Kubernetes 1.29 supports [Container Network Interface](https://github.com/containernetworking/cni) (CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem.
 
@@ -6,7 +8,7 @@ A CNI plugin is required to implement the [Kubernetes network model](https://ku
 
 You must use a CNI plugin that is compatible with the [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later releases of the CNI specification. The Kubernetes project recommends using a plugin that is compatible with the [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md) CNI specification (plugins can be compatible with multiple spec versions).
 
-## Installation
+# Installation
 
 A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular, the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
 
@@ -24,17 +26,17 @@ For specific information about how a Container Runtime manages the CNI plugins, 
 
 For specific information about how to install and manage a CNI plugin, see the documentation for that plugin or [networking provider](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
-## Network Plugin Requirements
+# Network Plugin Requirements
 
 For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy. The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables. For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly. If the plugin does not use a Linux bridge, but uses something like Open vSwitch or some other mechanism instead, it should ensure container traffic is appropriately routed for the proxy.
 
 By default, if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
 
-### Loopback CNI
+## Loopback CNI
 
 In addition to the CNI plugin installed on the nodes for implementing the Kubernetes network model, Kubernetes also requires the container runtimes to provide a loopback interface `lo`, which is used for each sandbox (pod sandboxes, vm sandboxes, …). Implementing the loopback interface can be accomplished by re-using the [CNI loopback plugin.](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) or by developing your own code to achieve this (see [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
 
-### Support hostPort
+## Support hostPort
 
 The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap) plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
 
@@ -68,8 +70,7 @@ If you want to enable `hostPort` support, you must specify `portMappings capa
 &#x20; ]
 }
 
-
-### Support traffic shaping
+## Support traffic shaping
 
 **Experimental Feature**
 
@@ -103,7 +104,6 @@ If you want to enable traffic shaping support, you must add the `bandwidth` pl
 &#x20;   }
 &#x20; ]
 }
-
 
 Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your Pod. For example:
 
