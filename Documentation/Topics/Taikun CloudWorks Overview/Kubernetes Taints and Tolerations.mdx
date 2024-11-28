@@ -1,4 +1,6 @@
-# Kubernetes Taints and Tolerations
+---
+title: "Kubernetes Taints and Tolerations"
+---
 
 [*Node affinity*](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) is a property of [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) that *attracts* them to a set of [nodes](https://kubernetes.io/docs/concepts/architecture/nodes/) (either as a preference or a hard requirement). *Taints* are the opposite — they allow a node to repel a set of pods.
 
@@ -6,19 +8,17 @@
 
 Taints and tolerations work together to ensure that pods are not scheduled onto inappropriate nodes. One or more taints are applied to a node; this marks that the node should not accept any pods that do not tolerate the taints.
 
-## Concepts
+# Concepts
 
 You add a taint to a node using [kubectl taint](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#taint). For example,
 
 kubectl taint nodes node1 key1=value1:NoSchedule
-
 
 places a taint on node `node1`. The taint has key `key1`, value `value1`, and taint effect `NoSchedule`. This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
 To remove the taint added by the command above, you can run:
 
 `kubectl taint nodes node1 key1=value1:NoSchedule-`
-
 
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations “match” the taint created by the `kubectl taint` line above, and thus a pod with either toleration would be able to schedule onto `node1`:
 
@@ -32,7 +32,6 @@ You specify a toleration for a pod in the PodSpec. Both of the following tolerat
 `- key: "key1"`
 `  operator: "Exists"`
 `  effect: "NoSchedule"`
-
 
 `Here's an example of a pod that uses tolerations:`
 
@@ -62,7 +61,7 @@ A toleration “matches” a taint if the keys are the same and the effects are 
 
 * the `operator` is `Equal` and the values should be equal.
 
-> **Note:**There are two special cases:An empty `key` with operator `Exists` matches all keys, values and effects which means this will tolerate everything.An empty `effect` matches all effects with key `key1`.
+> \*\*Note:\*\*There are two special cases:An empty `key` with operator `Exists` matches all keys, values and effects which means this will tolerate everything.An empty `effect` matches all effects with key `key1`.
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 
@@ -90,7 +89,6 @@ For example, imagine you taint a node like this
 `kubectl taint nodes node1 key1=value1:NoExecute`
 `kubectl taint nodes node1 key2=value2:NoSchedule`
 
-
 `A pod has two tolerations`
 
 `tolerations:`
@@ -116,7 +114,7 @@ Normally, if a taint with effect `NoExecute` is added to a node, then any pods
 
 means that if this pod is running and a matching taint is added to the node, then the pod will stay bound to the node for 3600 seconds, and then be evicted. If the taint is removed before that time, the pod will not be evicted.
 
-## Example Use Cases
+# Example Use Cases
 
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict pods that shouldn’t be running. A few of the use cases are
 
@@ -126,7 +124,7 @@ Taints and tolerations are a flexible way to steer pods *away* from nodes or e
 
 * **Taint based Evictions**: A per-pod-configurable eviction behavior when there are node problems, which is described in the next section.
 
-## Taint based Evictions
+# Taint based Evictions
 
 **FEATURE STATE:** `Kubernetes v1.18 [stable]`
 
@@ -164,7 +162,7 @@ For example, you might want to keep an application with a lot of local state bou
 `  effect: "NoExecute"`
 `  tolerationSeconds: 6000`
 
-> **Note:**Kubernetes automatically adds a toleration for `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` with `tolerationSeconds=300`, unless you, or a controller, set those tolerations explicitly.
+> \*\*Note:\*\*Kubernetes automatically adds a toleration for `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` with `tolerationSeconds=300`, unless you, or a controller, set those tolerations explicitly.
 
 These automatically-added tolerations mean that Pods remain bound to Nodes for 5 minutes after one of these problems is detected.
 
@@ -175,7 +173,7 @@ These automatically-added tolerations mean that Pods remain bound to Nodes for 5
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
-## Taint Nodes by Condition
+# Taint Nodes by Condition
 
 The control plane, using the node [controller](https://kubernetes.io/docs/concepts/architecture/controller/), automatically creates taints with a `NoSchedule` effect for [node conditions](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions).
 
