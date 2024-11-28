@@ -1,4 +1,6 @@
-# ArtifactHub Repositories
+---
+title: "ArtifactHub Repositories"
+---
 
 Artifact Hub allows publishers to list their content in an automated way. Publishers can add their repositories from the control panel, accessible from the top right menu after signing in. It’s possible to create an organization and add repositories to it instead of adding them to the user’s account. Repositories will be indexed periodically to always display the most up-to-date content.
 
@@ -68,7 +70,7 @@ Publishers can be verified through the [artifacthub-repo.yml](https://github.co
 
 *The verified publisher flag won’t be set until the next time the repository is processed. Please keep in mind that the repository won’t be processed if it hasn’t changed since the last time it was processed. Depending on the repository kind, this is checked in a different way. For Helm http based repositories, we consider it has changed if the `index.yaml` file changes (the `generated` field is ignored when performing this check). For git based repositories, it does when the hash of the last commit in the branch you set up changes.*
 
-## Official status
+# Official status
 
 In Artifact Hub, the `official` status means that the publisher **owns the software** a package primarily focuses on. If we consider the *example* of a [chart used to install Consul](https://artifacthub.io/packages/helm/hashicorp/consul), to obtain the `official` status the publisher should be the owner of the Consul software (*HashiCorp* in this case), not just the chart. Similarly, a [Tekton task used to perform operations on Google Cloud](https://artifacthub.io/packages/tekton-task/tekton-catalog-tasks/gcloud) would need to be published by *Google* to be marked as `official`. In the case of a MySQL operator, only one published by *MySQL/Oracle* would be considered `official`.
 
@@ -84,7 +86,7 @@ The `official` status can be granted at the repository or package level. When 
 
 Once you have verified that the requirements are met, please file an issue [using this template](https://github.com/artifacthub/hub/issues/new?assignees=\&labels=official+status+request\&template=official-status-request.md\&title=%5BOFFICIAL%5D+Your+repository+or+project+name) to apply.
 
-## Ownership claim
+# Ownership claim
 
 Any user is free to add any repository they wish to Artifact Hub. In some situations, legit owners may want to claim the ownership on an already published repository in order to publish it themselves. This process can be easily done in an automated way from the Artifact Hub control panel.
 
@@ -94,6 +96,6 @@ Once the repository metadata file has been set up, you can proceed from the Arti
 
 *Please note that the **artifacthub-repo.yml** metadata file must be located at the repository URL’s path. In Helm repositories, for example, this means it must be located at the same level of the chart repository **index.yaml** file, and it must be served from the chart repository HTTP server as well.*
 
-## Private repositories
+# Private repositories
 
 Artifact Hub supports adding private repositories (except OLM OCI based). By default this feature is disabled, but you can enable it in your own Artifact Hub deployment setting the `hub.server.allowPrivateRepositories` configuration setting to `true`. When enabled, you’ll be allowed to add the authentication credentials for the repository in the add/update repository modal in the control panel. Credentials are not exposed in the Artifact Hub UI, so users will need to get them separately. The installation instructions modal will display a warning to users when the package displayed belongs to a private repository.
