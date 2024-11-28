@@ -11,3 +11,34 @@ This workshop aims to introduce you to Terraform and the Terraform Provider for 
 With Terraform providers, you can streamline the provisioning of infrastructure components for Kubernetes clusters, enabling efficient automation for facility management. This simplifies deploying and maintaining Taikun environments, making scaling and managing facilities easier.
 
 # Annotations
+
+* Text in this form will be typed as is on the command line.
+
+```
+cd workshop/
+ls
+echo Hello!
+```
+
+* This form of text shows screen output, usually the output of commands.
+
+```
+task_00/
+task_01/
+...
+Hello!
+```
+
+* This format is for code in Terraform’s configuration language, HashiCorp Configuration Language (HCL).
+
+```
+resource "aws_instance" "example" {
+  ami = "abc123"
+
+  network_interface {
+    ...
+  }
+}
+```
+
+* **You may wish to skip reading information blocks if you are already familiar with Terraform and its configuration syntax.**
