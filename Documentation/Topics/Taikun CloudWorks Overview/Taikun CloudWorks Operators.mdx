@@ -1,9 +1,6 @@
 ---
 title: "Taikun CloudWorks Operators"
-description: "Description of your new file."
 ---
-
-#
 
 An operator in Taikun CloudWorks is a specialized controller that enhances the capabilities of the platform by automating the management and operation of specific applications or workloads. This operator is tailored to work seamlessly within the Taikun environment, providing an efficient and automated way to deploy, scale, and manage complex applications.
 
@@ -13,7 +10,7 @@ In Taikun CloudWorks, the deployment and management of Operators are seamlessly 
 
 For cluster administrators, the installation process involves using the web console or the Command-Line Interface (CLI). Subscribing an Operator to one or more namespaces ensures that the Operator becomes readily available to developers throughout the cluster. This streamlined process guarantees the efficient deployment and accessibility of Operators within the Taikun environment.
 
-## Pod placement of Operator workloads
+# Pod placement of Operator workloads
 
 By default, Operator Lifecycle Manager (OLM) places pods on arbitrary worker nodes when installing an Operator or deploying Operand workloads. As an administrator, you can use projects with a combination of node selectors, taints, and tolerations to control the placement of Operators and Operands to specific nodes.
 
