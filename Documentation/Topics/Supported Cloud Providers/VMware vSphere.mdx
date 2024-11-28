@@ -1,17 +1,13 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "VMware vSphere"
 ---
+<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
 
-# VMware vSphere
-
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/manager-icon.svg) Manager | ![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/icons/partner.svg) Partner
-
-## Overview
+# Overview
 
 *vSphere* is a virtualization platform developed by VMware. It enables organizations to create and manage virtualized IT environments, including virtual machines (VMs), on a large scale. It also provides features such as virtualization of compute, storage, and networking resources.
 
-## Connecting vSphere to Taikun
+# Connecting vSphere to Taikun
 
 1. Switch to the *Cloud credentials* in Taikun 
 
@@ -61,9 +57,7 @@ description: 'Description of your new file.'
 
   * *Allocation Range* – the range of IP addresses within a network that are available for assignment to devices or virtual machines. It consists of a starting IP address and an ending IP address, defining the range of usable addresses within the network subnet
 
-##### ℹ️&#xA; Info
-
-A public network is accessible from outside the vSphere environment, such as the internet or an external corporate network.
+<Info>A public network is accessible from outside the vSphere environment, such as the internet or an external corporate network.</Info>
 
 * Private Network:
 
@@ -75,14 +69,10 @@ A public network is accessible from outside the vSphere environment, such as the
 
   * *Allocation Range* – the range of IP addresses within a network that are available for assignment to devices or virtual machines. It consists of a starting IP address and an ending IP address, defining the range of usable addresses within the network subnet
 
-##### ℹ️&#xA; Info
-
-A private network is isolated and accessible only within the vSphere environment itself.
+<Info>A private network is isolated and accessible only within the vSphere environment itself.</Info>
 
 5\. Click *Add Cloud Credentials*.
 
-##### 📄&#xA; Note
-
-To prevent IP collisions, it’s important that the allocation ranges for all networks do not include the IP addresses of the hypervisors, which are 10.3.1.11 and 10.3.1.12. To mitigate any potential conflicts, it’s recommended to initiate the allocation range for the network 10.3.1.0 from 10.3.1.20.
+<Note>To prevent IP collisions, it’s important that the allocation ranges for all networks do not include the IP addresses of the hypervisors, which are 10.3.1.11 and 10.3.1.12. To mitigate any potential conflicts, it’s recommended to initiate the allocation range for the network 10.3.1.0 from 10.3.1.20.</Note>
 
 ![Taikun Requests](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/new-docs/managing-your-projects/vsphere/vsphere.teste.webp "Taikun Requests")
