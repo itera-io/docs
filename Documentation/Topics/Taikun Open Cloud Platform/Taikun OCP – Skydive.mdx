@@ -1,6 +1,8 @@
-# Taikun OCP – Skydive
+---
+title: "Taikun OCP – Skydive"
+---
 
-## Overview
+# Overview
 
 Skydive is an open-source real-time network topology and protocols analyzer. It aims to provide a comprehensive understanding of what is happening in the network infrastructure.
 
@@ -8,7 +10,7 @@ Skydive agents collect topology information, flow it, and forward it to a centra
 
 Skydive is SDN-agnostic but provides SDN drivers in order to enhance the topology and flows informations.
 
-## Topology Probes
+# Topology Probes
 
 Topology probes are used to construct the graph comprising:
 
@@ -16,7 +18,7 @@ Topology probes are used to construct the graph comprising:
 
 * Graph edges: depicted as straight lines (with arrowheads when directional)
 
-### Agent Topology Probes
+## Agent Topology Probes
 
 Probes which extract topological information from the host about host residing entities are agent probes:
 
@@ -46,7 +48,7 @@ Probes which extract topological information from the host about host residing e
 
 * VPP (vpp)
 
-### Analyzer Topology Probes
+## Analyzer Topology Probes
 
 Probes which extract topological information from a remote global entity are analyzer probes:
 
@@ -56,7 +58,7 @@ Probes which extract topological information from a remote global entity are ana
 
 * OVN (ovn)
 
-### K8s
+## K8s
 
 The k8s probe provides topological information.
 
@@ -96,7 +98,7 @@ Graph node status:
 
 * currently implemented for resources: pod, persistent volume claim (PVC) and persistent volume (PV)
 
-## Flow Probes supported
+# Flow Probes supported
 
 Flow probes currently implemented :
 
@@ -114,79 +116,76 @@ Flow probes currently implemented :
 
 * OpenvSwitch port mirroring
 
-## Architecture
+# Architecture
 
 <img height="785" width="821" src="https://b3662572.smushcdn.com/3662572/wp-content/uploads/2024/05/architecture.png?lossy=2&strip=1&webp=1" />
 
-
-
-### Graph engine
+## Graph engine
 
 Skydive relies on an event-based graph engine, meaning notifications are sent for each modification. Graphs expose notifications over WebSocket connections. Skydive supports multiple graph backends for the Graph. The `memory` backend will always be used by agents, while the analyzer backend can be chosen. Each modification is kept in the datastore so that we have a full history of the graph. This is really useful to troubleshoot even if interfaces do not exist anymore.
 
-### Topology probes
+## Topology probes
 
 Fill the graph with the topology information collected. Multiple probes fill the graph in parallel. For example, probes fill graphs with network namespaces, Netlink, or OVSDB information.
 
-### Flow table
+## Flow table
 
 Skydive keeps track of packets captured in flow tables. It allows Skydive to keep metrics for each flow. At a given frequency or when the flow expires (see the config file), the flows are forwarded from agents to analyzers and then to the datastore.
 
-### Flow enhancer
+## Flow enhancer
 
 Each time a new flow is received by the analyzer the flow is enhanced with topology informations like where it has been captured, where it originates from, where the packet is going to.
 
-### Flow probes
+## Flow probes
 
 Flow probes capture packets and fill agent flow tables. There are different ways to capture packets like sFlow, afpacket, PCAP, etc.
 
-### Gremlin engine
+## Gremlin engine
 
 Skydive uses Gremlin language as its graph traversal language. The Skydive Gremlin implementation allows to use Gremlin for flow traversal purpose. The Gremlin engine can either retrieve informations from the datastore or from agents depending whether the request is about something is the past or for live monitoring/troubleshooting.
 
-### Etcd
+## Etcd
 
 Skydive uses Etcd to store API objects like captures. Agents are watching Etcd so that they can react on API calls.
 
-### On-demand probes
+## On-demand probes
 
 This component watches Etcd and the graph in order to start captures. So when a new capture is created by the API on-demande probe looks for graph nodes matching the Gremlin expression, and if so, start capturing traffic.
 
-
-## Getting-started
+# Getting-started
 
 There are multiple ways to easily deploy Skydive, in this section we are going to explain the most common ways.
 
-## Downloading binary
+# Downloading binary
 
 The easiest way is to download a static binary of Skydive. There are two kind of binaries, one is built each time a feature or a bug fix is available [(continuous binary) ](https://github.com/skydive-project/skydive-binaries/blob/jenkins-builds/skydive-latest.gz), the others are provided for each [release ](https://github.com/skydive-project/skydive/releases).
 
 Since Skydive uses the same binary for all its component, one can use it as agent, analyzer or client.
 
-### All-in-One mode
+## All-in-One mode
 
 This mode start an analyzer and an agent at once.
 
 `$ skydive allinone `**`[`**`--conf etc/skydive.yml]`
 
-### Agent and Analyzer separately
+## Agent and Analyzer separately
 
 `skydive agent `**`[`**`--conf etc/skydive.yml]`
 
 `skydive analyzer `**`[`**`--conf etc/skydive.yml]`
 
-### Client
+## Client
 
 `skydive client`
 
-## Vagrant deployment
+# Vagrant deployment
 
 You can use Vagrant to deploy a Skydive environment with one virtual machine running both Skydive analyzer and Elasticsearch, and two virtual machines with the Skydive agent. This `Vagrantfile`, hosted in `contrib/vagrant` of the Git repository, makes use of the [libvirt Vagrant provider\]](https://github.com/vagrant-libvirt/vagrant-libvirt) and uses Fedora as the box image.
 
 cd contrib/vagrant
 `vagrant up`
 
-## Docker
+# Docker
 
 A Docker image is available on the [Skydive Docker Hub account ](https://hub.docker.com/r/skydive/).
 
@@ -200,13 +199,13 @@ To start the agent :
 `  -e SKYDIVE_ANALYZERS`**`=`**&#x6C;ocalhost:8082 \\
 `  -v /var/run/docker.sock:/var/run/docker.sock skydive/skydive agent`
 
-## Docker Compose
+# Docker Compose
 
 [Docker Compose](https://docs.docker.com/compose/) can also be used to automatically start an Elasticsearch container, a Skydive analyzer container and a Skydive agent container. The service definition is located in the `contrib/docker` folder of the Skydive sources.
 
 `docker-compose up`
 
-## Openstack/Devstack
+# Openstack/Devstack
 
 Skydive provides a DevStack plugin that can be used in order to have Skydive Agents/Analyzer set up with the proper probes by DevStack.
 
@@ -249,7 +248,7 @@ The plugin accepts the following parameters:
 *`# List of public interfaces for the agents to register in fabric`*
 *`#SKYDIVE_PUBLIC_INTERFACES="devstack1/eth0 devstack2/eth1"`*
 
-### The classical two nodes deployment
+## The classical two nodes deployment
 
 Inside the `devstack` folder of the [Skydive sources](https://github.com/skydive-project/skydive/tree/master/devstack) there are two local.conf files that can be used in order to deployment two Devstack with Skydive. The first file will install a full Devstack with Skydive analyzer and agent. The second one will install a compute Devstack with only the skydive agent.
 
@@ -261,9 +260,9 @@ where `devstack1` and `devstack2` are the hostnames of the two nodes followe
 
 Skydive will be set with the probes for OpenvSwitch and Neutron. It will be set to use Keystone as authentication mechanism, so the credentials will be the same than the admin.
 
-## Client & WebUI
+# Client & WebUI
 
-### Client
+## Client
 
 Skydive client can be used to interact with Skydive Analyzer and Agents. Running it without any command will return all the commands available.
 
@@ -339,13 +338,13 @@ $ skydive client query "G.V().Has('Name', 'br-int', 'Type' ,'ovsbridge')"
 
 Refer to the [Gremlin section](https://skydive.network/documentation/cli) for further explanations about the syntax and the functions available.
 
-### WebUI
+## WebUI
 
 To access to the WebUI of agents or analyzer :
 
 `http://<address>:<port>`
 
-### History and Datastore
+## History and Datastore
 
 Skydive can keep track of all the modifications of the topology and flows in a datastore. Skydive supports two backends: [Elasticsearch](https://www.elastic.co/products/elasticsearch) and [OrientDB](https://orientdb.com/).
 
@@ -358,20 +357,17 @@ storage:
 &#x20;   driver: elasticsearch
 &#x20;   host: 127.0.0.1:9200
 
-
 Then we need to use it as topology [backend](https://github.com/skydive-project/skydive/blob/master/etc/skydive.yml.default#L81):
 
 &#x20; topology:
 &#x20;   backend: myelasticsearch
-
 
 and as Flow [backend](https://github.com/skydive-project/skydive/blob/master/etc/skydive.yml.default#L74)
 
 &#x20; flow:
 &#x20;   backend: myelasticsearch
 
-
-### Grafana
+## Grafana
 
 In order to use the Grafana datasource plugin we need to use a data store, please see the upper section.
 
