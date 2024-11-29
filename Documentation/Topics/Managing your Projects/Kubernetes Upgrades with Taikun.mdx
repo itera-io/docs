@@ -1,5 +1,5 @@
 ---
-title: 'Kubernetes Upgrades with Taikun'
+title: "Kubernetes Upgrades with Taikun"
 ---
 
 Upgrading your Kubernetes cluster with Taikun ensures access to the latest features and security patches, essential for maintaining a robust and secure environment. Taikun supports various cloud providers, including OpenStack, AWS, Azure, GCE, Tanzu, OpenShift, Zadara and Zededa, allowing users to create bastion, worker, and master nodes for their Kubernetes clusters. When upgrading, it is crucial to have at least two worker nodes in addition to the bastion and master nodes. This configuration ensures that at least one healthy worker node remains available to maintain cluster functionality during the upgrade process. Taikun’s Kubernetes upgrade process follows a step-by-step procedure, providing a smooth transition between versions. When a user initiates an upgrade, the system updates the cluster to the next available version in sequence, guaranteeing compatibility and stability at each stage. If the cluster is healthy and the upgrade is successful, the upgrade button becomes available again, allowing the user to continue upgrading incrementally. This systematic process ensures that clusters remain stable and reliable throughout the upgrade.

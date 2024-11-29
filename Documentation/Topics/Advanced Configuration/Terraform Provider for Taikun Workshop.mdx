@@ -44,13 +44,17 @@ resource "aws_instance" "example" {
 * **You may wish to skip reading information blocks if you are already familiar with Terraform and its configuration syntax.**
 
 # Setup
+
 You will need to install Terraform and the workshop files to complete this workshop. There are two ways to do this. – Read Local setup if you wish to install Terraform and the workshop files locally. – Use the provided Docker image, which already contains everything you need.
 
 # Setup using Docker
 
 ## Local setup
+
 Requirements:
+
 * You must have Terraform version 0.14 or newer installed.
+
 * You will need Git to clone the provider’s repo.
 
 Installing Terraform:
@@ -130,6 +134,7 @@ All your work will be done in the workshop/directory. These are its initial cont
 |-- taikun_auth.auto.tfvars
 |-- variables.tf
 ```
+
 main.tf contains the Provider configuration, namely its source address and what credentials to use. You will not need to edit this file.
 
 ```
@@ -171,15 +176,16 @@ During this workshop, each task should be coded in a separate config file. Your 
 |-- users.tf
 ```
 
-## Authentication 
+## Authentication
 
-To complete the following tasks, you must provide Taikun credentials to Terraform. You will need a Partner account as some tasks, such as creating an organization, require Partner privileges. Input variables will be explained later in the workshop. For now, edit taikun_auth.auto.tfvars and replace the values of taikun_email and taikun_password with your credentials.
+To complete the following tasks, you must provide Taikun credentials to Terraform. You will need a Partner account as some tasks, such as creating an organization, require Partner privileges. Input variables will be explained later in the workshop. For now, edit taikun\_auth.auto.tfvars and replace the values of taikun\_email and taikun\_password with your credentials.
 
 ```
 # taikun_auth.auto.tfvars
 taikun_email = "jane.doe@itera.io"
 taikun_password = "PassWord123"
 ```
+
 To find out more about providing sensitive data to Terraform, see this Hashicorp tutorial.
 
 # Task 0: Organization
@@ -199,6 +205,7 @@ Initializing the backend...
 [...]
 Terraform has been successfully initialized!
 ```
+
 Once Terraform has been initialized correctly, you can declare your organization’s resources. Create ‘task0.tf’ and write the following configuration block to it.
 
 ```
@@ -208,17 +215,18 @@ resource "taikun_organization" "myorg" {
   discount_rate = 120
 }
 ```
+
 Be sure to replace and with names of your choosing. You can also choose another label instead of my org.
 
 <Tip>Notice the syntax of the configuration block, as you are creating a resource, it begins with the keyword resource, followed by its type between double quotes.</Tip>
 
-The resource type is always lowercase and prefixed by the provider’s name, thus “taikun_organization.”
+The resource type is always lowercase and prefixed by the provider’s name, thus “taikun\_organization.”
 
 Following the resource’s type is a label, it must be unique for this type of resource and is used to refer to this specific resource, as you will find out later.
 
 Watch out, this label does not correspond to the resource’s name in Taikun.
 
-Three arguments are then defined: name, full_name, and discount_rate. The argument’s identifier is on the left side of the equals sign, and its value is on the right.
+Three arguments are then defined: name, full\_name, and discount\_rate. The argument’s identifier is on the left side of the equals sign, and its value is on the right.
 
 See the documentation of Taikun’s organization resource for a complete list of arguments, i.e., the resource’s schema.
 
@@ -229,11 +237,13 @@ Run the following command to reformat your configuration in the standard style.
 ```
 terraform fmt
 ```
+
 Now apply your changes.Tip: If you have already created resources, applying will refresh Terraform’s state by requesting Taikun’s API. If you wish to check the validity of your changes without refreshing the state, you can run terraform validate.
 
 ```
 terraform apply
 ```
+
 You should get a validation error.
 
 ```
@@ -247,6 +257,7 @@ resources to create. After checking the plan is correct, type yes to execute it.
 ```
 terraform state list
 ```
+
 You can also display their content.
 
 ```
@@ -270,6 +281,7 @@ resource "taikun_organization" "myorg" {
     servers = 0
 }
 ```
+
 You may wish to check the organization was indeed created at app.taikun.cloud/organizations.Tip
 
 Try running terraform apply again, Terraform will refresh its state and, as long as nothing has changed, tell you that no changes are needed.
@@ -277,33 +289,37 @@ Try running terraform apply again, Terraform will refresh its state and, as long
 You can also try deleting the organization through the web UI, and running terraform apply. Terraform will tell you that changes have occurred outside of Terraform and recreate the resource.
 
 # Task 1: Kubernetes Profile
+
 <Info>For this task, please write your code in the file task1.tf at the root of the workshop/directory.</Info>
 
-Now that you have created an organization, you will create a Kubernetes profile belonging to it. Check the kubernetes_profile resource’s schema on the provider’s documentation and declare the resource in task1.tf. Set organization_id to the organization’s ID created in the previous task (see Task 0: Organization).
+Now that you have created an organization, you will create a Kubernetes profile belonging to it. Check the kubernetes\_profile resource’s schema on the provider’s documentation and declare the resource in task1.tf. Set organization\_id to the organization’s ID created in the previous task (see Task 0: Organization).
 
-Feel free to set some of kubernetes_profile’s other optional attributes, such as schedule_on_master and load_balancing_solution. Once you have declared your resource, apply your changes and move on to the next task.
+Feel free to set some of kubernetes\_profile’s other optional attributes, such as schedule\_on\_master and load\_balancing\_solution. Once you have declared your resource, apply your changes and move on to the next task.
 
-<Tip>To refer to the ID of your organization, use the following syntax. resource.taikun_organization.myorg.id Make sure to replace myorg if you used another label for your organization.</Tip>
+<Tip>To refer to the ID of your organization, use the following syntax. resource.taikun\_organization.myorg.id Make sure to replace myorg if you used another label for your organization.</Tip>
 
 # Task 2: Slack Configuration & Alerting Profile
+
 <Info>For this task, please write your code in the file task2.tf at the root of the workshop/directory.</Info>
 
 You will now create an alerting profile using a Slack configuration.
 
-1. Start by declaring a Slack configuration. Here is its documentation.Its hook URL should be https://hooks.myapp.example/ci. It must send alert-type notifications only to channel ci.
+1. Start by declaring a Slack configuration. Here is its documentation.Its hook URL should be [https://hooks.myapp.example/ci.](https://hooks.myapp.example/ci.) It must send alert-type notifications only to channel ci.
+
 2. You can now declare the alerting profile. Here is its documentation. The alerting profile should send notifications daily using the Slack configuration displayed above.
 
 <Tip>As always, your resources should belong to the organization created in Task 0: Organization.</Tip>
 Once you have declared these two new resources, apply your changes and move on to the next task.
 
 # Task 3: Cloud Credentials
+
 <Info>For this task, please write your code in the file task3.tf at the root of the workshop/directory. You will also be editing task3.auto.tfvars.Important</Info>
 
 You will need OpenStack credentials to complete this task.
 
 Cloud credentials are needed to create a Taikun project. In a natural work environment, cloud credentials should not be stored under version control Terraform’s input variables help solve this problem.
 
-Variables are declared in variables.tf by convention. This file declares the variables taikun_email and taikun_password used for authentication.
+Variables are declared in variables.tf by convention. This file declares the variables taikun\_email and taikun\_password used for authentication.
 
 ```
 # variables.tf
@@ -328,7 +344,7 @@ To know more about input variables and a complete list of arguments, see the Ter
 
 Variables are then defined in .tfvars files, as seen in the subsection Authentication.
 
-For simplicity, variables will be declared in the task/.tf files. Thus, in task3.tf*, insert the following variable declarations
+For simplicity, variables will be declared in the task/.tf files. Thus, in task3.tf\*, insert the following variable declarations
 
 ```
 variable "openstack_url" {
@@ -369,16 +385,16 @@ variable "openstack_project" {
 
 Now that the OpenStack variables have been declared define the variables in task3.auto.tfvars using your credentials.
 
-Terraform must be told through command line arguments which .tfvars files to read. However, if variable definition files have the extension .auto.tfvars, as is the case with taikun_auth.auto.tfvars, Terraform will automatically fetch the variables’ values.
+Terraform must be told through command line arguments which .tfvars files to read. However, if variable definition files have the extension .auto.tfvars, as is the case with taikun\_auth.auto.tfvars, Terraform will automatically fetch the variables’ values.
 
-<Tip>As a reminder, here is the syntax used in taikun_auth.auto.tfvars to define the variables taikun_email and taikun_password.</Tip>
+<Tip>As a reminder, here is the syntax used in taikun\_auth.auto.tfvars to define the variables taikun\_email and taikun\_password.</Tip>
 
 ```
 taikun_email = "jane.doe@itera.io"
 taikun_password = "PassWord123"
 ```
 
-<Tip>In order to get a variable’s value, use the syntax var.. For example, the following line sets the OpenStack domain in the cloud_credential_openstack resource.</Tip>
+<Tip>In order to get a variable’s value, use the syntax var.. For example, the following line sets the OpenStack domain in the cloud\_credential\_openstack resource.</Tip>
 
 ```
 domain = var.openstack_domain
@@ -389,9 +405,10 @@ Once you have declared your new resource, apply your changes and move on to the 
 <Info>As always, your resources should belong to the organization created in Task 0: Organization.</Info>
 
 # Task 4: Users
+
 <Note>For this task, please write your code in the file task4.tf at the root of the workshop/directory. You will also be editing users.tf and users.auto.tfvars.</Note>
 
-You will now add users to the Taikun organization. As the organization could have many users, you will use variables and the keyword for_each to avoid declaring multiple taikun_user blocks.
+You will now add users to the Taikun organization. As the organization could have many users, you will use variables and the keyword for\_each to avoid declaring multiple taikun\_user blocks.
 
 Add the following variable declaration to users.tf.
 
@@ -423,15 +440,15 @@ users = {
 }
 ```
 
-In this example, user accounts are defined for Alice and Bob. • Alice has a Manager account with the username alice and the email alice@gmail.com. • Bob has a User account with the username bob and the email bob@gmail.com.
+In this example, user accounts are defined for Alice and Bob. • Alice has a Manager account with the username alice and the email [alice@gmail.com](mailto:alice@gmail.com). • Bob has a User account with the username bob and the email [bob@gmail.com](mailto:bob@gmail.com).
 
-Now edit users.auto.tfvars and define three users. • -manager with Manager role and the email -manager@mail.example. • -user1 with User role and the email -user1@mail.example. • -user2 with User role and the email -user2@mail.example.
+Now edit users.auto.tfvars and define three users. • -manager with Manager role and the email [-manager@mail.example](mailto:-manager@mail.example). • -user1 with User role and the email [-user1@mail.example](mailto:-user1@mail.example). • -user2 with User role and the email [-user2@mail.example](mailto:-user2@mail.example).
 
 Replace with a name of your choosing.
 
-You can now declare the user resource in task4.tf, the users must belong to the organization created in Task 0: Organization. Here is its documentation. By using the for_each keyword, only one resource block is needed.
+You can now declare the user resource in task4.tf, the users must belong to the organization created in Task 0: Organization. Here is its documentation. By using the for\_each keyword, only one resource block is needed.
 
-<Tip>Here is an example using the for_each keyword. Consider a Terraform provider to order pizzas. Sup- pose the variable pizza_orders has the following definition.</Tip>
+<Tip>Here is an example using the for\_each keyword. Consider a Terraform provider to order pizzas. Sup- pose the variable pizza\_orders has the following definition.</Tip>
 
 ```
 pizza_orders = {
@@ -446,7 +463,7 @@ pizza_orders = {
 }
 ```
 
-Here is how it would be used with the for_each keyword in a pizza_order resource. 
+Here is how it would be used with the for\_each keyword in a pizza\_order resource.
 
 ```
 resource "pizza_order" "orders" {
@@ -457,11 +474,12 @@ resource "pizza_order" "orders" {
 }
 ```
 
-You can also have a look at Terraform’s for_each documentation.
+You can also have a look at Terraform’s for\_each documentation.
 
 Once you have declared the user resource, apply your changes and move on to the next task.
 
-# Task 5: Access Profile 
+# Task 5: Access Profile
+
 <Note>For this task, please write your code in the file task5.tf at the root of the workshop/directory. You will also be editing users.tf and users.auto.tfvars.</Note>
 
 Before creating your first project, you will need an access profile.
@@ -524,13 +542,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/8P0zXmI/Il81+/fnvGrf0X/VyNTrOJ9nQCxBxjc5m
 
 <Info>Within one access profile, the names of SSH users must be unique.</Info>
 
-You can now declare the taikun_access_profile resource in task5.tf. You will use for_each slightly differently, as ssh_user is a nested resource within the access_profile resource. Here is the documentation of the access profile resource.
+You can now declare the taikun\_access\_profile resource in task5.tf. You will use for\_each slightly differently, as ssh\_user is a nested resource within the access\_profile resource. Here is the documentation of the access profile resource.
 
 The access profile’s requirements are • It should use the DNS servers 8.8.8.8 and 1.1.1.1. • It should use the NTP server time.windows.com. • It should include all the SSH users defined in users.auto.tfvars.
 
-<Tip>While reading access profile’s schema, you may notice dns_server and ntp_server are of the type Block List.</Tip>
+<Tip>While reading access profile’s schema, you may notice dns\_server and ntp\_server are of the type Block List.</Tip>
 
-Returning to the pizza order example, here is how block lists are used. Suppose the pizza_order resource argues extra_topping defined as such:
+Returning to the pizza order example, here is how block lists are used. Suppose the pizza\_order resource argues extra\_topping defined as such:
 
 ```
  - extra_topping (Block List, Max: 5) List of extra pizza toppings. (see below for nested
@@ -563,7 +581,7 @@ resource "pizza_order" "orders" {
 
 Spoiler ahead!
 
-Solution: Add the following dynamic “ssh_user” block to your access profile’s configuration.
+Solution: Add the following dynamic “ssh\_user” block to your access profile’s configuration.
 
 ```
 resource "taikun_access_profile" "..." {
@@ -583,7 +601,7 @@ resource "taikun_access_profile" "..." {
 
 Once you have fully declared the access profile resource, apply your changes and move on to the next task.
 
-# Task 6: Project 
+# Task 6: Project
 
 <Note>For this task, please write all your code in the file task6.tf at the root of the workshop/directory.</Note>
 
@@ -615,7 +633,7 @@ You now have everything you need to create a project in Taikun. Here is its docu
 
 These are the requirements for the project resource: • As with all previous resources, it must belong to the organization created in Task 0: Organization. • It must use the Kubernetes profile defined in Task 1: Kubernetes Profile. • Its alerting profile must be defined in Task 2: Slack Configuration & Alerting Profile. • It should use the cloud credentials defined in Task 3: Cloud Credentials. • Monitoring must be enabled. • It should have one bastion, one kubemaster, and one kubeworker.
 
-<Tip>To access the first element of a list, use the syntax list[index]. For example, to get the first flavor read by the flavors datasource, use local.flavors[0].</Tip>
+<Tip>To access the first element of a list, use the syntax list\[index]. For example, to get the first flavor read by the flavors datasource, use local.flavors\[0].</Tip>
 
 After creating a project with Terraform, one may want to know its access IP. Once you have declared the project resource, add the following output block to task6.tf.
 
@@ -641,7 +659,7 @@ You can now apply your changes; expect to wait about 30 minutes for your project
 
 Now that your project is in a Ready state, you can attach some users to it.
 
-Declare a project user attachment resource with the following for_each argument, replacing it with the label you gave the taikun_user resource.
+Declare a project user attachment resource with the following for\_each argument, replacing it with the label you gave the taikun\_user resource.
 
 ```
 for_each = {
@@ -652,4 +670,4 @@ for_each = {
 
 With this block, you can only attach users with the User role to the project. To know more about this syntax, see the documentation for expressions.
 
-Finally, set the proper values for the user_id and **project_id arguments and apply your changes.
+Finally, set the proper values for the user\_id and \*\*project\_id arguments and apply your changes.
