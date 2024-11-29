@@ -13,6 +13,7 @@ Standalone Profiles set specific policies for creating Virtual Machines within y
 </Frame>
 
 ### Available Actions
+
 <AccordionGroup>
   <Accordion title="Unlock/lock" icon="unlock">
     Profile cannot be used if locked.
@@ -21,6 +22,7 @@ Standalone Profiles set specific policies for creating Virtual Machines within y
   <Accordion title="Update" icon="pencil">
     Edit profile properties.
   </Accordion>
+
   <Accordion title="Delete" icon="trash">
     Remove not used profile.
   </Accordion>
@@ -34,13 +36,17 @@ To create a new profile for accessing your Virtual Machine:
   <Step title="First Step">
     Head to the Standalone Profile section in the left-hand navigation panel.
   </Step>
+
   <Step title="Second Step">
     Press “+ Add Standalone Profile” icon in the top right corner.
   </Step>
+
   <Step title="Third Step">
     Specify the profile’s properties:
-      * Profile name
-      * Public key – insert public SSH key to access your VM
+
+    * Profile name
+
+    * Public key – insert public SSH key to access your VM
   </Step>
 </Steps>
 
@@ -48,25 +54,33 @@ You can add a Security Group to your Profile, if you want to allow SSH access:
 
 <Steps>
   <Step title="First Step">
-    Click "Add Group". 
+    Click "Add Group".
   </Step>
+
   <Step title="Second Step">
-    Choose a Name: use at least 3 alphanumeric characters.
+    **Choose a Name**: use at least 3 alphanumeric characters.
   </Step>
+
   <Step title="Third Step">
-    Choose a type of Protocol: 
-      * ICMP: reports errors, generating messages to the source IP 
-      * TCP: Uses the three-way handshake. Error-free data is more important than speed.
-      * UDP: Focused in speed, processing info as fast as possible. 
+    **Choose a type of Protocol**:
+
+    * **ICMP**: reports errors, generating messages to the source IP
+
+    * **TCP**: Uses the three-way handshake. Error-free data is more important than speed.
+
+    * **UDP**: Focused in speed, processing info as fast as possible.
   </Step>
+
   <Step title="Fourth Step">
-    Choose a Port Minimum Range and a Port Maximum Range: which port you want to allow access. Default port for SSH is 22.
+    **Choose a Port Minimum Range and a Port Maximum Range**: which port you want to allow access. Default port for SSH is 22.
   </Step>
+
   <Step title="Fifth Step">
-    Choose a Remote IP Prefix: Fill in the IP of the machine you want to allow use.
+    **Choose a Remote IP Prefix**: Fill in the IP of the machine you want to allow use.
   </Step>
+
   <Step title="Sixth Step">
-    Click "Add" in bottom right. 
+    Click "Add" in bottom right.
   </Step>
 </Steps>
 
