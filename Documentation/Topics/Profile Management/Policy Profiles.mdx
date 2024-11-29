@@ -62,26 +62,33 @@ Below is an overview of the types of actions that can be blocked by Policy Profi
   ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Profile%20Management/policy.profiles.webp)
 </Frame>
 
-# Add Policy Profile 
+# Add Policy Profile
 
 When adding a new Policy Profile, specify the following parameters:
 
 <AccordionGroup>
-  <Accordion title="Name">
+  <Accordion title="Name" icon="pencil">
     Choose a name for the profile.
   </Accordion>
-  <Accordion title="Features">
-        * Forbid NodePort– by choosing to forbid NodePort, you’re making sure that this method isn’t used to expose Services. This can be helpful for keeping things secure or ensuring specific networking rules are followed in your Kubernetes setup
-        * Forbid HTTP ingresses– activating this feature will require all Ingress resources to be HTTPS only, this means that any incoming traffic must be secured using the HTTPS protocol, and HTTP traffic will not be allowed. This requirement can enhance security by ensuring that communications between clients and the services exposed by Ingress are encrypted
-        * Require Probe– readiness probes ensure that a pod is ready to serve traffic, allowing Kubernetes services to route requests to it only when it’s ready to handle them. Liveness probes, on the other hand, check if a pod is still running as expected and, if not, can restart it automatically. So, by enforcing this policy, it ensures that pods have these crucial probes set up, promoting better reliability and resilience within your Kubernetes environment
-        * Unique Ingress- an Ingress resource defines how external traffic is routed to services within the cluster. Each rule within an Ingress specifies a host, and multiple rules can be defined within a single Ingress. By enforcing the Unique Ingress policy, it ensures that no two rules within the same Ingress resource can have the same host specified. This helps prevent conflicts and ensures clear and unambiguous routing of external traffic to the appropriate services within your Kubernetes cluster.
-        * Force Pod Resource- mandates all Kubernetes Pods to explicitly specify resource limits and requests for CPU and memory. Administrators or policies within the Kubernetes environment require that all Pods adhere to this best practice of explicitly defining resource requirements and limits. This helps ensure predictable performance and resource allocation across the cluster, preventing individual Pods from monopolizing resources or causing performance degradation for other workloads.
+
+  <Accordion title="Features" icon="database">
+    * Forbid NodePort– by choosing to forbid NodePort, you’re making sure that this method isn’t used to expose Services. This can be helpful for keeping things secure or ensuring specific networking rules are followed in your Kubernetes setup
+
+    * Forbid HTTP ingresses– activating this feature will require all Ingress resources to be HTTPS only, this means that any incoming traffic must be secured using the HTTPS protocol, and HTTP traffic will not be allowed. This requirement can enhance security by ensuring that communications between clients and the services exposed by Ingress are encrypted
+
+    * Require Probe– readiness probes ensure that a pod is ready to serve traffic, allowing Kubernetes services to route requests to it only when it’s ready to handle them. Liveness probes, on the other hand, check if a pod is still running as expected and, if not, can restart it automatically. So, by enforcing this policy, it ensures that pods have these crucial probes set up, promoting better reliability and resilience within your Kubernetes environment
+
+    * Unique Ingress- an Ingress resource defines how external traffic is routed to services within the cluster. Each rule within an Ingress specifies a host, and multiple rules can be defined within a single Ingress. By enforcing the Unique Ingress policy, it ensures that no two rules within the same Ingress resource can have the same host specified. This helps prevent conflicts and ensures clear and unambiguous routing of external traffic to the appropriate services within your Kubernetes cluster.
+
+    * Force Pod Resource- mandates all Kubernetes Pods to explicitly specify resource limits and requests for CPU and memory. Administrators or policies within the Kubernetes environment require that all Pods adhere to this best practice of explicitly defining resource requirements and limits. This helps ensure predictable performance and resource allocation across the cluster, preventing individual Pods from monopolizing resources or causing performance degradation for other workloads.
   </Accordion>
 
-  <Accordion title="Add">
-      * Allowed Repositories– if a policy profile specifies a list of approved repositories, only container images from these repositories (or subdomains of these repositories) would be permitted. Images from other repositories would be rejected
-      * Forbid Specific Tags– when a policy profile forbids specific tags, it ensures that container images with any of the listed tags are not allowed to be deployed within the Kubernetes cluster. This restriction can be useful for enforcing best practices related to security, stability, or compliance.
-      * Ingress Whitelist– only specific Ingress resources listed in the whitelist are allowed to be configured and utilized within the cluster. Any Ingress resources that are not explicitly listed in the whitelist will be restricted or denied.
+  <Accordion title="Add" icon="plus">
+    * Allowed Repositories– if a policy profile specifies a list of approved repositories, only container images from these repositories (or subdomains of these repositories) would be permitted. Images from other repositories would be rejected
+
+    * Forbid Specific Tags– when a policy profile forbids specific tags, it ensures that container images with any of the listed tags are not allowed to be deployed within the Kubernetes cluster. This restriction can be useful for enforcing best practices related to security, stability, or compliance.
+
+    * Ingress Whitelist– only specific Ingress resources listed in the whitelist are allowed to be configured and utilized within the cluster. Any Ingress resources that are not explicitly listed in the whitelist will be restricted or denied.
   </Accordion>
 </AccordionGroup>
 
