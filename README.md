@@ -10,9 +10,9 @@ Click on `Use this template` to copy the Mintlify starter kit. The starter kit c
 
 * API Reference pages
 
-* Use of popular componentsa
+* Use of popular components
 
-* use of popular&#x20;
+* test test test
 
 ### Development
 
