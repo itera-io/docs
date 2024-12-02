@@ -12,6 +12,8 @@ Click on `Use this template` to copy the Mintlify starter kit. The starter kit c
 
 * Use of popular components
 
+* help me prosim
+
 ### Development
 
 Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
