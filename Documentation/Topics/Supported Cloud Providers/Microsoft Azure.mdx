@@ -20,13 +20,13 @@ Before adding the Azure account, you must create an application registration wit
 
 <Info>The provided instructions are specific to Linux. It might look different from another operating system.</Info>
 
-1. If you haven’t installed Azure CLI, you can do it with the following command:
+#### 1) If you haven’t installed Azure CLI, you can do it with the following command:
 
 ```
 sudo apt install azure-cli -y
 ```
 
-2. Login
+#### 2) Login
 
 ```
 sudo apt-get install azure-cli
@@ -67,7 +67,7 @@ You’ll need to fetch the Azure Subscription ID (**“id”**) and Azure Tenant
 "tenantId": "32xxxxb3-xxx-46b3-xxxx-0exxxxc46d1"
 ```
 
-1. Create a new Azure App with the following command:
+#### 3) Create a new Azure App with the following command:
 
 ```
 az ad app create --display-name kubernetes --identifier-uris http://kubernetes --homepage [http://example.com](http://example.com) --password CLIENT_SECRET
@@ -114,10 +114,9 @@ CLI output will look like this: 
 ```
 
 You’ll need to use the “appID” parameter from this output. In our example, it would be:
+"appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558"
 
-`"appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558"`
-
-1. Create a service principal for the app:
+#### 4) Create a service principal for the app:
 
 ```
 az ad sp create --id appId
@@ -145,7 +144,7 @@ CLI output example:
 ...
 ```
 
-1. Create a role assignment:
+#### 5) Create a role assignment:
 
 ```
 az role assignment create --role "Owner" --assignee http://kubernetes --subscription SUBSCRIPTION_ID</code>
