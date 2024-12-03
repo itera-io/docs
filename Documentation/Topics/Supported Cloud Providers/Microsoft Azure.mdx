@@ -4,23 +4,32 @@ title: "Microsoft Azure"
 
 # Overview
 
-[Microsoft Azure](https://azure.microsoft.com/), commonly referred to as Azure, is a comprehensive cloud computing platform provided by Microsoft. It offers a wide range of services and tools for building, deploying, and managing applications and services through Microsoft’s global network of data centers.
+Microsoft Azure, commonly referred to as Azure, is a comprehensive cloud computing platform provided by Microsoft. It offers a wide range of services and tools for building, deploying, and managing applications and services through Microsoft’s global network of data centers.
 
-## Requirements for Microsoft Azure
+<Card title="Microsoft Azure" icon="a" horizontal={true} href="https://azure.microsoft.com/">
+  HERE you can learn more about Microsoft Azure.
+</Card>
 
-Before adding the Azure account, you must create an application registration with commands. ([source](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/cloud_providers/azure.md))
+# Requirements for Microsoft Azure
 
-##### ℹ️&#xA; Info
+Before adding the Azure account, you must create an application registration with commands.
 
-The provided instructions are specific to Linux. It might look different from another operating system.
+<Card title="Microsoft Azure" icon="a" horizontal={true} href="https://github.com/kubernetes-sigs/kubespray/blob/master/docs/cloud_providers/azure.md">
+  HERE is link on GitHub with Azure commands.
+</Card>
+
+<Info>The provided instructions are specific to Linux. It might look different from another operating system.</Info>
 
 1\) If you haven’t installed Azure CLI, you can do it with the following command:
 
-`sudo apt install azure-cli -y`
-
+```
+sudo apt install azure-cli -y
+```
 2\) Login
 
-`sudo apt-get install azure-cli`
+```
+sudo apt-get install azure-cli
+```
 
 You will be redirected to an Azure page where you can choose your account:
 
@@ -28,20 +37,22 @@ You will be redirected to an Azure page where you can choose your account:
 
 CLI output will be similar to this: 
 
-`[`
-`  {`
-`    "cloudName": "AzureCloud",`
-`    "id": "c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6",`
-`    "isDefault": true,`
-`    "name": "Bezplatná zkušební verze",`
-`    "state": "Enabled",`
-`    "tenantId": "32xxxxb3-xxx-46b3-xxxx-0exxxxc46d1",`
-`    "user": {`
-`      "name": "usermail@gmail.com",`
-`      "type": "user"`
-`    }`
-`  }`
-`]`
+```
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "c0xxxxa5-xxx-4ecb-xxxx-f37bxxxx28d6",
+    "isDefault": true,
+    "name": "Bezplatná zkušební verze",
+    "state": "Enabled",
+    "tenantId": "32xxxxb3-xxx-46b3-xxxx-0exxxxc46d1",
+    "user": {
+      "name": "usermail@gmail.com",
+      "type": "user"
+    }
+  }
+]
+```
 
 You’ll need to fetch the Azure Subscription ID (**“id”**) and Azure Tenant ID (**“tenantID”**) fields from the output. Here’s what we would use in our test instance:
 
