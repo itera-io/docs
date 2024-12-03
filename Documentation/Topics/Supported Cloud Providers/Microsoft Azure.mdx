@@ -117,7 +117,7 @@ You’ll need to use the “appID” parameter from this output. In our example,
 
 `"appId": "7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558"`
 
-4) Create a service principal for the app:
+1. Create a service principal for the app:
 
 ```
 az ad sp create --id appId
@@ -130,6 +130,7 @@ az ad sp create -id 7bxxxxc3-xxxx-4d74-xxxx-8c40xxxb558
 ```
 
 CLI output example:
+
 ```
 {
   "accountEnabled": true,
@@ -143,7 +144,8 @@ CLI output example:
 }
 ...
 ```
-5) Create a role assignment:
+
+1. Create a role assignment:
 
 ```
 az role assignment create --role "Owner" --assignee http://kubernetes --subscription SUBSCRIPTION_ID</code>
@@ -156,6 +158,7 @@ az role assignment create --role "Owner" --assignee http://kubernetes --subscrip
 ```
 
 You’ll find the following CLI output:
+
 ```
 {
   "canDelegate": null,
@@ -168,6 +171,7 @@ You’ll find the following CLI output:
   "type": "Microsoft.Authorization/roleAssignments"
 }
 ```
+
 Please be careful when inserting the credentials. You cannot add flavor and create a cluster if you add incorrect credentials.
 
 You can switch to Taikun and add your Azure credentials now:
@@ -182,14 +186,20 @@ Follow these steps to add Azure Cloud Credentials:
   <Step title="First Step">
     Switch to **Cloud credentials** in Taikun
   </Step>
+
   <Step title="Second Step">
     Hit **Add Cloud Credentials** in the top-right corner
   </Step>
+
   <Step title="Third Step">
     Specify the necessary parameters in the **Azure** section:
+
     * Cloud Name – choose a name for your Cloud Credentials (3-30 characters, e.g. cloud-test)
+
     * Azure Client ID
+
     * Azure Client Secret
+
     * Azure Tenant ID
   </Step>
 </Steps>
@@ -211,51 +221,47 @@ Please be careful when inserting the credentials. You cannot add flavor and crea
 * Azure Active Directory – App registrations – All Applications – *application* -> Application (client) ID (=Azure Client Id) and Directory (tenant) ID (Azure Tenant Id)
 
 <Frame caption="Azure Active Directory">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-1.webp)
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-tenant-id-1.webp)
 </Frame>
 
 <Frame caption="Azure client secrets">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-2.webp)
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-tenant-id-2.webp)
 </Frame>
 
 * Azure Active Directory – App registrations – All Applications – *application* – Certificates & secrets – Client secrets -> Value (=Azure Secret Id)
 
-<Frame caption="Add Azure Cloud Credentials">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure.2.webp)
+<Frame caption="Azure Secret Id">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-1.webp)
 </Frame>
 
-Azure Secret Id
-
-<Frame caption="Add Azure Cloud Credentials">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure.2.webp)
+<Frame caption="">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-2.webp)
 </Frame>
 
-<Frame caption="Add Azure Cloud Credentials">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure.2.webp)
+<Frame caption="">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-3.webp)
 </Frame>
 
-<Frame caption="Add Azure Cloud Credentials">
-  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure.2.webp)
+<Frame caption="">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-client-secret-4.webp)
 </Frame>
 
-##### 🔥&#xA; Warning
+<Warning>Client Secret is shown only for the first time, we recommend to save it somewhere else.</Warning>
 
-Client Secret is shown only for the first time, we recommend to save it somewhere else.
+## Azure Subscription Id
 
-##### Azure Subscription Id
-
-##### 📄&#xA; Note
-
-Subscription is chosen from the drop-down selection, but you can find below where to find your Subscription ID.
+<Note>Subscription is chosen from the drop-down selection, but you can find below where to find your Subscription ID.</Note>
 
 * Subscriptions -> Subscription ID (=Azure Subscription Id)
 
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-subscription-1.webp "Azure 1: Subscription")
+<Frame caption="Azure Subscription">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-subscription-1.webp)
+</Frame>
 
-Azure Subscription
+<Frame caption="Azure Subscription Id">
+  ![](https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/Documentation/Images/Supported%20Cloud%20Providers/azure-subscription-2.webp)
+</Frame>
 
-![](https://rgw.cloudpoint.tcpro.cz/swift/v1/KEY_0efe203c42c0402f9402a570302dc066/doc-images/guidelines/add-cc/where-to-find-cc/azure-subscription-2.webp "Azure 2: Subscription ID")
-
-Azure Subscription Id
-
-More information is provided in the [Azure guideline](https://www.inkoop.io/blog/how-to-get-azure-api-credentials/)
+<Card title="Microsoft Azure" icon="a" horizontal={true} href="https://www.inkoop.io/blog/how-to-get-azure-api-credentials/">
+  More information is provided in the Azure guideline HERE.
+</Card>
