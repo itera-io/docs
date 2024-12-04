@@ -22,22 +22,42 @@ Before importing your existing Kubernetes cluster into Taikun CloudWorks, it’s
 
 ## 2. Create a new Taikun CloudWorks project by importing a kubeconfig
 
-**Step 1: Create a new Taikun CloudWorks project** Log in to the Taikun CloudWorks and locate the “Projects” section and press “Add Project” button.
+<Steps>
+  <Step title="Step 1: Create a new Taikun CloudWorks project">
+    Log in to the Taikun CloudWorks and locate the “Projects” section and press the “Add Project” button.
+  </Step>
 
-**Step 2: Provide Cluster Details** Enter the credentials and details for the existing Kubernetes cluster, including the cluster’s address and authentication information.
+  <Step title="Step 2: Provide Cluster Details">
+    Enter the credentials and details for the existing Kubernetes cluster, including the cluster’s address and authentication information.
+  </Step>
 
-**Step 3: Obtain the kubeconfig File. Retrieve the kubeconfig file from the Kubernetes cluster.** This file will establish a secure connection between Taikun CloudWorks and the imported cluster.
+  <Step title="Step 3: Obtain the kubeconfig File">
+    Retrieve the kubeconfig file from the Kubernetes cluster. This file will establish a secure connection between Taikun CloudWorks and the imported cluster.
+  </Step>
 
-**Step 4: Complete Import Process** Follow the on-screen prompts to finalize the import process. Taikun CloudWorks will establish a secure connection with the imported Kubernetes cluster, making it manageable from the Taikun CloudWorks platform.
+  <Step title="Step 4: Complete Import Process">
+    Follow the on-screen prompts to finalize the import process. Taikun CloudWorks will establish a secure connection with the imported Kubernetes cluster, making it manageable from the Taikun CloudWorks platform.
+  </Step>
+</Steps>
 
 ## 3. Managing your Kubernetes cluster within Taikun CloudWorks
 
-**Resource Utilization:** Monitor resource utilization metrics to make informed decisions on optimizing performance.
+<CardGroup cols={2}>
+  <Card title="Resource Utilization" icon="chart-line">
+    Monitor resource utilization metrics to make informed decisions on optimizing performance. Taikun CloudWorks provides visibility into CPU, memory, and storage usage for better resource management.
+    
+  </Card>
 
-**Application Management:** Utilize Taikun CloudWorks to efficiently manage applications deployed on the imported Kubernetes cluster. Access deployment details, monitor application health, and perform application-specific tasks from a centralized interface.
+  <Card title="Application Management" icon="app-store">
+    Utilize Taikun CloudWorks to efficiently manage applications deployed on the imported Kubernetes cluster. Access deployment details, monitor application health, and perform application-specific tasks from a centralized interface.
+  </Card>
 
-**Resource Utilization:** Monitor resource utilization metrics to make informed decisions on optimizing performance. Taikun CloudWorks provides visibility into CPU, memory, and storage usage for better resource management.
+  <Card title="Cost Monitoring and Billing" icon="dollar-sign">
+    Leverage Taikun CloudWorks’ cost monitoring features to track resource usage and associated costs. Gain insights into resource consumption patterns, enabling effective cost management and budgeting.
+    
+  </Card>
 
-**Cost Monitoring and Billing:** Leverage Taikun CloudWorks’ cost monitoring features to track resource usage and associated costs. Gain insights into resource consumption patterns, enabling effective cost management and budgeting.
-
-**Backup and Recovery:** To ensure data resilience, explore backup and recovery options within Taikun CloudWorks. Implement backup strategies and schedule automated backups to safeguard critical data and configurations. In data loss, use Taikun CloudWorks to streamline recovery processes.
+  <Card title="Backup and Recovery" icon="database">
+    To ensure data resilience, explore backup and recovery options within Taikun CloudWorks. Implement backup strategies and schedule automated backups to safeguard critical data and configurations. In data loss, use Taikun CloudWorks to streamline recovery processes.
+  </Card>
+</CardGroup>
