@@ -52,24 +52,26 @@ A minimal Ingress resource example:
 
 [`service/networking/minimal-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/minimal-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: minimal-ingress`
-`  annotations:`
-`    nginx.ingress.kubernetes.io/rewrite-target: /`
-`spec:`
-`  ingressClassName: nginx-example`
-`  rules:`
-`  - http:`
-`      paths:`
-`      - path: /testpath`
-`        pathType: Prefix`
-`        backend:`
-`          service:`
-`            name: test`
-`            port:`
-`              number: 80`
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
+```
 
 An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields. The name of an Ingress object must be a valid [DNS subdomain name](https://kubernetes.io/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). For general information about working with config files, see [deploying applications](https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/). Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md). Different [Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for your choice of Ingress controller to learn which annotations are supported.
 
@@ -103,42 +105,47 @@ A `Resource` backend is an ObjectRef to another Kubernetes resource within the
 
 [`service/networking/ingress-resource-backend.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-resource-backend.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: ingress-resource-backend`
-`spec:`
-`  defaultBackend:`
-`    resource:`
-`      apiGroup: k8s.example.com`
-`      kind: StorageBucket`
-`      name: static-assets`
-`  rules:`
-`    - http:`
-`        paths:`
-`          - path: /icons`
-`            pathType: ImplementationSpecific`
-`            backend:`
-`              resource:`
-`                apiGroup: k8s.example.com`
-`                kind: StorageBucket`
-`                name: icon-assets`
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-resource-backend
+spec:
+  defaultBackend:
+    resource:
+      apiGroup: k8s.example.com
+      kind: StorageBucket
+      name: static-assets
+  rules:
+    - http:
+        paths:
+          - path: /icons
+            pathType: ImplementationSpecific
+            backend:
+              resource:
+                apiGroup: k8s.example.com
+                kind: StorageBucket
+                name: icon-assets
+
+```
 
 After creating the Ingress above, you can view it with the following command:
 
-`kubectl describe ingress ingress-resource-backend`
+```bash
+kubectl describe ingress ingress-resource-backend
 
-`Name:             ingress-resource-backend`
-`Namespace:        default`
-`Address:`
-`Default backend:  APIGroup: k8s.example.com, Kind: StorageBucket, Name: static-assets`
-`Rules:`
-`  Host        Path  Backends`
-`  ----        ----  --------`
-`  *`
-`              /icons   APIGroup: k8s.example.com, Kind: StorageBucket, Name: icon-assets`
-`Annotations:  <none>`
-`Events:       <none>`
+Name:             ingress-resource-backend
+Namespace:        default
+Address:
+Default backend:  APIGroup: k8s.example.com, Kind: StorageBucket, Name: static-assets
+Rules:
+  Host        Path  Backends
+  ----        ----  --------
+  *
+              /icons   APIGroup: k8s.example.com, Kind: StorageBucket, Name: icon-assets
+Annotations:  <none>
+Events:       <none>
+```
 
 ## Path types
 
