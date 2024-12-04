@@ -493,6 +493,7 @@ spec:
             port:
               number: 80
 ```
+
 TLS
 
 You can secure an Ingress by specifying a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that contains a TLS private key and certificate. The Ingress resource only supports a single TLS port, 443, and assumes TLS termination at the ingress point (traffic to the Service and its Pods is in plaintext). If the TLS configuration section in an Ingress specifies different hosts, they are multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named `tls.crt` and `tls.key` that contains the certificate and private key to use for TLS. For example:
@@ -536,7 +537,7 @@ spec:
             name: service1
             port:
               number: 80
-```          
+```
 
 **Note:** There is a gap between TLS features supported by various Ingress controllers. Please refer to documentation on [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other platform-specific Ingress controller to understand how TLS works in your environment.
 
@@ -550,9 +551,10 @@ It’s also worth noting that even though health checks are not exposed directly
 
 To update an existing Ingress to add a new Host, you can update it by editing the resource:
 
-`kubectl describe ingress test`
 
 ```plaintext
+kubectl describe ingress test
+
 Name:             test
 Namespace:        default
 Address:          178.91.123.132
@@ -573,10 +575,8 @@ Copy code
 ```
 
 
-
-
-
-`kubectl edit ingress test`
+```plaintext
+kubectl edit ingress test
 
 This pops up an editor with the existing configuration in YAML format. Modify it to include the new Host:
 
@@ -602,12 +602,13 @@ This pops up an editor with the existing configuration in YAML format. Modify it
 `              number: 80`
 `        path: /foo`
 `        pathType: Prefix`
-`..`
+```
 
 After you save your changes, kubectl updates the resource in the API server, which tells the Ingress controller to reconfigure the load balancer.
 
 Verify this:
 
+```plaintext
 `kubectl describe ingress test`
 
 `Name:             test`
@@ -627,7 +628,7 @@ Verify this:
 `  Type     Reason  Age                From                     Message`
 `  ----     ------  ----               ----                     -------`
 `  Normal   ADD     45s                loadbalancer-controller  default/test`
-
+```
 `You can achieve the same outcome by invoking kubectl replace -f on a modified Ingress YAML file.`
 
 # Failing across availability zones
