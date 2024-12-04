@@ -163,27 +163,26 @@ Each path in an Ingress is required to have a corresponding path type. Paths tha
 
 This table outlines how various Kubernetes Ingress path types and configurations match request paths.
 
-| Kind       | Path(s)            | Request Path(s)   | Matches?                                 |
-| ---------- | ------------------ | ----------------- | ---------------------------------------- |
-| Prefix     | `/`                | (all paths)       | Yes                                      |
-| Exact      | `/foo`             | `/foo`            | Yes                                      |
-| Exact      | `/foo`             | `/bar`            | No                                       |
-| Exact      | `/foo`             | `/foo/`           | No                                       |
-| Exact      | `/foo/`            | `/foo`            | No                                       |
-| Prefix     | `/foo`             | `/foo, /foo/`     | Yes                                      |
-| Prefix     | `/foo/`            | `/foo, /foo/`     | Yes                                      |
-| Prefix     | `/aaa/bb`          | `/aaa/bbb`        | No                                       |
-| Prefix     | `/aaa/bbb`         | `/aaa/bbb`        | Yes                                      |
-| Prefix     | `/aaa/bbb/`        | `/aaa/bbb`        | Yes, ignores trailing slash              |
-| Prefix     | `/aaa/bbb`         | `/aaa/bbb/`       | Yes, matches trailing slash              |
-| Prefix     | `/aaa/bbb`         | `/aaa/bbb/ccc`    | Yes, matches subpath                     |
-| Prefix     | `/aaa/bbb`         | `/aaa/bbbxyz`     | No, does not match string prefix         |
-| Prefix     | `/, /aaa`          | `/aaa/ccc`        | Yes, matches `/aaa` prefix               |
-| Prefix     | `/, /aaa, /aaa/bbb`| `/aaa/bbb`        | Yes, matches `/aaa/bbb` prefix           |
-| Prefix     | `/, /aaa, /aaa/bbb`| `/ccc`            | Yes, matches `/` prefix                  |
-| Prefix     | `/aaa`             | `/ccc`            | No, uses default backend                 |
-| Mixed      | `/foo (Prefix), /foo (Exact)` | `/foo` | Yes, prefers Exact                        |
-
+| Kind   | Path(s)                       | Request Path(s) | Matches?                         |
+| ------ | ----------------------------- | --------------- | -------------------------------- |
+| Prefix | `/`                           | (all paths)     | Yes                              |
+| Exact  | `/foo`                        | `/foo`          | Yes                              |
+| Exact  | `/foo`                        | `/bar`          | No                               |
+| Exact  | `/foo`                        | `/foo/`         | No                               |
+| Exact  | `/foo/`                       | `/foo`          | No                               |
+| Prefix | `/foo`                        | `/foo, /foo/`   | Yes                              |
+| Prefix | `/foo/`                       | `/foo, /foo/`   | Yes                              |
+| Prefix | `/aaa/bb`                     | `/aaa/bbb`      | No                               |
+| Prefix | `/aaa/bbb`                    | `/aaa/bbb`      | Yes                              |
+| Prefix | `/aaa/bbb/`                   | `/aaa/bbb`      | Yes, ignores trailing slash      |
+| Prefix | `/aaa/bbb`                    | `/aaa/bbb/`     | Yes, matches trailing slash      |
+| Prefix | `/aaa/bbb`                    | `/aaa/bbb/ccc`  | Yes, matches subpath             |
+| Prefix | `/aaa/bbb`                    | `/aaa/bbbxyz`   | No, does not match string prefix |
+| Prefix | `/, /aaa`                     | `/aaa/ccc`      | Yes, matches `/aaa` prefix       |
+| Prefix | `/, /aaa, /aaa/bbb`           | `/aaa/bbb`      | Yes, matches `/aaa/bbb` prefix   |
+| Prefix | `/, /aaa, /aaa/bbb`           | `/ccc`          | Yes, matches `/` prefix          |
+| Prefix | `/aaa`                        | `/ccc`          | No, uses default backend         |
+| Mixed  | `/foo (Prefix), /foo (Exact)` | `/foo`          | Yes, prefers Exact               |
 
 ### Multiple matches
 
@@ -195,69 +194,67 @@ Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (fo
 
 HostHost headerMatch?
 
-`*.foo.com`
+# Kubernetes Host Matching Table
 
-`bar.foo.com`
+This table explains how Kubernetes Ingress host matching works based on the `Host` header.
 
-Matches based on shared suffix
+| Host         | Host Header         | Match?                                        |
+| ------------ | ------------------- | --------------------------------------------- |
+| `*.foo.com`  | `bar.foo.com`       | Matches based on shared suffix               |
+| `*.foo.com`  | `baz.bar.foo.com`   | No match, wildcard only covers a single DNS label |
+| `*.foo.com`  | `foo.com`           | No match, wildcard only covers a single DNS label |
 
-`*.foo.com`
-
-`baz.bar.foo.com`
-
-No match, wildcard only covers a single DNS label
-
-`*.foo.com`
-
-`foo.com`
 
 No match, wildcard only covers a single DNS label
 
 [`service/networking/ingress-wildcard-host.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-wildcard-host.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: ingress-wildcard-host`
-`spec:`
-`  rules:`
-`  - host: "foo.bar.com"`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/bar"`
-`        backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 80`
-`  - host: "*.foo.com"`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/foo"`
-`        backend:`
-`          service:`
-`            name: service2`
-`            port:`
-`              number: 80`
-
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-wildcard-host
+spec:
+  rules:
+  - host: "foo.bar.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
+  - host: "*.foo.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/foo"
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
+```
 # Ingress class
 
 Ingresses can be implemented by different controllers, often with various configurations. Each Ingress should specify a class, a reference to an IngressClass resource that contains additional configuration including the name of the controller that should implement the class.
 
 [`service/networking/external-lb.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/external-lb.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: IngressClass`
-`metadata:`
-`  name: external-lb`
-`spec:`
-`  controller: example.com/ingress-controller`
-`  parameters:`
-`    apiGroup: k8s.example.com`
-`    kind: IngressParameters`
-`    name: external-lb`
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com
+    kind: IngressParameters
+    name: external-lb
+```
 
 The `.spec.parameters` field of an IngressClass lets you reference another resource that provides configuration related to that IngressClass.
 
@@ -277,22 +274,25 @@ If you set the `.spec.parameters` field and don’t set `.spec.parameters.sco
 
 For example:
 
-`---`
-`apiVersion: networking.k8s.io/v1`
-`kind: IngressClass`
-`metadata:`
-`  name: external-lb-1`
-`spec:`
-`  controller: example.com/ingress-controller`
-`  parameters:`
-`    # The parameters for this IngressClass are specified in a`
-`    # ClusterIngressParameter (API group k8s.example.net) named`
-`    # "external-config-1". This definition tells Kubernetes to`
-`    # look for a cluster-scoped parameter resource.`
-`    scope: Cluster`
-`    apiGroup: k8s.example.net`
-`    kind: ClusterIngressParameter`
-`    name: external-config-1`
+
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-1
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # The parameters for this IngressClass are specified in a
+    # ClusterIngressParameter (API group k8s.example.net) named
+    # "external-config-1". This definition tells Kubernetes to
+    # look for a cluster-scoped parameter resource.
+    scope: Cluster
+    apiGroup: k8s.example.net
+    kind: ClusterIngressParameter
+    name: external-config-1
+```
 
 ## Deprecated annotation
 
