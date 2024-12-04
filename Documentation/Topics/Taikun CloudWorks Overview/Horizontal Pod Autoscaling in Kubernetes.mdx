@@ -16,7 +16,9 @@ There is a [walkthrough example](https://kubernetes.io/docs/tasks/run-applicati
 
 # How does a HorizontalPodAutoscaler work?
 
-<img height="322" width="723" src="https://b3662572.smushcdn.com/3662572/wp-content/uploads/2024/06/Screenshot-from-2024-06-17-10-34-06.png?lossy=2&strip=1&webp=1" />
+<Frame caption="Horizontal Pod Autoscaler">
+  <img height="322" width="723" src="https://b3662572.smushcdn.com/3662572/wp-content/uploads/2024/06/Screenshot-from-2024-06-17-10-34-06.png?lossy=2&strip=1&webp=1" />
+</Frame>
 
 HorizontalPodAutoscaler controls the scale of a Deployment and its ReplicaSet
 
@@ -117,6 +119,7 @@ resource:
     type: Utilization
     averageUtilization: 60
 ```
+
 In the above example, the HPA controller scales the target such that the average utilization of the CPU in the `application` container of all the pods is 60%.
 
 **Note:**
