@@ -12,7 +12,7 @@ Click on `Use this template` to copy the Mintlify starter kit. The starter kit c
 
 * Use of popular components
 
-* changing this file more more 
+* changing this file more more mor ermo oemro er
 
 ### Development
 
