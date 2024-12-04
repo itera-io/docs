@@ -10,21 +10,25 @@ When deploying an application to the cluster, you can expose it externally throu
 
 Set the `service.type` to `NodePort` in the application’s configuration.
 
+```yaml
 service:
 type: NodePort
+```
 
 ## 2. Enable Ingress for the Application
 
 Enable ingress by setting `ingress.enabled` to `true`.
-
+```yaml
 ingress:
 enabled: true
-
+```
 ## 3. Specify the Ingress Class Name
 
 Set the ingress class name to `taikun` to inform the cluster to use the taikun ingress controller for exposing the application.
 
+```yaml
 ingressClassName: taikun
+```
 
 ## 4. Set the Ingress Hostname
 
@@ -37,10 +41,10 @@ Define `ingress.hostName` in the following format: `name.<access-ip>.nip.io`, wh
 * `<access-ip>` is the IP address through which the application will be accessible.
 
 **Example:**
-
+```yaml
 ingress:
 hostName: myapp.192.168.1.100.nip.io
-
+```
 In this example:
 
 * `myapp` is the user-defined name.
@@ -52,10 +56,10 @@ In this example:
 If you are using `vcluster`, which uses an access IP in the format `vc-01.vcluster.b916618f.nip.io`, you do not need to add `.nip.io` to `ingress.hostName`. Use the vcluster’s specific hostname directly.
 
 **Example:**
-
+```yaml
 ingress:
 hostName: myapp.vc-01.vcluster.b916618f.nip.io
-
+```
 ## 5. Accessing the Application
 
 Once deployed and configured, you can access the application via the following URLs:
@@ -69,7 +73,7 @@ Replace `name` and `<access-ip>` with the actual values used in your configurati
 # Example Configuration
 
 Below is a complete sample YAML configuration:
-
+```yaml
 service:
 type: NodePort
 
@@ -77,7 +81,7 @@ ingress:
 enabled: true
 ingressClassName: taikun
 hostName: myapp.192.168.1.100.nip.io
-
+```
 # Additional Notes
 
 * Ensure that DNS resolution is configured correctly, pointing `<access-ip>` to the bastion’s public IP.
