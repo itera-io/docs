@@ -109,13 +109,14 @@ The HorizontalPodAutoscaler API also supports a container metric source where th
 
 If you revise the target resource to have a new Pod specification with a different set of containers, you should revise the HPA spec if that newly added container is also used for scaling. If the specified container in the metric source is not present or only in a subset of the pods, then those pods are ignored, and the recommendation is recalculated. See the [Algorithm](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details about the calculation. To use container resources for autoscaling define a metric source as follows:
 
-`type: Resource`
-`resource:`
-`  name: cpu`
-`  target:`
-`    type: Utilization`
-`    averageUtilization: 60`
-
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
 In the above example, the HPA controller scales the target such that the average utilization of the CPU in the `application` container of all the pods is 60%.
 
 **Note:**
@@ -174,15 +175,17 @@ You can specify a *stabilization window* that prevents [flapping](https://kub
 
 One or more scaling policies can be specified in the `behavior` section of the spec. When multiple policies are specified, the policy that allows the highest amount of change is the policy that is selected by default. The following example shows this behavior while scaling down:
 
-`behavior:`
-`  scaleDown:`
-`    policies:`
-`    - type: Pods`
-`      value: 4`
-`      periodSeconds: 60`
-`    - type: Percent`
-`      value: 10`
-`      periodSeconds: 60`
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Pods
+      value: 4
+      periodSeconds: 60
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true. The maximum value that you can set for `periodSeconds` is 1800 (half an hour). The first policy *(Pods)* allows at most 4 replicas to be scaled down in one minute. The second policy *(Percent)* allows at most 10% of the current replicas to be scaled down in one minute.
 
