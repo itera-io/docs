@@ -199,9 +199,11 @@ The stabilization window restricts the [flapping](https://kubernetes.io/docs/ta
 
 For example, in the following example snippet, a stabilization window is specified for `scaleDown`.
 
-`behavior:`
-`  scaleDown:`
-`    stabilizationWindowSeconds: 300`
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+```
 
 When the metrics indicate that the target should be scaled down, the algorithm looks into previously computed desired states and uses the highest value from the specified interval. All desired states from the past 5 minutes will be considered in the above example.
 
@@ -211,23 +213,25 @@ This approximates a rolling maximum and avoids having the scaling algorithm freq
 
 To use the custom scaling, not all fields have to be specified. Only values that need to be customized can be specified. These custom values are merged with default values, which match the existing behavior in the HPA algorithm.
 
-`behavior:`
-`  scaleDown:`
-`    stabilizationWindowSeconds: 300`
-`    policies:`
-`    - type: Percent`
-`      value: 100`
-`      periodSeconds: 15`
-`  scaleUp:`
-`    stabilizationWindowSeconds: 0`
-`    policies:`
-`    - type: Percent`
-`      value: 100`
-`      periodSeconds: 15`
-`    - type: Pods`
-`      value: 4`
-`      periodSeconds: 15`
-`    selectPolicy: Max`
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
 
 For scaling down the stabilization window is *300* seconds (or the value of the `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy for scaling down, which allows 100% of the currently running replicas to be removed, which means the scaling target can be scaled down to the minimum allowed replicas. For scaling up, there is no stabilization window. When the metrics indicate that the target should be scaled up the target is scaled up immediately. There are 2 policies where 4 pods, or 100% of the currently running replicas, may at most be added every 15 seconds till the HPA reaches its steady state.
 
@@ -235,41 +239,49 @@ For scaling down the stabilization window is *300* seconds (or the value of th
 
 To provide a custom downscale stabilization window of 1 minute, the following behavior would be added to the HPA:
 
-`behavior:`
-`  scaleDown:`
-`    stabilizationWindowSeconds: 60`
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 60
+```
 
 ## Example: limit scale-down rate
 
 To limit the rate at which pods are removed by the HPA to 10% per minute, the following behavior would be added to the HPA:
 
-`behavior:`
-`  scaleDown:`
-`    policies:`
-`    - type: Percent`
-`      value: 10`
-`      periodSeconds: 60`
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
 
 To ensure that no more than 5 Pods are removed per minute, you can add a second scale-down policy with a fixed size of 5 and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means that the autoscaler chooses the policy that affects the smallest number of Pods:
 
-`behavior:`
-`  scaleDown:`
-`    policies:`
-`    - type: Percent`
-`      value: 10`
-`      periodSeconds: 60`
-`    - type: Pods`
-`      value: 5`
-`      periodSeconds: 60`
-`    selectPolicy: Min`
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+    - type: Pods
+      value: 5
+      periodSeconds: 60
+    selectPolicy: Min
+```
 
 ## Example: disable scale down
 
 The `selectPolicy` value of `Disabled` turns off scaling in the given direction. So to prevent downscaling the following policy would be used:
 
-`behavior:`
-`  scaleDown:`
-`    selectPolicy: Disabled`
+```yaml
+behavior:
+  scaleDown:
+    selectPolicy: Disabled
+```
 
 # Support for HorizontalPodAutoscaler in kubectl
 
