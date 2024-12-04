@@ -70,30 +70,32 @@ Finally, right before HPA scales the target, the scale recommendation is recorde
 
 # API Object
 
-The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling` API group. The current stable version can be found in the `autoscaling/v2` API version which includes support for scaling on memory and custom metrics. The new fields introduced in `autoscaling/v2` are preserved as annotations when working with `autoscaling/v1`.
+The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling` API group. The current stable version can be found in the `autoscaling/v2` API version which includes support for scaling on memory and custom metrics. The new fields introduced  `autoscaling/v2` are preserved as annotations when working with `autoscaling/v1`.
 
 When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid [DNS subdomain name](https://kubernetes.io/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). More details about the API object can be found at [HorizontalPodAutoscaler Object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#horizontalpodautoscaler-v2-autoscaling).
 
 # Stability of workload scale
 
-When managing the scale of a group of replicas using the HorizontalPodAutoscaler, it is possible that the number of replicas keeps fluctuating frequently due to the dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*, or *flapping*. It’s similar to the concept of *hysteresis* in cybernetics.
+When managing the scale of a group of replicas using the HorizontalPodAutoscaler, it is possible that the number of replicas keeps fluctuating frequently due to the dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing* or *flapping*. It’s similar to the concept of *hysteresis* in cybernetics.
 
-# Autoscaling during rolling update
+# Autoscaling during a rolling update
 
-Kubernetes lets you perform a rolling update on a Deployment. In that case, the Deployment manages the underlying ReplicaSets for you. When you configure autoscaling for a Deployment, you bind a HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler manages the `replicas` field of the Deployment. The deployment controller is responsible for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable number during the rollout and also afterwards.
+Kubernetes lets you perform a rolling update on a Deployment. In that case, the Deployment manages the underlying ReplicaSets for you. When configuring autoscaling for a Deployment, you bind a HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler manages the `replicas` Deployment field. The deployment controller is responsible for setting  `replicas` the underlying ReplicaSets so that they add up to a suitable number during the rollout and  the underlying ReplicaSets so that they add up to a suitable number during the rollout and afterwards.
 
 If you perform a rolling update of a StatefulSet that has an autoscaled number of replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource similar to ReplicaSet).
 
 # Support for resource metrics
 
-Any HPA target can be scaled based on the resource usage of the pods in the scaling target. When defining the pod specification the resource requests like `cpu` and `memory` should be specified. This is used to determine the resource utilization and used by the HPA controller to scale the target up or down. To use resource utilization based scaling specify a metric source like this:
+Any HPA target can be scaled based on the resource usage of the pods in the scaling target. When defining the pod specification, the resource requests like `cpu` and `memory` should be specified. This is used to determine the resource utilization and used by the HPA controller to scale the target up or down. To use resource utilization-based scaling specify a metric source like this:
 
-`type: Resource`
-`resource:`
-`  name: cpu`
-`  target:`
-`    type: Utilization`
-`    averageUtilization: 60`
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
 
 With this metric, the HPA controller will keep the average utilization of the pods in the scaling target at 60%. Utilization is the ratio between the current usage of a resource and the requested resources of the pod. See [Algorithm](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details about how utilization is calculated and averaged.
 
