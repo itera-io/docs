@@ -2,7 +2,6 @@
 title: "Tasks and Pipelines in Taikun CloudWorks"
 ---
 
-
 Taikun CloudWorks empowers to streamline the development lifecycle with its advanced capabilities in creating and managing CI/CD pipelines directly within its web interface.
 
 **Key Features:**
@@ -27,28 +26,11 @@ Tekton Pipelines is a Kubernetes extension that installs and runs on your Kubern
 
 Tekton Pipelines defines the following entities:
 
-EntityDescription
-
-`Task`
-
-Defines a series of steps which launch specific build or delivery tools that ingest specific inputs and produce specific outputs.
-
-`TaskRun`
-
-Instantiates a `Task` for execution with specific inputs, outputs, and execution parameters. Can be invoked on its own or as part of a `Pipeline`.
-
-`Pipeline`
-
-Defines a series of `Tasks` that accomplish a specific build or delivery goal. Can be triggered by an event or invoked from a `PipelineRun`.
-
-`PipelineRun`
-
-Instantiates a `Pipeline` for execution with specific inputs, outputs, and execution parameters.
-
-`PipelineResource (Deprecated)`
-
-Defines locations for inputs ingested and outputs produced by the steps in `Tasks`.
-
-`Run` (alpha)
-
-Instantiates a Custom Task for execution when specific inputs.
+| Entity                         | Description                           |
+| -----------------------------  | ------------------------------------- |
+| Task                           | Defines a series of steps which launch specific build or delivery tools that ingest specific inputs and produce specific outputs.                    |
+| TaskRun                        | Instantiates a Task for execution with specific inputs, outputs, and execution parameters. Can be invoked on its own or as part of a Pipeline.                          |
+| Pipeline                       | Defines a series of Tasks that accomplish a specific build or delivery goal. Can be triggered by an event or invoked from a PipelineRun. |
+| PipelineRun                    | Instantiates a Pipeline for execution with specific inputs, outputs, and execution parameters.|
+| PipelineResources (Deprecated) | Defines locations for inputs ingested and outputs produced by the steps in Tasks.|
+| Run (alpha)                    | Instantiates a Custom Task for execution when specific inputs.|
