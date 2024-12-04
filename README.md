@@ -12,7 +12,7 @@ Click on `Use this template` to copy the Mintlify starter kit. The starter kit c
 
 * Use of popular components
 
-* chadas more more more more
+* chadas more more more moresdfsdfsdfsf
 
 ### Development
 
