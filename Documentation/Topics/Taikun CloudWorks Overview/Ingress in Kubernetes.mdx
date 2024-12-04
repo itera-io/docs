@@ -198,12 +198,11 @@ HostHost headerMatch?
 
 This table explains how Kubernetes Ingress host matching works based on the `Host` header.
 
-| Host         | Host Header         | Match?                                        |
-| ------------ | ------------------- | --------------------------------------------- |
-| `*.foo.com`  | `bar.foo.com`       | Matches based on shared suffix               |
-| `*.foo.com`  | `baz.bar.foo.com`   | No match, wildcard only covers a single DNS label |
-| `*.foo.com`  | `foo.com`           | No match, wildcard only covers a single DNS label |
-
+| Host        | Host Header       | Match?                                            |
+| ----------- | ----------------- | ------------------------------------------------- |
+| `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
+| `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
+| `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
 
 No match, wildcard only covers a single DNS label
 
@@ -237,6 +236,7 @@ spec:
             port:
               number: 80
 ```
+
 # Ingress class
 
 Ingresses can be implemented by different controllers, often with various configurations. Each Ingress should specify a class, a reference to an IngressClass resource that contains additional configuration including the name of the controller that should implement the class.
@@ -273,7 +273,6 @@ The default scope for IngressClass parameters is cluster-wide.
 If you set the `.spec.parameters` field and don’t set `.spec.parameters.scope`, or if you set `.spec.parameters.scope` to `Cluster`, then the IngressClass refers to a cluster-scoped resource. The `kind` (in combination with the `apiGroup`) of the parameters refers to a cluster-scoped API (possibly a custom resource), and the `name` of the parameters identifies a specific cluster-scoped resource for that API.
 
 For example:
-
 
 ```yaml
 ---
@@ -422,32 +421,34 @@ The following Ingress tells the backing load balancer to route requests based on
 
 [`service/networking/name-virtual-host-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: name-virtual-host-ingress`
-`spec:`
-`  rules:`
-`  - host: foo.bar.com`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/"`
-`        backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 80`
-`  - host: bar.foo.com`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/"`
-`        backend:`
-`          service:`
-`            name: service2`
-`            port:`
-`              number: 80`
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
+  - host: bar.foo.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
+```
 
 If you create an Ingress resource without any hosts defined in the rules, then any web traffic to the IP address of your Ingress controller can be matched without a name-based virtual host being required.
 
@@ -455,55 +456,58 @@ For example, the following Ingress routes traffic requested for `first.bar.com`
 
 [`service/networking/name-virtual-host-ingress-no-third-host.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress-no-third-host.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: name-virtual-host-ingress-no-third-host`
-`spec:`
-`  rules:`
-`  - host: first.bar.com`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/"`
-`        backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 80`
-`  - host: second.bar.com`
-`    http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/"`
-`        backend:`
-`          service:`
-`            name: service2`
-`            port:`
-`              number: 80`
-`  - http:`
-`      paths:`
-`      - pathType: Prefix`
-`        path: "/"`
-`        backend:`
-`          service:`
-`            name: service3`
-`            port:`
-`              number: 80`
-
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress-no-third-host
+spec:
+  rules:
+  - host: first.bar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
+  - host: second.bar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service3
+            port:
+              number: 80
+```
 TLS
 
 You can secure an Ingress by specifying a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that contains a TLS private key and certificate. The Ingress resource only supports a single TLS port, 443, and assumes TLS termination at the ingress point (traffic to the Service and its Pods is in plaintext). If the TLS configuration section in an Ingress specifies different hosts, they are multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named `tls.crt` and `tls.key` that contains the certificate and private key to use for TLS. For example:
 
-`apiVersion: v1`
-`kind: Secret`
-`metadata:`
-`  name: testsecret-tls`
-`  namespace: default`
-`data:`
-`  tls.crt: base64 encoded cert`
-`  tls.key: base64 encoded key`
-`type: kubernetes.io/tls`
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testsecret-tls
+  namespace: default
+data:
+  tls.crt: base64 encoded cert
+  tls.key: base64 encoded key
+type: kubernetes.io/tls
+```
 
 Referencing this secret in an Ingress tells the Ingress controller to secure the channel from the client to the load balancer using TLS. You need to make sure the TLS secret you created came from a certificate that contains a Common Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
 
@@ -511,26 +515,28 @@ Referencing this secret in an Ingress tells the Ingress controller to secure the
 
 [`service/networking/tls-example-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/tls-example-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: tls-example-ingress`
-`spec:`
-`  tls:`
-`  - hosts:`
-`      - https-example.foo.com`
-`    secretName: testsecret-tls`
-`  rules:`
-`  - host: https-example.foo.com`
-`    http:`
-`      paths:`
-`      - path: /`
-`        pathType: Prefix`
-`        backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 80`
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tls-example-ingress
+spec:
+  tls:
+  - hosts:
+      - https-example.foo.com
+    secretName: testsecret-tls
+  rules:
+  - host: https-example.foo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
+```          
 
 **Note:** There is a gap between TLS features supported by various Ingress controllers. Please refer to documentation on [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other platform-specific Ingress controller to understand how TLS works in your environment.
 
@@ -546,21 +552,29 @@ To update an existing Ingress to add a new Host, you can update it by editing th
 
 `kubectl describe ingress test`
 
-`Name:             test`
-`Namespace:        default`
-`Address:          178.91.123.132`
-`Default backend:  default-http-backend:80 (10.8.2.3:8080)`
-`Rules:`
-`  Host         Path  Backends`
-`  ----         ----  --------`
-`  foo.bar.com`
-`               /foo   service1:80 (10.8.0.90:80)`
-`Annotations:`
-`  nginx.ingress.kubernetes.io/rewrite-target:  /`
-`Events:`
-`  Type     Reason  Age                From                     Message`
-`  ----     ------  ----               ----                     -------`
-`  Normal   ADD     35s                loadbalancer-controller  default/test`
+```plaintext
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   service1:80 (10.8.0.90:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     35s                loadbalancer-controller  default/test
+Copy code
+
+```
+
+
+
+
 
 `kubectl edit ingress test`
 
