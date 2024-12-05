@@ -20,22 +20,24 @@ As an administrator, you can specify a default StorageClass that applies to any 
 
 Here’s an example of a StorageClass:
 
-[`storage/storageclass-low-latency.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/storage/storageclass-low-latency.yaml)![](https://kubernetes.io/images/copycode.svg)
+[storage/storageclass-low-latency.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/storage/storageclass-low-latency.yaml)
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: low-latency`
-`  annotations:`
-`    storageclass.kubernetes.io/is-default-class: "false"`
-`provisioner: csi-driver.example-vendor.example`
-`reclaimPolicy: Retain # default value is Delete`
-`allowVolumeExpansion: true`
-`mountOptions:`
-`  - discard # this might enable UNMAP / TRIM at the block storage layer`
-`volumeBindingMode: WaitForFirstConsumer`
-`parameters:`
-`  guaranteedReadWriteLatency: "true" # provider-specific`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: low-latency
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: csi-driver.example-vendor.example
+reclaimPolicy: Retain # default value is Delete
+allowVolumeExpansion: true
+mountOptions:
+  - discard # this might enable UNMAP / TRIM at the block storage layer
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  guaranteedReadWriteLatency: "true" # provider-specific
+```
 
 # Default StorageClass
 
@@ -59,67 +61,18 @@ In order to keep binding to PVs with `storageClassName` set to `""` (while a
 
 Each StorageClass has a provisioner that determines what volume plugin is used for provisioning PVs. This field must be specified.
 
-Volume PluginInternal ProvisionerConfig Example
-
-AzureFile
-
-✓
-
-[Azure File](https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file)
-
-CephFS
-
-–
-
-–
-
-FC
-
-–
-
-–
-
-FlexVolume
-
-–
-
-–
-
-iSCSI
-
-–
-
-–
-
-Local
-
-–
-
-[Local](https://kubernetes.io/docs/concepts/storage/storage-classes/#local)
-
-NFS
-
-–
-
-[NFS](https://kubernetes.io/docs/concepts/storage/storage-classes/#nfs)
-
-PortworxVolume
-
-✓
-
-[Portworx Volume](https://kubernetes.io/docs/concepts/storage/storage-classes/#portworx-volume)
-
-RBD
-
-–
-
-[Ceph RBD](https://kubernetes.io/docs/concepts/storage/storage-classes/#ceph-rbd)
-
-VsphereVolume
-
-✓
-
-[vSphere](https://kubernetes.io/docs/concepts/storage/storage-classes/#vsphere)
+| Volume Plugin | Internal Provisioner | Config Example  |
+| ------------- | -------------- | --------------- |
+| AzureFile     | ✓              | Azure File      |
+| CephFS        | Block          | -               |
+| FC            | Filesystem     | -               |
+| FlexVolume    | unspecified    | -               |
+| iSCSI         | Block          | -               |
+| Local         | Filesystem     | Local           |
+| NFS           | Filesystem     | NFS             |
+| PortworxVolume| ✓              | Portworx Volume |
+| RBD           | unspecified    | Ceph RBD        |
+| VsphereVolume | ✓              | vSphere         |
 
 You are not restricted to specifying the “internal” provisioners listed here (whose names are prefixed with “kubernetes.io” and shipped alongside Kubernetes). You can also run and specify external provisioners, which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md) defined by Kubernetes. Authors of external provisioners have full discretion over where their code lives, how the provisioner is shipped, how it needs to be run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner) houses a library for writing external provisioners that implements the bulk of the specification. Some external provisioners are listed under the repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
 
