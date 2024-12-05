@@ -131,26 +131,28 @@ If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod
 
 Instead, you can use node selector for `kubernetes.io/hostname`:
 
-`apiVersion: v1`
-`kind: Pod`
-`metadata:`
-`  name: task-pv-pod`
-`spec:`
-`  nodeSelector:`
-`    kubernetes.io/hostname: kube-01`
-`  volumes:`
-`    - name: task-pv-storage`
-`      persistentVolumeClaim:`
-`        claimName: task-pv-claim`
-`  containers:`
-`    - name: task-pv-container`
-`      image: nginx`
-`      ports:`
-`        - containerPort: 80`
-`          name: "http-server"`
-`      volumeMounts:`
-`        - mountPath: "/usr/share/nginx/html"`
-`          name: task-pv-storage`
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 # Allowed topologies
 
@@ -158,20 +160,22 @@ When a cluster operator specifies the `WaitForFirstConsumer` volume binding mo
 
 This example demonstrates how to restrict the topology of provisioned volumes to specific zones and should be used as a replacement for the `zone` and `zones` parameters for the supported plugins.
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: standard`
-`provisioner: kubernetes.io/example`
-`parameters:`
-`  type: pd-standard`
-`volumeBindingMode: WaitForFirstConsumer`
-`allowedTopologies:`
-`- matchLabelExpressions:`
-`  - key: topology.kubernetes.io/zone`
-`    values:`
-`    - us-central-1a`
-`    - us-central-1b`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard
+provisioner: kubernetes.io/example
+parameters:
+  type: pd-standard
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.kubernetes.io/zone
+    values:
+    - us-central-1a
+    - us-central-1b
+```
 
 # Parameters
 
@@ -189,36 +193,40 @@ The Kubernetes project suggests that you use the [AWS EBS](https://github.com/k
 
 Here is an example StorageClass for the AWS EBS CSI driver:
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: ebs-sc`
-`provisioner: ebs.csi.aws.com`
-`volumeBindingMode: WaitForFirstConsumer`
-`parameters:`
-`  csi.storage.k8s.io/fstype: xfs`
-`  type: io1`
-`  iopsPerGB: "50"`
-`  encrypted: "true"`
-`allowedTopologies:`
-`- matchLabelExpressions:`
-`  - key: topology.ebs.csi.aws.com/zone`
-`    values:`
-`    - us-east-2c`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  csi.storage.k8s.io/fstype: xfs
+  type: io1
+  iopsPerGB: "50"
+  encrypted: "true"
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.ebs.csi.aws.com/zone
+    values:
+    - us-east-2c
+```
 
 ## NFS
 
 To configure NFS storage, you can use the in-tree driver or the [NFS CSI driver for Kubernetes](https://github.com/kubernetes-csi/csi-driver-nfs#readme) (recommended).
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: example-nfs`
-`provisioner: example.com/external-nfs`
-`parameters:`
-`  server: nfs-server.example.com`
-`  path: /share`
-`  readOnly: "false"`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: "false"
+```
 
 * `server`: Server is the hostname or IP address of the NFS server.
 
@@ -270,23 +278,25 @@ There are a few [vSphere examples](https://github.com/kubernetes/examples/tree/
 
 This internal provisioner of Ceph RBD is deprecated. Please use the [CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: fast`
-`provisioner: kubernetes.io/rbd`
-`parameters:`
-`  monitors: 10.16.153.105:6789`
-`  adminId: kube`
-`  adminSecretName: ceph-secret`
-`  adminSecretNamespace: kube-system`
-`  pool: kube`
-`  userId: kube`
-`  userSecretName: ceph-secret-user`
-`  userSecretNamespace: default`
-`  fsType: ext4`
-`  imageFormat: "2"`
-`  imageFeatures: "layering"`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: kubernetes.io/rbd
+parameters:
+  monitors: 10.16.153.105:6789
+  adminId: kube
+  adminSecretName: ceph-secret
+  adminSecretNamespace: kube-system
+  pool: kube
+  userId: kube
+  userSecretName: ceph-secret-user
+  userSecretNamespace: default
+  fsType: ext4
+  imageFormat: "2"
+  imageFeatures: "layering"
+```
 
 * `monitors`: Ceph monitors, comma delimited. This parameter is required.
 
@@ -320,15 +330,17 @@ The Kubernetes project suggests using the [Azure Disk](https://github.com/kuber
 
 ## Azure File (deprecated)
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: azurefile`
-`  provisioner: kubernetes.io/azure-file`
-`  parameters:`
-`    skuName: Standard_LRS`
-`      location: eastus`
-`        storageAccount: azure_storage_account_name`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azurefile
+  provisioner: kubernetes.io/azure-file
+  parameters:
+    skuName: Standard_LRS
+      location: eastus
+        storageAccount: azure_storage_account_name
+```
 
 * `skuName`: Azure storage account SKU tier. The default is empty.
 
@@ -348,15 +360,17 @@ In a multi-tenancy context, it is strongly recommended that you set the value fo
 
 ## Portworx volume (deprecated)
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: portworx-io-priority-high`
-`provisioner: kubernetes.io/portworx-volume`
-`parameters:`
-`  repl: "1"`
-`  snap_interval: "70"`
-`  priority_io: "high"`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: portworx-io-priority-high
+provisioner: kubernetes.io/portworx-volume
+parameters:
+  repl: "1"
+  snap_interval: "70"
+  priority_io: "high"
+```
 
 * `fs`: filesystem to be laid out: `none/xfs/ext4` (default: `ext4`).
 
@@ -374,12 +388,14 @@ In a multi-tenancy context, it is strongly recommended that you set the value fo
 
 ## Local
 
-`apiVersion: storage.k8s.io/v1`
-`kind: StorageClass`
-`metadata:`
-`  name: local-storage`
-`provisioner: kubernetes.io/no-provisioner`
-`volumeBindingMode: WaitForFirstConsumer`
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
 
 Local volumes do not support dynamic provisioning in Kubernetes 1.29. However, a StorageClass should still be created to delay volume binding until a Pod is actually scheduled to the appropriate node. The WaitForFirstConsumer volume binding mode specifies this.
 
