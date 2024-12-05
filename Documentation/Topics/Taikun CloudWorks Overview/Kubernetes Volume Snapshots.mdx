@@ -68,14 +68,16 @@ Deletion is triggered by deleting the `VolumeSnapshot` object, and the `Delet
 
 Each VolumeSnapshot contains a spec and a status.
 
-`apiVersion: snapshot.storage.k8s.io/v1`
-`kind: VolumeSnapshot`
-`metadata:`
-`  name: new-snapshot-test`
-`spec:`
-`  volumeSnapshotClassName: csi-hostpath-snapclass`
-`  source:`
-`    persistentVolumeClaimName: pvc-test`
+```
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: new-snapshot-test
+spec:
+  volumeSnapshotClassName: csi-hostpath-snapclass
+  source:
+    persistentVolumeClaimName: pvc-test
+```
 
 `persistentVolumeClaimName` is the name of the PersistentVolumeClaim data source for the snapshot. This field is required for dynamically provisioning a snapshot.
 
@@ -83,51 +85,57 @@ A volume snapshot can request a particular class by specifying the name of a [V
 
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
 
-`apiVersion: snapshot.storage.k8s.io/v1`
-`kind: VolumeSnapshot`
-`metadata:`
-`  name: test-snapshot`
-`spec:`
-`  source:`
-`    volumeSnapshotContentName: test-content`
+```
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: test-snapshot
+spec:
+  source:
+    volumeSnapshotContentName: test-content
+```
 
 # Volume Snapshot Contents
 
 Each VolumeSnapshotContent contains a spec and status. In dynamic provisioning, the snapshot common controller creates `VolumeSnapshotContent` objects. Here is an example:
 
-`apiVersion: snapshot.storage.k8s.io/v1`
-`kind: VolumeSnapshotContent`
-`metadata:`
-`  name: snapcontent-72d9a349-aacd-42d2-a240-d775650d2455`
-`spec:`
-`  deletionPolicy: Delete`
-`  driver: hostpath.csi.k8s.io`
-`  source:`
-`    volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002`
-`  sourceVolumeMode: Filesystem`
-`  volumeSnapshotClassName: csi-hostpath-snapclass`
-`  volumeSnapshotRef:`
-`    name: new-snapshot-test`
-`    namespace: default`
-`    uid: 72d9a349-aacd-42d2-a240-d775650d2455`
+```
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: snapcontent-72d9a349-aacd-42d2-a240-d775650d2455
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotClassName: csi-hostpath-snapclass
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+    uid: 72d9a349-aacd-42d2-a240-d775650d2455
+```
 
 `volumeHandle` is the unique identifier of the volume created on the storage backend and returned by the CSI driver during the volume creation. This field is required for dynamically provisioning a snapshot. It specifies the volume source of the snapshot.
 
 For pre-provisioned snapshots, you (as cluster administrator) are responsible for creating the `VolumeSnapshotContent` object as follows.
 
-`apiVersion: snapshot.storage.k8s.io/v1`
-`kind: VolumeSnapshotContent`
-`metadata:`
-`  name: new-snapshot-content-test`
-`spec:`
-`  deletionPolicy: Delete`
-`  driver: hostpath.csi.k8s.io`
-`  source:`
-`    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002`
-`  sourceVolumeMode: Filesystem`
-`  volumeSnapshotRef:`
-`    name: new-snapshot-test`
-`    namespace: default`
+```
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
 
 `snapshotHandle` is the unique identifier of the volume snapshot created on the storage backend. This field is required for the pre-provisioned snapshots. It specifies the CSI snapshot id on the storage system that this `VolumeSnapshotContent` represents.
 
@@ -141,7 +149,9 @@ If the `VolumeSnapshots` API installed on your cluster supports the `sourceVo
 
 To check if your cluster has capability for this feature, run the following command:
 
-`$ kubectl get crd volumesnapshotcontent -o yaml`
+```
+$ kubectl get crd volumesnapshotcontent -o yaml
+```
 
 If you want to allow users to create a `PersistentVolumeClaim` from an existing `VolumeSnapshot`, but with a different volume mode than the source, the annotation `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`needs to be added to the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
 
@@ -149,21 +159,23 @@ For pre-provisioned snapshots, `spec.sourceVolumeMode` needs to be populated b
 
 An example `VolumeSnapshotContent` resource with this feature enabled would look like this:
 
-`apiVersion: snapshot.storage.k8s.io/v1`
-`kind: VolumeSnapshotContent`
-`metadata:`
-`  name: new-snapshot-content-test`
-`  annotations:`
-`    - snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
-`spec:`
-`  deletionPolicy: Delete`
-`  driver: hostpath.csi.k8s.io`
-`  source:`
-`    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002`
-`  sourceVolumeMode: Filesystem`
-`  volumeSnapshotRef:`
-`    name: new-snapshot-test`
-`    namespace: default`
+```
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+  annotations:
+    - snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
 
 # Provisioning Volumes from Snapshots
 
