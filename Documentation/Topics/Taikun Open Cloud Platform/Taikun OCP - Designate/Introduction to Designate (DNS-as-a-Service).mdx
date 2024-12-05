@@ -1,8 +1,10 @@
-# Introduction to Designate (DNS-as-a-Service)
+---
+title: "Introduction to Designate (DNS-as-a-Service)"
+---
 
 Designate is an Open Source DNS-as-a-Service implementation and a part of the OpenStack ecosystem of services for running clouds. In order to understand what Designate can do and how it works, it’s necessary to understand some of the basics of DNS.
 
-## What is DNS?
+# What is DNS?
 
 The Domain Name System (DNS) is a system for naming resources connected to a network, and works by storing various types of *record*, such as an IP address associated with a domain name. In practice, this is implemented by *authoritative name servers* which contain these records and *resolvers* which query name servers for records. Names are divided up into a hierarchy of zones, allowing different name servers to be responsible for separate groups of zones by delegating responsibility using records.
 
@@ -24,11 +26,11 @@ While the system itself is defined via RFCs such as this:
 
 * [https://tools.ietf.org/html/rfc1034](https://tools.ietf.org/html/rfc1034)
 
-## Introducing Designate
+# Introducing Designate
 
 Designate is an OpenStack service that allows users and operators to manage DNS records, names and zones via a REST API and can configure existing DNS name servers to contain those records. Designate can also be configured by an operator to integrate with both the OpenStack Network Service (Neutron) and the Compute Service (Nova) so that records are automatically created when floating IPs and compute instances are created respectively, and uses the OpenStack Identity Service (Keystone) for user management. Since there are a multitude of software implementations of the DNS name server, Designate has a pluggable backend that can be configured to manage many of them, most notably BIND9 and PowerDNS.
 
-## Designate Architecture
+# Designate Architecture
 
 Designate is comprised of several different services: the API, Producer, Central, Worker and Mini DNS. It uses an oslo.db compatible database to store state and data, and an oslo.messaging compatible message queue to facilitate communication between services. Multiple copies of all Designate services can be run in tandem to facilitate high availability deployments, with the API process often sitting behind load balancers.
 
@@ -46,12 +48,14 @@ They have then created virtual machine *vm1* in Nova, connected to the private
 
 More information about configuring Neutron to work with Designate can be found in the Neutron documentation at [https://docs.openstack.org/neutron/latest/admin/config-dns-int-ext-serv.html](https://docs.openstack.org/neutron/latest/admin/config-dns-int-ext-serv.html)
 
-## Using Designate
+# Using Designate
 
 Designate provides a REST API and that is commonly used by one of three methods. The most common is to use the OpenStack client, a python command-line tool with commands for interacting with OpenStack services. The documentation for the OpenStack client is available at [https://docs.openstack.org/python-openstackclient/](https://docs.openstack.org/python-openstackclient/). The designate plugin [https://docs.openstack.org/python-designateclient/latest/](https://docs.openstack.org/python-designateclient/latest/) for the OpenStack client needs to be installed as well:
 
-`pip install python-openstackclient`
-`pip install python-designateclient`
+```
+pip install python-openstackclient
+pip install python-designateclient
+```
 
 Another popular way to use Designate is via the OpenStack Dashboard, Horizon. Administrators will need to add the Designate Horizon plugin [https://opendev.org/openstack/designate-dashboard](https://opendev.org/openstack/designate-dashboard) to the dashboard in order to enable Designate features.
 
