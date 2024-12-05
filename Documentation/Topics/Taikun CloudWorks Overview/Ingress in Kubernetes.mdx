@@ -50,7 +50,7 @@ Ideally, all Ingress controllers should fit the reference specification. In real
 
 A minimal Ingress resource example:
 
-[`service/networking/minimal-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/minimal-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/minimal-ingress.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/minimal-ingress.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -103,7 +103,7 @@ If none of the hosts or paths match the HTTP request in the Ingress objects, the
 
 A `Resource` backend is an ObjectRef to another Kubernetes resource within the same namespace as the Ingress object. A `Resource` is a mutually exclusive setting with Service, and will fail validation if both are specified. A common usage for a `Resource` backend is to ingress data to an object storage backend with static assets.
 
-[`service/networking/ingress-resource-backend.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-resource-backend.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/ingress-resource-backend.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-resource-backend.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -192,21 +192,13 @@ In some cases, multiple paths within an Ingress will match a request. In those c
 
 Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for example “`*.foo.com`”). Precise matches require that the HTTP `host` header matches the `host` field. Wildcard matches require the HTTP `host` header is equal to the suffix of the wildcard rule.
 
-HostHost headerMatch?
-
-# Kubernetes Host Matching Table
-
-This table explains how Kubernetes Ingress host matching works based on the `Host` header.
-
 | Host        | Host Header       | Match?                                            |
 | ----------- | ----------------- | ------------------------------------------------- |
 | `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
 | `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
 | `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
 
-No match, wildcard only covers a single DNS label
-
-[`service/networking/ingress-wildcard-host.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-wildcard-host.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/ingress-wildcard-host.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/ingress-wildcard-host.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -241,7 +233,7 @@ spec:
 
 Ingresses can be implemented by different controllers, often with various configurations. Each Ingress should specify a class, a reference to an IngressClass resource that contains additional configuration including the name of the controller that should implement the class.
 
-[`service/networking/external-lb.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/external-lb.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/external-lb.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/external-lb.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -326,25 +318,28 @@ There are some ingress controllers, that work without the definition of a defaul
 
 There are existing Kubernetes concepts that allow you to expose a single Service (see [alternatives](https://kubernetes.io/docs/concepts/services-networking/ingress/#alternatives)). You can also do this with an Ingress by specifying a *default backend* with no rules.
 
-[`service/networking/test-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/test-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/test-ingress.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/test-ingress.yaml)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: test-ingress`
-`spec:`
-`  defaultBackend:`
-`    service:`
-`      name: test`
-`      port:`
-`        number: 80`
-
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  defaultBackend:
+    service:
+      name: test
+      port:
+        number: 80
+```
 If you create it using `kubectl apply -f` you should be able to view the state of the Ingress you added:
 
-`kubectl get ingress test-ingress`
+```
+kubectl get ingress test-ingress
 
-`NAME           CLASS         HOSTS   ADDRESS         PORTS   AGE`
-`test-ingress   external-lb   *       203.0.113.123   80      59s`
+NAME           CLASS         HOSTS   ADDRESS         PORTS   AGE
+test-ingress   external-lb   *       203.0.113.123   80      59s
+```
 
 Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy this Ingress.
 
@@ -360,50 +355,54 @@ A fanout configuration routes traffic from a single IP address to more than one 
 
 It would require an Ingress such as:
 
-[`service/networking/simple-fanout-example.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/simple-fanout-example.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/simple-fanout-example.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/simple-fanout-example.yaml)
 
-`apiVersion: networking.k8s.io/v1`
-`kind: Ingress`
-`metadata:`
-`  name: simple-fanout-example`
-`spec:`
-`  rules:`
-`  - host: foo.bar.com`
-`    http:`
-`      paths:`
-`      - path: /foo`
-`        pathType: Prefix`
-`        backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 4200`
-`      - path: /bar`
-`        pathType: Prefix`
-`        backend:`
-`          service:`
-`            name: service2`
-`            port:`
-`              number: 8080`
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /foo
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 4200
+      - path: /bar
+        pathType: Prefix
+        backend:
+          service:
+            name: service2
+            port:
+              number: 8080
+```
 
 When you create the Ingress with `kubectl apply -f`:
 
-`kubectl describe ingress simple-fanout-example`
+```
+kubectl describe ingress simple-fanout-example
 
-`Name:             simple-fanout-example`
-`Namespace:        default`
-`Address:          178.91.123.132`
-`Default backend:  default-http-backend:80 (10.8.2.3:8080)`
-`Rules:`
-`  Host         Path  Backends`
-`  ----         ----  --------`
-`  foo.bar.com`
-`               /foo   service1:4200 (10.8.0.90:4200)`
-`               /bar   service2:8080 (10.8.0.91:8080)`
-`Events:`
-`  Type     Reason  Age                From                     Message`
-`  ----     ------  ----               ----                     -------`
-`  Normal   ADD     22s                loadbalancer-controller  default/test`
+Name:             simple-fanout-example
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   service1:4200 (10.8.0.90:4200)
+               /bar   service2:8080 (10.8.0.91:8080)
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     22s                loadbalancer-controller  default/test
+```
 
 The Ingress controller provisions an implementation-specific load balancer that satisfies the Ingress, as long as the Services (`service1`, `service2`) exist. When it has done so, you can see the address of the load balancer at the Address field.
 
@@ -419,7 +418,7 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 
 The following Ingress tells the backing load balancer to route requests based on the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-[`service/networking/name-virtual-host-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/name-virtual-host-ingress.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -454,7 +453,7 @@ If you create an Ingress resource without any hosts defined in the rules, then a
 
 For example, the following Ingress routes traffic requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic whose request host header doesn’t match `first.bar.com` and `second.bar.com` to `service3`.
 
-[`service/networking/name-virtual-host-ingress-no-third-host.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress-no-third-host.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/name-virtual-host-ingress-no-third-host.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/name-virtual-host-ingress-no-third-host.yaml)
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -514,7 +513,7 @@ Referencing this secret in an Ingress tells the Ingress controller to secure the
 
 **Note:** Keep in mind that TLS will not work on the default rule because the certificates would have to be issued for all the possible sub-domains. Therefore, `hosts` in the `tls` section need to explicitly match the `host` in the `rules` section.
 
-[`service/networking/tls-example-ingress.yaml` ](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/tls-example-ingress.yaml)![](https://kubernetes.io/images/copycode.svg)
+[service/networking/tls-example-ingress.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/service/networking/tls-example-ingress.yaml)!
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -551,8 +550,7 @@ It’s also worth noting that even though health checks are not exposed directly
 
 To update an existing Ingress to add a new Host, you can update it by editing the resource:
 
-
-```plaintext
+```
 kubectl describe ingress test
 
 Name:             test
@@ -570,66 +568,67 @@ Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
   Normal   ADD     35s                loadbalancer-controller  default/test
-Copy code
 
+kubectl edit ingress test
 ```
 
 
-```plaintext
-kubectl edit ingress test
-
 This pops up an editor with the existing configuration in YAML format. Modify it to include the new Host:
 
-`spec:`
-`  rules:`
-`  - host: foo.bar.com`
-`    http:`
-`      paths:`
-`      - backend:`
-`          service:`
-`            name: service1`
-`            port:`
-`              number: 80`
-`        path: /foo`
-`        pathType: Prefix`
-`  - host: bar.baz.com`
-`    http:`
-`      paths:`
-`      - backend:`
-`          service:`
-`            name: service2`
-`            port:`
-`              number: 80`
-`        path: /foo`
-`        pathType: Prefix`
+```
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: service1
+            port:
+              number: 80
+        path: /foo
+        pathType: Prefix
+  - host: bar.baz.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: service2
+            port:
+              number: 80
+        path: /foo
+        pathType: Prefix
+..
+
 ```
 
 After you save your changes, kubectl updates the resource in the API server, which tells the Ingress controller to reconfigure the load balancer.
 
 Verify this:
 
-```plaintext
-`kubectl describe ingress test`
-
-`Name:             test`
-`Namespace:        default`
-`Address:          178.91.123.132`
-`Default backend:  default-http-backend:80 (10.8.2.3:8080)`
-`Rules:`
-`  Host         Path  Backends`
-`  ----         ----  --------`
-`  foo.bar.com`
-`               /foo   service1:80 (10.8.0.90:80)`
-`  bar.baz.com`
-`               /foo   service2:80 (10.8.0.91:80)`
-`Annotations:`
-`  nginx.ingress.kubernetes.io/rewrite-target:  /`
-`Events:`
-`  Type     Reason  Age                From                     Message`
-`  ----     ------  ----               ----                     -------`
-`  Normal   ADD     45s                loadbalancer-controller  default/test`
 ```
-`You can achieve the same outcome by invoking kubectl replace -f on a modified Ingress YAML file.`
+kubectl describe ingress test
+
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   service1:80 (10.8.0.90:80)
+  bar.baz.com
+               /foo   service2:80 (10.8.0.91:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     45s                loadbalancer-controller  default/test
+```
+
+You can achieve the same outcome by invoking kubectl replace -f on a modified Ingress YAML file.
 
 # Failing across availability zones
 
