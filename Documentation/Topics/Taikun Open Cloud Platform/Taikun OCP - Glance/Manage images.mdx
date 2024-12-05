@@ -1,4 +1,6 @@
-# Manage images
+---
+title: "Manage images"
+---
 
 The cloud operator assigns roles to users. Roles determine who can upload and manage images. The operator might restrict image upload and management to only cloud administrators or operators.
 
@@ -12,20 +14,23 @@ For details about image creation, see the [Virtual Machine Image Guide](https:/
 
 To get a list of images and to get further details about a single image, use **glance image-list** and **glance image-show** commands.
 
-`$ glance image-list`
-`+--------------------------------------+---------------------------------+`
-`| ID                                   | Name                            |`
-`+--------------------------------------+---------------------------------+`
-`| dfc1dfb0-d7bf-4fff-8994-319dd6f703d7 | cirros-0.3.5-x86_64-uec         |`
-`| a3867e29-c7a1-44b0-9e7f-10db587cad20 | cirros-0.3.5-x86_64-uec-kernel  |`
-`| 4b916fba-6775-4092-92df-f41df7246a6b | cirros-0.3.5-x86_64-uec-ramdisk |`
-`| d07831df-edc3-4817-9881-89141f9134c3 | myCirrosImage                   |`
-`+--------------------------------------+---------------------------------+`
+```
+glance image-list`
++--------------------------------------+---------------------------------+
+| ID                                   | Name                            |
++--------------------------------------+---------------------------------+
+| dfc1dfb0-d7bf-4fff-8994-319dd6f703d7 | cirros-0.3.5-x86_64-uec         |
+| a3867e29-c7a1-44b0-9e7f-10db587cad20 | cirros-0.3.5-x86_64-uec-kernel  |
+| 4b916fba-6775-4092-92df-f41df7246a6b | cirros-0.3.5-x86_64-uec-ramdisk |
+| d07831df-edc3-4817-9881-89141f9134c3 | myCirrosImage                   |
++--------------------------------------+---------------------------------+
+```
 
-`$ glance image-show d07831df-edc3-4817-9881-89141f9134c3`
-
+```
+$ glance image-show d07831df-edc3-4817-9881-89141f9134c3
++------------------+------------------------------------------------------+
 | Field            | Value                                                |
-|------------------|------------------------------------------------------|
++------------------+------------------------------------------------------+
 | checksum         | 443b7623e27ecf03dc9e01ee93f67afe                     |
 | container_format | ami                                                  |
 | created_at       | 2016-08-11T15:07:26Z                                 |
@@ -49,23 +54,31 @@ To get a list of images and to get further details about a single image, use **
 | updated_at       | 2016-08-11T15:20:02Z                                 |
 | virtual_size     | None                                                 |
 | visibility       | private                                              |
++------------------+------------------------------------------------------+
+```
 
 When viewing a list of images, you can also use `grep` to filter the list, as follows:
 
-`$ glance image-list | grep 'cirros'`
-`| dfc1dfb0-d7bf-4fff-8994-319dd6f703d7 | cirros-0.3.5-x86_64-uec         |`
-`| a3867e29-c7a1-44b0-9e7f-10db587cad20 | cirros-0.3.5-x86_64-uec-kernel  |`
-`| 4b916fba-6775-4092-92df-f41df7246a6b | cirros-0.3.5-x86_64-uec-ramdisk |`
+```
+$ glance image-list | grep 'cirros'
+| dfc1dfb0-d7bf-4fff-8994-319dd6f703d7 | cirros-0.3.5-x86_64-uec         |
+| a3867e29-c7a1-44b0-9e7f-10db587cad20 | cirros-0.3.5-x86_64-uec-kernel  |
+| 4b916fba-6775-4092-92df-f41df7246a6b | cirros-0.3.5-x86_64-uec-ramdisk |
+```
 
-## Create or update an image (glance)
+# Create or update an image (glance)
 
 To create an image, use **glance image-create**:
 
-`$ glance image-create --name imageName`
+```
+$ glance image-create --name imageName
+```
 
 To update an image, you must specify its ID and use **glance image-update**:
 
-`$ glance image-update --property x="y" <IMAGE_ID>`
+```
+$ glance image-update --property x="y" <IMAGE_ID>
+```
 
 The following list explains the commonly used properties that you can set or modify when using the `image-create` and `image-update` commands. For more information, refer to the [OpenStack Useful Image Properties](https://docs.openstack.org/glance/latest/admin/useful-image-properties.html).
 
@@ -139,20 +152,23 @@ Name of arbitrary property to remove from the image.
 
 The following example shows the command that you would use to upload a CentOS 6.3 image in qcow2 format and configure it for public access:
 
-`$ glance image-create --disk-format qcow2 --container-format bare \`
-`  --visibility public --file ./centos63.qcow2 --name centos63-image`
+```
+$ glance image-create --disk-format qcow2 --container-format bare \
+  --visibility public --file ./centos63.qcow2 --name centos63-image
+```
 
 The following example shows how to update an existing image with a properties that describe the disk bus, the CD-ROM bus, and the VIF model:
 
-Note
-
+> Note
 When you use OpenStack with VMware vCenter Server, you need to specify the `vmware_disktype` and `vmware_adaptertype` properties with **glance image-create**. Also, we recommend that you set the `hypervisor_type="vmware"` property. For more information, see [Images with VMware vSphere](https://docs.openstack.org/ocata/config-reference/compute/hypervisor-vmware.html#images-with-vmware-vsphere) in the OpenStack Configuration Reference.
 
-`$ glance image-update \`
-`    --property hw_disk_bus=scsi \`
-`    --property hw_cdrom_bus=ide \`
-`    --property hw_vif_model=e1000 \`
-`    <Image-ID>`
+```
+$ glance image-update \
+    --property hw_disk_bus=scsi \
+    --property hw_cdrom_bus=ide \
+    --property hw_vif_model=e1000 \
+    <Image-ID>
+```
 
 Currently the libvirt virtualization tool determines the disk, CD-ROM, and VIF device models based on the configured hypervisor type (`libvirt_type` in `/etc/nova/nova.conf` file). For the sake of optimal performance, libvirt defaults to using virtio for both disk and VIF (NIC) models. The disadvantage of this approach is that it is not possible to run operating systems that lack virtio drivers, for example, BSD, Solaris, and older versions of Linux and Windows.
 
@@ -224,31 +240,33 @@ vmware
 
 * VirtualVmxnet
 
-Note
-
+> Note
 By default, hardware properties are retrieved from the image properties. However, if this information is not available, the `libosinfo` database provides an alternative source for these values.
-
 If the guest operating system is not in the database, or if the use of `libosinfo` is disabled, the default system values are used.
-
 Users can set the operating system ID or a `short-id` in image properties. For example:
 
-`$ glance image-update --property short-id=fedora23 \`
-`  <Image-ID>`
+```
+$ glance image-update --property short-id=fedora23 \
+  <Image-ID>
+```
 
-### Create an image from ISO image
+## Create an image from ISO image
 
 You can upload ISO images to the Image service (glance). You can subsequently boot an ISO image using Compute.
 
 In the Image service, run the following command:
 
-`$ glance image-create --name ISO_IMAGE --file IMAGE.iso \`
-`  --disk-format iso --container-format bare`
+```
+$ glance image-create --name ISO_IMAGE --file IMAGE.iso \
+  --disk-format iso --container-format bare
+```
 
 Optionally, to confirm the upload in Image service, run:
+```
+$ glance image-list
+```
 
-`$ glance image-list`
-
-## Troubleshoot image creation
+# Troubleshoot image creation
 
 If you encounter problems in creating an image in the Image service or Compute, the following information may help you troubleshoot the creation process.
 
