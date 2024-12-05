@@ -61,18 +61,18 @@ In order to keep binding to PVs with `storageClassName` set to `""` (while a
 
 Each StorageClass has a provisioner that determines what volume plugin is used for provisioning PVs. This field must be specified.
 
-| Volume Plugin | Internal Provisioner | Config Example  |
-| ------------- | -------------- | --------------- |
-| AzureFile     | ✓              | Azure File      |
-| CephFS        | Block          | -               |
-| FC            | Filesystem     | -               |
-| FlexVolume    | unspecified    | -               |
-| iSCSI         | Block          | -               |
-| Local         | Filesystem     | Local           |
-| NFS           | Filesystem     | NFS             |
-| PortworxVolume| ✓              | Portworx Volume |
-| RBD           | unspecified    | Ceph RBD        |
-| VsphereVolume | ✓              | vSphere         |
+| Volume Plugin  | Internal Provisioner | Config Example  |
+| -------------- | -------------------- | --------------- |
+| AzureFile      | ✓                    | Azure File      |
+| CephFS         | Block                | -               |
+| FC             | Filesystem           | -               |
+| FlexVolume     | unspecified          | -               |
+| iSCSI          | Block                | -               |
+| Local          | Filesystem           | Local           |
+| NFS            | Filesystem           | NFS             |
+| PortworxVolume | ✓                    | Portworx Volume |
+| RBD            | unspecified          | Ceph RBD        |
+| VsphereVolume  | ✓                    | vSphere         |
 
 You are not restricted to specifying the “internal” provisioners listed here (whose names are prefixed with “kubernetes.io” and shipped alongside Kubernetes). You can also run and specify external provisioners, which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md) defined by Kubernetes. Authors of external provisioners have full discretion over where their code lives, how the provisioner is shipped, how it needs to be run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner) houses a library for writing external provisioners that implements the bulk of the specification. Some external provisioners are listed under the repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
 
@@ -90,27 +90,14 @@ PersistentVolumes can be configured to be expandable. This allows you to resize 
 
 The following types of volumes support volume expansion, when the underlying StorageClass has the field `allowVolumeExpansion` set to true.
 
-Volume typeRequired Kubernetes version for volume expansion
-
-Azure File
-
-1.11
-
-CSI
-
-1.24
-
-FlexVolume
-
-1.13
-
-Portworx
-
-1.11
-
-rbd
-
-1.11
+| Volume type    | Required Kubernetes version for volume expansion |
+| -------------- | ------------------------------------------------ |
+| AzureFile      | 1.11                                             |
+| CSI            | 1.24                                             |
+| FC             | 1.13                                             |
+| FlexVolume     | 1.11                                             |
+| PortworxVolume | 1.11                                             |
+| rbd            | 1.11                                             |
 
 **Note:** You can only use the volume expansion feature to grow a Volume, not to shrink it.
 
