@@ -323,18 +323,20 @@ If an authentication mechanism is defined in the configuration file the username
 
 Skydive uses the Gremlin traversal language as a topology request language. Requests on the topology can be done as following :
 
+```
 $ skydive client query "G.V().Has('Name', 'br-int', 'Type' ,'ovsbridge')"
-**`[`**
-`  `**`{`**
-&#x20;   "Host": "pc48.home",
-&#x20;   "ID": "1e4fc503-312c-4e4f-4bf5-26263ce82e0b",
-`     "Metadata":  `**`{`**
-&#x20;     "Name": "br-int",
-&#x20;     "Type": "ovsbridge",
-&#x20;     "UUID": "c80cf5a7-998b-49ca-b2b2-7a1d050facc8"
-`    `**`}`**
-`  `**`}`**
-**`]`**
+[
+  {
+    "Host": "pc48.home",
+    "ID": "1e4fc503-312c-4e4f-4bf5-26263ce82e0b",
+    "Metadata": {
+      "Name": "br-int",
+      "Type": "ovsbridge",
+      "UUID": "c80cf5a7-998b-49ca-b2b2-7a1d050facc8"
+    }
+  }
+]
+```
 
 Refer to the [Gremlin section](https://skydive.network/documentation/cli) for further explanations about the syntax and the functions available.
 
