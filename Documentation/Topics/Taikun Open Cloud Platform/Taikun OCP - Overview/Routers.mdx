@@ -1,4 +1,6 @@
-# Routers
+---
+title: "Routers"
+---
 
 # router
 
@@ -11,7 +13,6 @@ Network v2
 Add a port to a router
 
 openstack router add port \<router> \<port>
-
 
 router
 
@@ -29,7 +30,6 @@ openstack router add route
 &#x20;   \[--route destination=\<subnet>,gateway=\<ip-address>]
 &#x20;   \<router>
 
-
 –route destination=\<subnet>,gateway=\<ip-address>
 
 Add extra static route to the router. destination: destination subnet (in CIDR notation), gateway: nexthop IP address. Repeat option to add multiple routes. Trying to add a route that’s already present (exactly, including destination and nexthop) in the routing table is allowed and is considered a successful operation.
@@ -43,7 +43,6 @@ Router to which extra static routes will be added (name or ID).
 Add a subnet to a router
 
 openstack router add subnet \<router> \<subnet>
-
 
 router
 
@@ -71,7 +70,6 @@ openstack router create
 &#x20;   \[--fixed-ip subnet=\<subnet>,ip-address=\<ip-address>]
 &#x20;   \[--enable-snat | --disable-snat]
 &#x20;   \<name>
-
 
 –extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
@@ -151,7 +149,6 @@ Delete router(s)
 
 openstack router delete \<router> \[\<router> ...]
 
-
 router
 
 Router(s) to delete (name or ID)
@@ -173,7 +170,6 @@ openstack router list
 &#x20;   \[--any-tags \<tag>\[,\<tag>,...]]
 &#x20;   \[--not-tags \<tag>\[,\<tag>,...]]
 &#x20;   \[--not-any-tags \<tag>\[,\<tag>,...]]
-
 
 –sort-column SORT\_COLUMN
 
@@ -237,7 +233,6 @@ Remove a port from a router
 
 openstack router remove port \<router> \<port>
 
-
 router
 
 Router from which port will be removed (name or ID)
@@ -254,7 +249,6 @@ openstack router remove route
 &#x20;   \[--route destination=\<subnet>,gateway=\<ip-address>]
 &#x20;   \<router>
 
-
 –route destination=\<subnet>,gateway=\<ip-address>
 
 Remove extra static route from the router. destination: destination subnet (in CIDR notation), gateway: nexthop IP address. Repeat option to remove multiple routes. Trying to remove a route that’s already missing (fully, including destination and nexthop) from the routing table is allowed and is considered a successful operation.
@@ -268,7 +262,6 @@ Router from which extra static routes will be removed (name or ID).
 Remove a subnet from a router
 
 openstack router remove subnet \<router> \<subnet>
-
 
 router
 
@@ -298,7 +291,6 @@ openstack router set
 &#x20;   \[--tag \<tag>]
 &#x20;   \[--no-tag]
 &#x20;   \<router>
-
 
 –extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
@@ -386,7 +378,6 @@ Display router details
 
 openstack router show \<router>
 
-
 router
 
 Router to display (name or ID)
@@ -402,7 +393,6 @@ openstack router unset
 &#x20;   \[--qos-policy]
 &#x20;   \[--tag \<tag> | --all-tag]
 &#x20;   \<router>
-
 
 –extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
