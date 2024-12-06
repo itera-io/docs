@@ -1,18 +1,19 @@
-# Configure Postfix Client
+---
+title: "Configure Postfix Client"
+---
 
-## Install Postfix
+# Install Postfix
 
 To install [Postfix](https://www.postfix.org/) run the following command:
 
 sudo apt install postfix
-
 
 It is OK to accept defaults initially by pressing return for each question. Some of the configuration options will be investigated in greater detail in the configuration stage.
 
 > **Deprecation warning:**
 > The `mail-stack-delivery` metapackage has been deprecated in Focal. The package still exists for compatibility reasons, but won’t setup a working email system.
 
-## Configure Postfix
+# Configure Postfix
 
 There are four things you should decide before configuring:
 
@@ -27,7 +28,6 @@ There are four things you should decide before configuring:
 To configure postfix, run the following command:
 
 sudo dpkg-reconfigure postfix
-
 
 The user interface will be displayed. On each screen, select the following values:
 
@@ -51,20 +51,19 @@ The user interface will be displayed. On each screen, select the following value
 
 To set the mailbox format, you can either edit the configuration file directly, or use the `postconf` command. In either case, the configuration parameters will be stored in `/etc/postfix/main.cf` file. Later if you wish to re-configure a particular parameter, you can either run the command or change it manually in the file.
 
-### Configure mailbox format
+## Configure mailbox format
 
 To configure the mailbox format for **`Maildir`**:
 
 sudo postconf -e 'home\_mailbox = Maildir/'
 
-
 This will place new mail in `/home/<username>/Maildir` so you will need to configure your Mail Delivery Agent (MDA) to use the same path.
 
-## SMTP authentication
+# SMTP authentication
 
 SMTP-AUTH allows a client to identify itself through the Simple Authentication and Security Layer (SASL) authentication mechanism, using Transport Layer Security (TLS) to encrypt the authentication process. Once it has been authenticated, the SMTP server will allow the client to relay mail.
 
-### Configure SMTP authentication
+## Configure SMTP authentication
 
 To configure Postfix for SMTP-AUTH using SASL (Dovecot SASL), run these commands at a terminal prompt:
 
@@ -78,13 +77,12 @@ sudo postconf -e 'smtpd\_sasl\_auth\_enable = yes'
 sudo postconf -e 'smtpd\_recipient\_restrictions = \\
 permit\_sasl\_authenticated,permit\_mynetworks,reject\_unauth\_destination'
 
-
 > **Note**:
 > The `smtpd_sasl_path` config parameter is a path relative to the Postfix queue directory.
 
 There are several SASL mechanism properties worth evaluating to improve the security of your deployment. The options “noanonymous,noplaintext” prevent the use of mechanisms that permit anonymous authentication or that transmit credentials unencrypted.
 
-### Configure TLS
+## Configure TLS
 
 Next, generate or obtain a digital certificate for TLS. MUAs connecting to your mail server via TLS will need to recognise the certificate used for TLS. This can either be done using a certificate from Let’s Encrypt, from a commercial CA or with a self-signed certificate that users manually install/accept.
 
@@ -101,15 +99,13 @@ sudo postconf -e 'smtpd\_tls\_loglevel = 1'
 sudo postconf -e 'smtpd\_tls\_received\_header = yes'
 sudo postconf -e 'myhostname = mail.example.com'
 
-
 If you are using your own Certificate Authority to sign the certificate, enter:
 
 sudo postconf -e 'smtpd\_tls\_CAfile = /etc/ssl/certs/cacert.pem'
 
-
 Again, for more details about certificates see our [security certificates guide](https://ubuntu.com/server/docs/security-certificates).
 
-### Outcome of initial configuration
+## Outcome of initial configuration
 
 After running all the above commands, Postfix will be configured for SMTP-AUTH with a self-signed certificate for TLS encryption.
 
@@ -156,13 +152,11 @@ smtpd\_tls\_received\_header = yes
 smtpd\_tls\_session\_cache\_timeout = 3600s
 tls\_random\_source = dev:/dev/urandom
 
-
 The Postfix initial configuration is now complete. Run the following command to restart the Postfix daemon:
 
 sudo systemctl restart postfix.service
 
-
-## SASL
+# SASL
 
 Postfix supports SMTP-AUTH as defined in [RFC2554](http://www.ietf.org/rfc/rfc2554.txt). It is based on [SASL](http://www.ietf.org/rfc/rfc2222.txt). However it is still necessary to set up SASL authentication before you can use SMTP-AUTH.
 
@@ -170,15 +164,13 @@ When using IPv6, the `mynetworks` parameter may need to be modified to allow I
 
 mynetworks = 127.0.0.0/8, \[::1]/128
 
-
-### Configure SASL
+## Configure SASL
 
 Postfix supports two SASL implementations: **Cyrus SASL** and **Dovecot SASL**.
 
 To enable Dovecot SASL the `dovecot-core` package will need to be installed:
 
 sudo apt install dovecot-core
-
 
 Next, edit `/etc/dovecot/conf.d/10-master.conf` and change the following:
 
@@ -202,33 +194,27 @@ service auth \{
 &#x20; }
 &#x20;}
 
-
 To permit use of SMTP-AUTH by Outlook clients, change the following line in the **authentication mechanisms** section of `/etc/dovecot/conf.d/10-auth.conf` from:
 
 auth\_mechanisms = plain
-
 
 to this:
 
 auth\_mechanisms = plain login
 
-
 Once you have configured Dovecot, restart it with:
 
 sudo systemctl restart dovecot.service
 
-
-## Test your setup
+# Test your setup
 
 SMTP-AUTH configuration is complete – now it is time to test the setup. To see if SMTP-AUTH and TLS work properly, run the following command:
 
 telnet mail.example.com 25
 
-
 After you have established the connection to the Postfix mail server, type:
 
 ehlo mail.example.com
-
 
 If you see the following in the output, then everything is working perfectly. Type `quit` to exit.
 
@@ -237,12 +223,11 @@ If you see the following in the output, then everything is working perfectly. Ty
 250-AUTH=LOGIN PLAIN
 250 8BITMIME
 
-
-## Troubleshooting
+# Troubleshooting
 
 When problems arise, there are a few common ways to diagnose the cause.
 
-### Escaping `chroot`
+## Escaping `chroot`
 
 The Ubuntu Postfix package will, by default, install into a `chroot` environment for security reasons. This can add greater complexity when troubleshooting problems.
 
@@ -250,18 +235,15 @@ To turn off the `chroot` usage, locate the following line in the `/etc/postfi
 
 smtp      inet  n       -       -       -       -       smtpd
 
-
 Modify it as follows:
 
 smtp      inet  n       -       n       -       -       smtpd
-
 
 You will then need to restart Postfix to use the new configuration. From a terminal prompt enter:
 
 sudo service postfix restart
 
-
-### SMTPS
+## SMTPS
 
 If you need secure SMTP, edit `/etc/postfix/master.cf` and uncomment the following line:
 
@@ -271,8 +253,7 @@ smtps     inet  n       -       -       -       -       smtpd
 &#x20; -o smtpd\_client\_restrictions=permit\_sasl\_authenticated,reject
 &#x20; -o milter\_macro\_daemon\_name=ORIGINATING
 
-
-### Log viewing
+## Log viewing
 
 Postfix sends all log messages to `/var/log/mail.log`. However, error and warning messages can sometimes get lost in the normal log output so they are also logged to `/var/log/mail.err` and `/var/log/mail.warn` respectively.
 
@@ -280,46 +261,39 @@ To see messages entered into the logs in real time you can use the `tail -f` c
 
 tail -f /var/log/mail.err
 
-
-### Increase logging detail
+## Increase logging detail
 
 The amount of detail recorded in the logs can be increased via the configuration options. For example, to increase TLS activity logging set the `smtpd_tls_loglevel` option to a value from 1 to 4.
 
 sudo postconf -e 'smtpd\_tls\_loglevel = 4'
 
-
 Reload the service after any configuration change, to activate the new config:
 
 sudo systemctl reload postfix.service
 
-
-### Logging mail delivery
+## Logging mail delivery
 
 If you are having trouble sending or receiving mail from a specific domain you can add the domain to the `debug_peer_list` parameter.
 
 sudo postconf -e 'debug\_peer\_list = problem.domain'
 sudo systemctl reload postfix.service
 
-
-### Increase daemon verbosity
+## Increase daemon verbosity
 
 You can increase the verbosity of any Postfix daemon process by editing the `/etc/postfix/master.cf` and adding a `-v` after the entry. For example, edit the `smtp` entry:
 
 smtp      unix  -       -       -       -       -       smtp -v
 
-
 Then, reload the service as usual:
 
 sudo systemctl reload postfix.service
 
-
-### Log SASL debug info
+## Log SASL debug info
 
 To increase the amount of information logged when troubleshooting SASL issues you can set the following options in `/etc/dovecot/conf.d/10-logging.conf`
 
 auth\_debug=yes
 auth\_debug\_passwords=yes
-
 
 As with Postfix, if you change a Dovecot configuration the process will need to be reloaded:
 
