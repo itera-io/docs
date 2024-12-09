@@ -160,7 +160,7 @@ $ glance image-create --disk-format qcow2 --container-format bare \
 The following example shows how to update an existing image with a properties that describe the disk bus, the CD-ROM bus, and the VIF model:
 
 > Note
-When you use OpenStack with VMware vCenter Server, you need to specify the `vmware_disktype` and `vmware_adaptertype` properties with **glance image-create**. Also, we recommend that you set the `hypervisor_type="vmware"` property. For more information, see [Images with VMware vSphere](https://docs.openstack.org/ocata/config-reference/compute/hypervisor-vmware.html#images-with-vmware-vsphere) in the OpenStack Configuration Reference.
+> When you use OpenStack with VMware vCenter Server, you need to specify the `vmware_disktype` and `vmware_adaptertype` properties with **glance image-create**. Also, we recommend that you set the `hypervisor_type="vmware"` property. For more information, see [Images with VMware vSphere](https://docs.openstack.org/ocata/config-reference/compute/hypervisor-vmware.html#images-with-vmware-vsphere) in the OpenStack Configuration Reference.
 
 ```
 $ glance image-update \
@@ -241,9 +241,9 @@ vmware
 * VirtualVmxnet
 
 > Note
-By default, hardware properties are retrieved from the image properties. However, if this information is not available, the `libosinfo` database provides an alternative source for these values.
-If the guest operating system is not in the database, or if the use of `libosinfo` is disabled, the default system values are used.
-Users can set the operating system ID or a `short-id` in image properties. For example:
+> By default, hardware properties are retrieved from the image properties. However, if this information is not available, the `libosinfo` database provides an alternative source for these values.
+> If the guest operating system is not in the database, or if the use of `libosinfo` is disabled, the default system values are used.
+> Users can set the operating system ID or a `short-id` in image properties. For example:
 
 ```
 $ glance image-update --property short-id=fedora23 \
@@ -262,6 +262,7 @@ $ glance image-create --name ISO_IMAGE --file IMAGE.iso \
 ```
 
 Optionally, to confirm the upload in Image service, run:
+
 ```
 $ glance image-list
 ```
