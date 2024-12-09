@@ -353,7 +353,8 @@ $ openstack volume list
 +----------------+-----------------+-----------+------+-------------+
 ```
 
->Note that the volume is now available.
+>Note 
+that the volume is now available.
 
 3\. Resize the volume by passing the volume ID and the new size (a value greater than the old one) as parameters:
 
@@ -364,7 +365,7 @@ $ openstack volume set 573e024d-5235-49ce-8332-be1576d323f8 --size 10
 This command does not provide any output. Note: The volume status `reserved` is not a valid state for an extend operation.
 
 > Note
-> When extending an LVM volume with a snapshot, the volume will be deactivated. The reactivation is automatic unless `auto_activation_volume_list` is defined in `lvm.conf`. See `lvm.conf` for more information.
+When extending an LVM volume with a snapshot, the volume will be deactivated. The reactivation is automatic unless `auto_activation_volume_list` is defined in `lvm.conf`. See `lvm.conf` for more information.
 
 # Extend attached volume
 
