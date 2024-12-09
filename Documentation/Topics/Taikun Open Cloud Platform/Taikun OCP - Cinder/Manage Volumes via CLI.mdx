@@ -1,69 +1,79 @@
-# Manage Volumes via CLI
+---
+title: "Manage Volumes via CLI"
+---
 
 A volume is a detachable block storage device, similar to a USB hard drive. You can attach a volume to only one instance. Use the `openstack` client commands to create and manage volumes.
 
-## Create a volume
+# Create a volume
 
 This example creates a `my-new-volume` volume based on an image.
 
 1. List images, and note the ID of the image that you want to use for your volume:
 
-`$ openstack image list`
-`+--------------------------------------+---------------------------------+`
-`| ID                                   | Name                            |`
-`+--------------------------------------+---------------------------------+`
-`| 8bf4dc2a-bf78-4dd1-aefa-f3347cf638c8 | cirros-0.3.5-x86_64-uec         |`
-`| 9ff9bb2e-3a1d-4d98-acb5-b1d3225aca6c | cirros-0.3.5-x86_64-uec-kernel  |`
-`| 4b227119-68a1-4b28-8505-f94c6ea4c6dc | cirros-0.3.5-x86_64-uec-ramdisk |`
-`+--------------------------------------+---------------------------------+`
+```
+$ openstack image list
++--------------------------------------+---------------------------------+
+| ID                                   | Name                            |
++--------------------------------------+---------------------------------+
+| 8bf4dc2a-bf78-4dd1-aefa-f3347cf638c8 | cirros-0.3.5-x86_64-uec         |
+| 9ff9bb2e-3a1d-4d98-acb5-b1d3225aca6c | cirros-0.3.5-x86_64-uec-kernel  |
+| 4b227119-68a1-4b28-8505-f94c6ea4c6dc | cirros-0.3.5-x86_64-uec-ramdisk |
++--------------------------------------+---------------------------------+
+```
 
 2\. List the availability zones, and note the ID of the availability zone in which you want to create your volume:
 
-`$ openstack availability zone list`
-`+-----------+-------------+`
-`| Zone Name | Zone Status |`
-`+-----------+-------------+`
-`| nova      | available   |`
-`+-----------+-------------+`
+```
+$ openstack availability zone list
++-----------+-------------+
+| Zone Name | Zone Status |
++-----------+-------------+
+| nova      | available   |
++-----------+-------------+
+```
 
 3\. Create a volume with 8 gibibytes (GiB) of space, and specify the availability zone and image:
 
-`$ openstack volume create --image 8bf4dc2a-bf78-4dd1-aefa-f3347cf638c8 \`
-`  --size 8 --availability-zone nova my-new-volume`
+```
+$ openstack volume create --image 8bf4dc2a-bf78-4dd1-aefa-f3347cf638c8 \
+  --size 8 --availability-zone nova my-new-volume
 
-`+------------------------------+--------------------------------------+`
-`| Property                     | Value                                |`
-`+------------------------------+--------------------------------------+`
-`| attachments                  | []                                   |`
-`| availability_zone            | nova                                 |`
-`| bootable                     | false                                |`
-`| consistencygroup_id          | None                                 |`
-`| created_at                   | 2016-09-23T07:52:42.000000           |`
-`| description                  | None                                 |`
-`| encrypted                    | False                                |`
-`| id                           | bab4b0e0-ce3d-4d57-bf57-3c51319f5202 |`
-`| metadata                     | {}                                   |`
-`| multiattach                  | False                                |`
-`| name                         | my-new-volume                        |`
-`| os-vol-tenant-attr:tenant_id | 3f670abbe9b34ca5b81db6e7b540b8d8     |`
-`| replication_status           | disabled                             |`
-`| size                         | 8                                    |`
-`| snapshot_id                  | None                                 |`
-`| source_volid                 | None                                 |`
-`| status                       | creating                             |`
-`| updated_at                   | None                                 |`
-`| user_id                      | fe19e3a9f63f4a14bd4697789247bbc5     |`
-`| volume_type                  | lvmdriver-1                          |`
-`+------------------------------+--------------------------------------+`
++------------------------------+--------------------------------------+
+| Property                     | Value                                |
++------------------------------+--------------------------------------+
+| attachments                  | []                                   |
+| availability_zone            | nova                                 |
+| bootable                     | false                                |
+| consistencygroup_id          | None                                 |
+| created_at                   | 2016-09-23T07:52:42.000000           |
+| description                  | None                                 |
+| encrypted                    | False                                |
+| id                           | bab4b0e0-ce3d-4d57-bf57-3c51319f5202 |
+| metadata                     | {}                                   |
+| multiattach                  | False                                |
+| name                         | my-new-volume                        |
+| os-vol-tenant-attr:tenant_id | 3f670abbe9b34ca5b81db6e7b540b8d8     |
+| replication_status           | disabled                             |
+| size                         | 8                                    |
+| snapshot_id                  | None                                 |
+| source_volid                 | None                                 |
+| status                       | creating                             |
+| updated_at                   | None                                 |
+| user_id                      | fe19e3a9f63f4a14bd4697789247bbc5     |
+| volume_type                  | lvmdriver-1                          |
++------------------------------+--------------------------------------+
+```
 
 4\. To verify that your volume was created successfully, list the available volumes:
 
-`$ openstack volume list`
-`+--------------------------------------+---------------+-----------+------+-------------+`
-`| ID                                   | Name          |  Status   | Size | Attached to |`
-`+--------------------------------------+---------------+-----------+------+-------------+`
-`| bab4b0e0-ce3d-4d57-bf57-3c51319f5202 | my-new-volume | available | 8    |             |`
-`+--------------------------------------+---------------+-----------+------+-------------+`
+```
+$ openstack volume list
++--------------------------------------+---------------+-----------+------+-------------+
+| ID                                   | Name          |  Status   | Size | Attached to |
++--------------------------------------+---------------+-----------+------+-------------+
+| bab4b0e0-ce3d-4d57-bf57-3c51319f5202 | my-new-volume | available | 8    |             |
++--------------------------------------+---------------+-----------+------+-------------+
+```
 
 If your volume was created successfully, its status is `available`. If its status is `error`, you might have exceeded your quota.
 
@@ -109,7 +119,6 @@ Choose glance image which has `cinder_img_volume_type` property and create a v
 `| a5752de4-9faf-4c47-acbc-         | cirros-0.3.5-x86_64-uec-kernel  | active |`
 `| 78a5efa7cc6e                     |                                 |        |`
 `+----------------------------------+---------------------------------+--------+`
-
 
 `$ openstack image show 376bd633-c9c9-4c5d-a588-342f4f66d086`
 `+------------------------+------------------------------------------------------+`
