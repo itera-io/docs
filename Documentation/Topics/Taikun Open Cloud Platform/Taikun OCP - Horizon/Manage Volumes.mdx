@@ -1,4 +1,6 @@
-# Manage Volumes
+---
+title: "Manage Volumes"
+---
 
 # Manage volumes and volume types
 
@@ -6,7 +8,7 @@ Volumes are the Block Storage devices that you attach to instances to enable per
 
 As an administrative user, you can manage volumes and volume types for users in various projects. You can create and delete volume types, and you can view and delete volumes. Note that a volume can be encrypted by using the steps outlined below.
 
-## Create a volume type
+# Create a volume type
 
 1. Log in to the dashboard and select the admin project from the drop-down list.
 
@@ -16,27 +18,34 @@ As an administrative user, you can manage volumes and volume types for users in 
 
 4. Click Create Volume Type button to confirm your changes.
 
-Note
+> Note
+> A message indicates whether the action succeeded.
 
-A message indicates whether the action succeeded.
-
-## Create an encrypted volume type
+# Create an encrypted volume type
 
 1. Create a volume type using the steps above for [Create a volume type](https://docs.openstack.org/horizon/zed/admin/manage-volumes.html#create-a-volume-type).
 
 2. Click Create Encryption in the Actions column of the newly created volume type.
 
 3. Configure the encrypted volume by setting the parameters below from available options (see table):
-   Provider
-   Specifies the encryption provider format.
-   Control Location
-   Specifies whether the encryption is from the front end (nova) or the back end (cinder).
-   Cipher
-   Specifies the encryption algorithm.
-   Key Size (bits)
-   Specifies the encryption key size.
 
-4. Click Create Volume Type Encryption.
+Provider
+
+   * Specifies the encryption provider format.
+
+Control Location
+
+* Specifies whether the encryption is from the front end (nova) or the back end   (cinder).
+
+Cipher
+
+* Specifies the encryption algorithm.
+
+Key Size (bits)
+
+* Specifies the encryption key size.
+
+1. Click Create Volume Type Encryption.
 
 **Encryption Options**
 
@@ -90,7 +99,7 @@ Note
 
 To see further information and CLI instructions, see [Create an encrypted volume type](https://docs.openstack.org/cinder/latest/configuration/block-storage/volume-encryption.html#create-an-encrypted-volume-type) in the OpenStack Block Storage Configuration Guide.
 
-## Delete volume types
+# Delete volume types
 
 When you delete a volume type, volumes of that type are not deleted.
 
@@ -104,11 +113,10 @@ When you delete a volume type, volumes of that type are not deleted.
 
 5. In the Confirm Delete Volume Types window, click the Delete Volume Types button to confirm the action.
 
-Note
+> Note
+> A message indicates whether the action succeeded.
 
-A message indicates whether the action succeeded.
-
-## Delete volumes
+# Delete volumes
 
 When you delete an instance, the data of its attached volumes is not destroyed.
 
@@ -122,6 +130,5 @@ When you delete an instance, the data of its attached volumes is not destroyed.
 
 5. In the Confirm Delete Volumes window, click the Delete Volumes button to confirm the action.
 
-Note
-
-A message indicates whether the action succeeded.
+> Note
+> A message indicates whether the action succeeded.
