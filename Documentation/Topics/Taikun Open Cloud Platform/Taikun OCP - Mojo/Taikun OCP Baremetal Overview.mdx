@@ -1,4 +1,6 @@
-# Taikun OCP Baremetal Overview
+---
+title: "Taikun OCP Baremetal Overview"
+---
 
 Taikun OCP is based on OpenStack (certified etc.) and Taikun OCP BareMetal Addon is based on Mojo. **Taikun.cloud is developing Taikun OCP Baremetal. Taikun OCP Mojo uses our own code, open source code and Metify Mojo code as OEM.**
 **Code is built from our repositories, and we release and supply the final product.**
@@ -75,7 +77,7 @@ The hardware appliance is suitable for large infrastructure deployments and for 
 
 The hardware appliance comes out of the box with additional features that are not available in the virtual appliance.
 
-## Architecture
+# Architecture
 
 Taikun OCP Baremetal is built on a microservices architecture. Each microservice is a containerized software application built to be run by an [OCI compliant runtime](https://opencontainers.org/). Depending on the installation pattern (virtual or hardware) the containers are run in different setups and with different configurations. Groups of microservices are packaged together and deployed as “Components”.
 
@@ -99,7 +101,7 @@ The main Components that make up Taikun OCP Baremetal are:
 
   * Monitoring – Built-in Grafana dashboards for your Taikun OCP Baremetal-managed infrastructure and networks
 
-## Core Functionality
+# Core Functionality
 
 Taikun OCP Baremetal manages infrastructure by first Discovering hardware on your user-defined networks and then Registering the hardware in Taikun OCP Baremetal. The level of management available to each piece of hardware is dependent on the hardware itself and the features it supports. Taikun OCP Baremetal can manage any hardware that supports the Redfish standard and has abstracted common hardware management tasks into a set of features that can be applied to any hardware that supports them.
 
