@@ -31,7 +31,7 @@ As an administrative user, you can manage volumes and volume types for users in 
 
 Provider
 
-   * Specifies the encryption provider format.
+* Specifies the encryption provider format.
 
 Control Location
 
@@ -47,57 +47,24 @@ Key Size (bits)
 
 1. Click Create Volume Type Encryption.
 
-**Encryption Options**
+## Encryption Options
 
 The table below provides a few alternatives available for creating encrypted volumes.
 
-Encryption parameters
-
-Parameter options
-
-Comments
-
-Provider
-
-luks (Recommended)
-
-Allows easier import and migration of imported encrypted volumes, and allows access key to be changed without re-encrypting the volume
-
-plain
-
-Less disk overhead than LUKS
-
-Control Location
-
-front-end (Recommended)
-
-The encryption occurs within nova so that the data transmitted over the network is encrypted
-
-back-end
-
-This could be selected if a cinder plug-in supporting an encrypted back-end block storage device becomes available in the future. TLS or other network encryption would also be needed to protect data as it traverses the network
-
-Cipher
-
-aes-xts-plain64 (Recommended)
-
-See NIST reference below to see advantages\*
-
-aes-cbc-essiv
-
-Note: On the command line, type ‘cryptsetup benchmark’ for additional options
-
-Key Size (bits)
-
-256 (Recommended for aes-xts-plain64 and aes-cbc-essiv)
-
-Using this selection for aes-xts, the underlying key size would only be 128-bits\*
+| Encryption Parameters | Parameter Options                                       | Comments                                                                                                                                                                                                                           |
+| --------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Provider**          | luks (Recommended)                                      | Allows easier import and migration of imported encrypted volumes, and allows access key to be changed without re-encrypting the volume                                                                                             |
+|                       | plain                                                   | Less disk overhead than LUKS                                                                                                                                                                                                       |
+| **Control Location**  | front-end (Recommended)                                 | The encryption occurs within nova so that the data transmitted over the network is encrypted                                                                                                                                       |
+|                       | back-end                                                | This could be selected if a cinder plug-in supporting an encrypted back-end block storage device becomes available in the future. TLS or other network encryption would also be needed to protect data as it traverses the network |
+| **Cipher**            | aes-xts-plain64 (Recommended)                           | See NIST reference below to see advantages\*                                                                                                                                                                                       |
+|                       | aes-cbc-essiv                                           | Note: On the command line, type `cryptsetup benchmark` for additional options                                                                                                                                                      |
+| **Key Size (bits)**   | 256 (Recommended for aes-xts-plain64 and aes-cbc-essiv) | Using this selection for aes-xts, the underlying key size would only be 128-bits\*                                                                                                                                                 |
 
 \* Source [NIST SP 800-38E](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38e.pdf)
 
-Note
-
-To see further information and CLI instructions, see [Create an encrypted volume type](https://docs.openstack.org/cinder/latest/configuration/block-storage/volume-encryption.html#create-an-encrypted-volume-type) in the OpenStack Block Storage Configuration Guide.
+> Note
+> To see further information and CLI instructions, see [Create an encrypted volume type](https://docs.openstack.org/cinder/latest/configuration/block-storage/volume-encryption.html#create-an-encrypted-volume-type) in the OpenStack Block Storage Configuration Guide.
 
 # Delete volume types
 
