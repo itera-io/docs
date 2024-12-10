@@ -1,4 +1,7 @@
-# Taikun OCP Networking Overview
+---
+title: "Taikun OCP Networking Overview"
+---
+
 
 OpenStack Networking allows you to create and manage network objects, such as networks, subnets, and ports, which other OpenStack services can use. Plug-ins can be implemented to accommodate different networking equipment and software, providing flexibility to OpenStack architecture and deployment.
 
@@ -12,11 +15,11 @@ Plugs and unplugs ports, creates networks or subnets, and provides IP addressing
 
 Accepts and routes RPC requests between agents to complete API operations. Message queue is used in the ML2 plug-in for RPC between the neutron server and neutron agents that run on each hypervisor, in the ML2 mechanism drivers for Open vSwitch and Linux bridge.
 
-## Concepts
+# Concepts
 
 To configure rich network topologies, you can create and configure networks and subnets and instruct other OpenStack services like Compute to attach virtual devices to ports on these networks. OpenStack Compute is a prominent consumer of OpenStack Networking to provide connectivity for its instances. In particular, OpenStack Networking supports each project having multiple private networks and enables projects to choose their own IP addressing scheme, even if those IP addresses overlap with those that other projects use. There are two types of network, project and provider networks. It is possible to share any of these types of networks among projects as part of the network creation process.
 
-### Provider networks
+## Provider networks
 
 Provider networks offer layer-2 connectivity to instances with optional support for DHCP and metadata services. These networks connect, or map, to existing layer-2 networks in the data center, typically using VLAN (802.1q) tagging to identify and separate them.
 
@@ -26,7 +29,8 @@ Provider networks generally offer simplicity, performance, and reliability at th
 
 * `update_network:provider:physical_network`
 
-> WarningThe creation and modification of provider networks enables use of physical network resources, such as VLAN-s. Enable these changes only for trusted projects.
+> Warning 
+>The creation and modification of provider networks enables use of physical network resources, such as VLAN-s. Enable these changes only for trusted projects.
 
 Also, provider networks only handle layer-2 connectivity for instances, thus lacking support for features such as routers and floating IP addresses.
 
@@ -36,7 +40,7 @@ In general, the OpenStack Networking software components that handle layer-3 ope
 
 In one particular use case, the OpenStack deployment resides in a mixed environment with conventional virtualization and bare-metal hosts that use a sizable physical network infrastructure. Applications that run inside the OpenStack deployment might require direct layer-2 access, typically using VLANs, to applications outside of the deployment.
 
-### Routed provider networks
+## Routed provider networks
 
 Routed provider networks offer layer-3 connectivity to instances. These networks map to existing layer-3 networks in the data center. More specifically, the network maps to multiple layer-2 segments, each of which is essentially a provider network. Each has a router gateway attached to it which routes traffic between them and externally. The Networking service does not provide the routing.
 
@@ -46,7 +50,7 @@ Neutron port could be associated with only one network segment, but there is an 
 
 See [Routed provider networks](https://docs.openstack.org/neutron/zed/admin/config-routed-networks.html#config-routed-provider-networks) for more information.
 
-### Self-service networks
+## Self-service networks
 
 Self-service networks primarily enable general (non-privileged) projects to manage networks without involving administrators. These networks are entirely virtual and require virtual routers to interact with provider and external networks such as the Internet. Self-service networks also usually provide DHCP and metadata services to instances.
 
@@ -72,13 +76,11 @@ VXLAN and GRE are encapsulation protocols that create overlay networks to activa
 
 <img height="559" width="1024" src="https://b3662572.smushcdn.com/3662572/wp-content/uploads/2024/02/image-1024x559.png?lossy=2&strip=1&webp=1" />
 
-
-
 ### Subnets
 
 A block of IP addresses and associated configuration state. This is also known as the native IPAM (IP Address Management) provided by the networking service for both project and provider networks. Subnets are used to allocate IP addresses when new ports are created on a network.
 
-### Subnet pools
+## Subnet pools
 
 End users normally can create subnets with any valid IP addresses without other restrictions. However, in some cases, it is nice for the admin or the project to pre-define a pool of addresses from which to create subnets with automatic allocation.
 
@@ -86,21 +88,22 @@ Using subnet pools constrains what addresses can be used by requiring that every
 
 See [Subnet pools](https://docs.openstack.org/neutron/zed/admin/config-subnet-pools.html#config-subnet-pools) for more information.
 
-### Ports
+## Ports
 
 A port is a connection point for attaching a single device, such as the NIC of a virtual server, to a virtual network. The port also describes the associated network configuration, such as the MAC and IP addresses to be used on that port.
 
-### Routers
+## Routers
 
 Routers provide virtual layer-3 services such as routing and NAT between self-service and provider networks or among self-service networks belonging to a project. The Networking service uses a layer-3 agent to manage routers via namespaces.
 
-### Security groups
+## Security groups
 
 Security groups provide a container for virtual firewall rules that control ingress (inbound to instances) and egress (outbound from instances) network traffic at the port level. Security groups use a default deny policy and only contain rules that allow specific traffic. Each port can reference one or more security groups in an additive fashion. The firewall driver translates security group rules to a configuration for the underlying packet filtering technology such as `iptables`.
 
 Each project contains a `default` security group that allows all egress traffic and denies all ingress traffic. You can change the rules in the `default` security group. If you launch an instance without specifying a security group, the `default` security group automatically applies to it. Similarly, if you create a port without specifying a security group, the `default` security group automatically applies to it.
 
-> NoteIf you use the metadata service, removing the default egress rules denies access to TCP port 80 on 169.254.169.254, thus preventing instances from retrieving metadata.
+> Note
+>If you use the metadata service, removing the default egress rules denies access to TCP port 80 on 169.254.169.254, thus preventing instances from retrieving metadata.
 
 Security group rules are stateful. Thus, allowing ingress TCP port 22 for secure shell automatically creates rules that allow return egress traffic and ICMP error messages involving those TCP connections.
 
@@ -126,29 +129,29 @@ Although non-IP traffic, security groups do not implicitly allow all ARP traffic
 
 You can disable security groups including basic and anti-spoofing rules by setting the port attribute `port_security_enabled` to `False`.
 
-### Extensions
+## Extensions
 
 The OpenStack Networking service is extensible. Extensions serve two purposes: they allow the introduction of new features in the API without requiring a version change and they allow the introduction of vendor specific niche functionality. Applications can programmatically list available extensions by performing a GET on the `/extensions` URI. Note that this is a versioned request; that is, an extension available in one API version might not be available in another.
 
-### DHCP
+## DHCP
 
 The optional DHCP service manages IP addresses for instances on provider and self-service networks. The Networking service implements the DHCP service using an agent that manages `qdhcp` namespaces and the `dnsmasq` service.
 
-### Metadata
+## Metadata
 
 The optional metadata service provides an API for instances to obtain metadata such as SSH keys.
 
-## Service and component hierarchy
+# Service and component hierarchy
 
-### Server
+## Server
 
 * Provides API, manages database, etc.
 
-### Plug-ins
+## Plug-ins
 
 * Manages agents
 
-### Agents
+## Agents
 
 * Provides layer 2/3 connectivity to instances
 
@@ -156,32 +159,32 @@ The optional metadata service provides an API for instances to obtain metadata s
 
 * Handles metadata, etc.
 
-#### Layer 2 (Ethernet and Switching)
+### Layer 2 (Ethernet and Switching)
 
 * Linux Bridge
 
 * OVS
 
-#### Layer 3 (IP and Routing)
+### Layer 3 (IP and Routing)
 
 * L3
 
 * DHCP
 
-#### Miscellaneous
+### Miscellaneous
 
 * Metadata
 
-### Services
+## Services
 
-#### VPNaaS
+### VPNaaS
 
 The Virtual Private Network-as-a-Service (VPNaaS) is a neutron extension that introduces the VPN feature set.
 
-#### LBaaS
+### LBaaS
 
 The Load-Balancer-as-a-Service (LBaaS) API provisions and configures load balancers. The reference implementation is based on the HAProxy software load balancer. See the [Octavia project](https://docs.openstack.org/octavia/latest/) for more information.
 
-#### FWaaS
+### FWaaS
 
 The Firewall-as-a-Service (FWaaS) API allows to apply firewalls to OpenStack objects such as projects, routers, and router ports.
