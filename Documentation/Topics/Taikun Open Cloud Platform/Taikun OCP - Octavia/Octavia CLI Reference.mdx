@@ -1,10 +1,12 @@
-# Octavia CLI Reference
+---
+title: "Octavia CLI Reference"
+---
 
 List of released CLI commands available in openstack client. These commands can be referenced by doing `openstack help loadbalancer`.
 
-## loadbalancer
+# loadbalancer
 
-### loadbalancer create
+## loadbalancer create
 
 Create a load balancer
 
@@ -84,7 +86,7 @@ No tags associated with the load balancer
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer delete
+## loadbalancer delete
 
 Delete a load balancer
 
@@ -100,7 +102,7 @@ Load balancers to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer list
+## loadbalancer list
 
 List load balancers
 
@@ -189,7 +191,7 @@ Exclude load balancer which have any given tag(s) (Comma-separated list of tags)
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer set
+## loadbalancer set
 
 Update a load balancer
 
@@ -225,7 +227,7 @@ Name or UUID of the load balancer to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer unset
+## loadbalancer unset
 
 Clear load balancer settings
 
@@ -255,7 +257,7 @@ Name or UUID of the load balancer to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer show
+## loadbalancer show
 
 Show the details for a single load balancer
 
@@ -289,7 +291,7 @@ Name or UUID of the load balancer.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer stats show
+## loadbalancer stats show
 
 Shows the current statistics for a load balancer
 
@@ -323,7 +325,7 @@ Name or UUID of the load balancer.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer status show
+## loadbalancer status show
 
 Display load balancer status tree in json format
 
@@ -335,7 +337,7 @@ Name or UUID of the load balancer.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer failover
+## loadbalancer failover
 
 Trigger load balancer failover
 
@@ -349,9 +351,9 @@ Name or UUID of the load balancer.
 
 This command is provided by the python-octaviaclient plugin.
 
-## listener
+# listener
 
-### loadbalancer listener create
+## loadbalancer listener create
 
 Create a listener
 
@@ -468,7 +470,7 @@ Load balancer for the listener (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener delete
+## loadbalancer listener delete
 
 Delete a listener
 
@@ -482,7 +484,7 @@ Listener to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener list
+## loadbalancer listener list
 
 List listeners
 
@@ -547,7 +549,7 @@ Exclude listener which have any given tag(s) (Comma-separated list of tags)
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener set
+## loadbalancer listener set
 
 Update a listener
 
@@ -637,7 +639,7 @@ Listener to modify (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener show
+## loadbalancer listener show
 
 Show the details of a single listener
 
@@ -671,7 +673,7 @@ Name or UUID of the listener.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener stats show
+## loadbalancer listener stats show
 
 Shows the current statistics for a listener.
 
@@ -705,7 +707,7 @@ Name or UUID of the listener.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer listener unset
+## loadbalancer listener unset
 
 Clear listener settings
 
@@ -789,9 +791,9 @@ Listener to modify (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## pool
+# pool
 
-### loadbalancer pool create
+## loadbalancer pool create
 
 Create a pool
 
@@ -880,7 +882,7 @@ No tags associated with the pool
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer pool delete
+## loadbalancer pool delete
 
 Delete a pool
 
@@ -894,7 +896,7 @@ Pool to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer pool list
+## loadbalancer pool list
 
 List pools
 
@@ -948,7 +950,7 @@ Exclude pool which have any given tag(s) (Comma-separated list of tags)
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer pool set
+## loadbalancer pool set
 
 Update a pool
 
@@ -1010,7 +1012,7 @@ Pool to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer pool show
+## loadbalancer pool show
 
 Show the details of a single pool
 
@@ -1044,7 +1046,7 @@ Name or UUID of the pool.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer pool unset
+## loadbalancer pool unset
 
 Clear pool settings
 
@@ -1092,9 +1094,9 @@ Pool to modify (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## member
+# member
 
-### loadbalancer member create
+## loadbalancer member create
 
 Creating a member in a pool
 
@@ -1167,7 +1169,7 @@ ID or name of the pool to create the member for.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer member delete
+## loadbalancer member delete
 
 Delete a member from a pool
 
@@ -1183,7 +1185,7 @@ Name or ID of the member to be deleted.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer member list
+## loadbalancer member list
 
 List members in a pool
 
@@ -1237,7 +1239,7 @@ Pool name or ID to list the members of.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer member set
+## loadbalancer member set
 
 Update a member
 
@@ -1284,7 +1286,7 @@ Name or ID of the member to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer member show
+## loadbalancer member show
 
 Shows details of a single Member
 
@@ -1321,7 +1323,7 @@ Name or ID of the member to show.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer member unset
+## loadbalancer member unset
 
 Clear member settings
 
@@ -1360,9 +1362,9 @@ Member to modify (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## healthmonitor
+# healthmonitor
 
-### loadbalancer healthmonitor create
+## loadbalancer healthmonitor create
 
 Create a health monitor
 
@@ -1443,7 +1445,7 @@ Set the pool for the health monitor (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer healthmonitor delete
+## loadbalancer healthmonitor delete
 
 Delete a health monitor
 
@@ -1457,7 +1459,7 @@ Health monitor to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer healthmonitor list
+## loadbalancer healthmonitor list
 
 List health monitors
 
@@ -1508,7 +1510,7 @@ Exclude health monitor which have any given tag(s) (Comma-separated list of tags
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer healthmonitor set
+## loadbalancer healthmonitor set
 
 Update a health monitor
 
@@ -1565,7 +1567,7 @@ Health monitor to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer healthmonitor show
+## loadbalancer healthmonitor show
 
 Show the details of a single health monitor
 
@@ -1599,7 +1601,7 @@ Name or UUID of the health monitor.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer healthmonitor unset
+## loadbalancer healthmonitor unset
 
 Clear health monitor settings
 
@@ -1641,9 +1643,9 @@ Health monitor to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## l7policy
+# l7policy
 
-### loadbalancer l7policy create
+## loadbalancer l7policy create
 
 Create a l7policy
 
@@ -1713,7 +1715,7 @@ Listener to add l7policy to (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7policy delete
+## loadbalancer l7policy delete
 
 Delete a l7policy
 
@@ -1727,7 +1729,7 @@ l7policy to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7policy list
+## loadbalancer l7policy list
 
 List l7policies
 
@@ -1781,7 +1783,7 @@ Exclude l7policy which have any given tag(s) (Comma-separated list of tags)
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7policy set
+## loadbalancer l7policy set
 
 Update a l7policy
 
@@ -1830,7 +1832,7 @@ L7policy to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7policy show
+## loadbalancer l7policy show
 
 Show the details of a single l7policy
 
@@ -1864,7 +1866,7 @@ Name or UUID of the l7policy.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7policy unset
+## loadbalancer l7policy unset
 
 Clear l7policy settings
 
@@ -1894,9 +1896,9 @@ L7policy to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## l7rule
+# l7rule
 
-### loadbalancer l7rule create
+## loadbalancer l7rule create
 
 Create a l7rule
 
@@ -1960,13 +1962,11 @@ l7policy to add l7rule to (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7rule delete
+## loadbalancer l7rule delete
 
 Delete a l7rule
 
 `openstack loadbalancer l7rule delete [--wait] <l7policy> <rule_id>`
-
-
 
 –wait
 
@@ -1981,8 +1981,6 @@ rule\_id
 l7rule to delete.
 
 This command is provided by the python-octaviaclient plugin.loadbalancer l7rule listList l7rules for l7policy
-
-
 
 `openstack loadbalancer l7rule list`
 `    [-f {csv,json,table,value,yaml}]`
@@ -2034,7 +2032,7 @@ l7policy to list rules for (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7rule set
+## loadbalancer l7rule set
 
 Update a l7rule
 
@@ -2079,7 +2077,7 @@ l7rule to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer l7rule show
+## loadbalancer l7rule show
 
 Show the details of a single l7rule
 
@@ -2093,8 +2091,6 @@ Show the details of a single l7rule
 `    [--print-empty]`
 `    <l7policy>`
 `    <l7rule_id>`
-
-
 
 -f \<FORMATTER>, –format \<FORMATTER>
 
@@ -2134,8 +2130,6 @@ l7rule to show.
 
 This command is provided by the python-octaviaclient plugin.loadbalancer l7rule unsetClear l7rule settings
 
-
-
 `openstack loadbalancer l7rule unset`
 `    [--invert]`
 `    [--key]`
@@ -2162,9 +2156,9 @@ l7rule to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-## quota
+# quota
 
-### loadbalancer quota defaults show
+## loadbalancer quota defaults show
 
 Show quota defaults
 
@@ -2195,7 +2189,7 @@ Print empty table if there is no data to show.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer quota list
+## loadbalancer quota list
 
 List quotas
 
@@ -2237,7 +2231,7 @@ Name or UUID of the project.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer quota reset
+## loadbalancer quota reset
 
 Resets quotas to default quotas
 
@@ -2249,7 +2243,7 @@ Project to reset quotas (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer quota set
+## loadbalancer quota set
 
 Update a quota
 
@@ -2304,7 +2298,7 @@ Name or UUID of the project.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer quota show
+## loadbalancer quota show
 
 Show the quota details for a project
 
@@ -2338,7 +2332,7 @@ Name or UUID of the project.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer quota unset
+## loadbalancer quota unset
 
 Clear quota settings
 
@@ -2372,9 +2366,9 @@ Name or UUID of the project.
 
 This command is provided by the python-octaviaclient plugin.
 
-## amphora
+# amphora
 
-### loadbalancer amphora configure
+## loadbalancer amphora configure
 
 Update the amphora agent configuration
 
@@ -2388,7 +2382,7 @@ UUID of the amphora to configure.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer amphora delete
+## loadbalancer amphora delete
 
 Delete a amphora
 
@@ -2402,7 +2396,7 @@ UUID of the amphora to delete.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer amphora failover
+## loadbalancer amphora failover
 
 Force failover an amphora
 
@@ -2416,7 +2410,7 @@ UUID of the amphora.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer amphora list
+## loadbalancer amphora list
 
 List amphorae
 
@@ -2470,7 +2464,7 @@ Show additional fields.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer amphora show
+## loadbalancer amphora show
 
 Show the details of a single amphora
 
@@ -2504,7 +2498,7 @@ UUID of the amphora.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer amphora stats show
+## loadbalancer amphora stats show
 
 Shows the current statistics for an amphora.
 
@@ -2541,9 +2535,9 @@ UUID of the amphora.
 
 This command is provided by the python-octaviaclient plugin.
 
-## provider
+# provider
 
-### loadbalancer provider capability list
+## loadbalancer provider capability list
 
 List specified provider driver’s capabilities.
 
@@ -2590,7 +2584,7 @@ Name of the provider driver.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer provider list
+## loadbalancer provider list
 
 List all providers
 
@@ -2629,9 +2623,9 @@ sort the column(s) in descending order
 
 This command is provided by the python-octaviaclient plugin.
 
-## flavor
+# flavor
 
-### loadbalancer flavor create
+## loadbalancer flavor create
 
 Create a octavia flavor
 
@@ -2676,7 +2670,7 @@ Disable flavor.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavor delete
+## loadbalancer flavor delete
 
 Delete a flavor
 
@@ -2688,7 +2682,7 @@ Flavor to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavor list
+## loadbalancer flavor list
 
 List flavor
 
@@ -2738,7 +2732,7 @@ List disabled flavors.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavor set
+## loadbalancer flavor set
 
 Update a flavor
 
@@ -2747,8 +2741,6 @@ Update a flavor
 `    [--description <description>]`
 `    [--enable | --disable]`
 `    <flavor>`
-
-
 
 –name \<name>
 
@@ -2771,8 +2763,6 @@ flavor
 Name or UUID of the flavor to update.
 
 This command is provided by the python-octaviaclient plugin.loadbalancer flavor showShow the details for a single flavor
-
-
 
 `openstack loadbalancer flavor show`
 `    [-f {json,shell,table,value,yaml}]`
@@ -2804,7 +2794,7 @@ Name or UUID of the flavor.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavor unset
+## loadbalancer flavor unset
 
 Clear flavor settings
 
@@ -2818,9 +2808,9 @@ Flavor to update (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-## flavorprofile
+# flavorprofile
 
-### loadbalancer flavorprofile create
+## loadbalancer flavorprofile create
 
 Create a octavia flavor profile
 
@@ -2861,7 +2851,7 @@ The JSON string containing the flavor metadata.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavorprofile delete
+## loadbalancer flavorprofile delete
 
 Delete a flavor profile
 
@@ -2873,7 +2863,7 @@ Flavor profiles to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavorprofile list
+## loadbalancer flavorprofile list
 
 List flavor profile
 
@@ -2918,7 +2908,7 @@ List flavor profiles according to their provider.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavorprofile set
+## loadbalancer flavorprofile set
 
 Update a flavor profile
 
@@ -2940,7 +2930,7 @@ Name or UUID of the flavor profile to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer flavorprofile show
+## loadbalancer flavorprofile show
 
 Show the details for a single flavor profile
 
@@ -2974,9 +2964,9 @@ Name or UUID of the flavor profile to show.
 
 This command is provided by the python-octaviaclient plugin.
 
-## availabilityzone
+# availabilityzone
 
-### loadbalancer availabilityzone create
+## loadbalancer availabilityzone create
 
 Create an octavia availability zone
 
@@ -3021,7 +3011,7 @@ Disable the availability zone.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzone delete
+## loadbalancer availabilityzone delete
 
 Delete an availability zone
 
@@ -3033,7 +3023,7 @@ Name of the availability zone to delete.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzone list
+## loadbalancer availabilityzone list
 
 List availability zones
 
@@ -3083,7 +3073,7 @@ List disabled availability zones.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzone set
+## loadbalancer availabilityzone set
 
 Update an availability zone
 
@@ -3104,7 +3094,7 @@ Name of the availability zone to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzone show
+## loadbalancer availabilityzone show
 
 Show the details for a single availability zone
 
@@ -3138,7 +3128,7 @@ Name of the availability zone.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzone unset
+## loadbalancer availabilityzone unset
 
 Clear availability zone settings
 
@@ -3154,9 +3144,9 @@ Name of the availability zone to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-## availabilityzoneprofile
+# availabilityzoneprofile
 
-### loadbalancer availabilityzoneprofile create
+## loadbalancer availabilityzoneprofile create
 
 Create an octavia availability zone profile
 
@@ -3197,7 +3187,7 @@ The JSON string containing the availability zone metadata.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzoneprofile delete
+## loadbalancer availabilityzoneprofile delete
 
 Delete an availability zone profile
 
@@ -3210,7 +3200,7 @@ Availability zone profile to delete (name or ID).
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzoneprofile list
+## loadbalancer availabilityzoneprofile list
 
 List availability zone profiles
 
@@ -3226,8 +3216,6 @@ List availability zone profiles
 `    [--sort-ascending | --sort-descending]`
 `    [--name <name>]`
 `    [--provider <provider_name>]`
-
-
 
 -f \<FORMATTER>, –format \<FORMATTER>
 
@@ -3279,8 +3267,6 @@ List availability zone profiles according to their provider.
 
 This command is provided by the python-octaviaclient plugin.loadbalancer availabilityzoneprofile setUpdate an availability zone profile
 
-
-
 `openstack loadbalancer availabilityzoneprofile set`
 `    [--name <name>]`
 `    [--provider <provider_name>]`
@@ -3299,7 +3285,7 @@ Name or UUID of the availability zone profile to update.
 
 This command is provided by the python-octaviaclient plugin.
 
-### loadbalancer availabilityzoneprofile show
+## loadbalancer availabilityzoneprofile show
 
 Show the details of a single availability zone profile
 
