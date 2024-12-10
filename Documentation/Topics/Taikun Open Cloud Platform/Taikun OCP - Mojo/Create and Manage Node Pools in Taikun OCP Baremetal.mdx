@@ -1,6 +1,8 @@
-# Create and Manage Node Pools in Taikun OCP Baremetal
+---
+title: "Create and Manage Node Pools in Taikun OCP Baremetal"
+---
 
-## Pool Management
+# Pool Management
 
 To work with Pools in Taikun OCP Baremetal, a few facts need to be understood:
 
@@ -16,17 +18,17 @@ To work with Pools in Taikun OCP Baremetal, a few facts need to be understood:
 
 By default, Taikun OCP Baremetal comes with a **Default** Pool and a **Default** group. *Users* who are members of the **Default** group have access to all Nodes in the **Default** Pool. On small Taikun OCP Baremetal installs with only a single active user, the **Default** *Group* and the **Default** *Pool* can be used for everything. In larger deployments with different user permission requirements, the *Groups* and *Pools* should be constructed to meet said requirements.
 
-## Create a Node Management Pool
+# Create a Node Management Pool
 
 In this use case, we will create a new *Pool* for just one of our *Nodes* so a specific user group can manage the *Node*. This is a common use case for Taikun OCP Baremetal, where a specific *Group* of *Users* needs to be able to manage a specific set of *Nodes*.
 
-### Create User
+## Create User
 
 Create a new user called “supermicro”. Under “Administration” in the left navigation, select “Users” and then click the blue “Add user” button on the right side of the screen. Fill out the form and click “Save”.
 
 ![](https://support.metify.io/uploads/default/original/1X/101a369f4d469e948038e00483503035722218a2.gif)
 
-### Create Group
+## Create Group
 
 Create a “Supermicro Users” group for all users that can manage Supermicro servers. Under “Administration” in the left navigation, select “Groups” and then click the blue “Add group” button on the right side of the screen. Enter the *Group* information and press the “Create group” button.
 
@@ -37,23 +39,23 @@ then click on the “Supermicro Users” row. Click “Add user to group” in t
 
 ![](https://support.metify.io/uploads/default/original/1X/172e9335c6397e3534fa82cf3ca7884831fe93a2.gif)
 
-### Create Pool
+## Create Pool
 
 Create a *Pool* called “Supermicro Pool” and assign the “supermicro” group to the *Pool*. Under “Management” in the left navigation, select “Pools” and then click the blue “Create pool” button on the right side of the screen. Enter the *Pool* information and press the “Create pool” button.
 
 ![](https://support.metify.io/uploads/default/original/1X/c383b44516c10e80f04621ced565b15f5908833b.gif)
 
-### Add Node to Pool
+## Add Node to Pool
 
 There are many wants to add a *Node* to a *Pool*. **You only need to perform one of the following methods to add a *Node* to a *Pool*.**
 
-#### Pool Detail Page
+### Pool Detail Page
 
 You can do so from the Pool detail page by clicking on an individual pool in the Pool list.
 
 ![](https://support.metify.io/uploads/default/original/1X/3da4a085d3d1d992e7c37b5590f65a0a1d5c0e5f.gif)
 
-#### Server Detail Page
+### Server Detail Page
 
 A Server can also be added to the pool directly on its detail page. Click on the Server in the server table and then the blue “Assign to pool” button on the right side of the page. This will open a modal window where you can select the pool to assign the server to.
 
