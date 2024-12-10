@@ -1,9 +1,6 @@
 ---
-title: "New file"
-description: "Description of your new file."
+title: "Launch Virtual Machines (Instances)"
 ---
-
-# Launch Virtual Machines (Instances)
 
 Instances are virtual machines that run inside the cloud. You can launch an instance from the following sources:
 
@@ -13,7 +10,7 @@ Instances are virtual machines that run inside the cloud. You can launch an inst
 
 * Instance snapshot that you took.
 
-## Launch an instance
+# Launch an instance
 
 1. Log in to the dashboard.
 
@@ -25,13 +22,11 @@ Instances are virtual machines that run inside the cloud. You can launch an inst
 
 5. In the Launch Instance dialog box, specify the following values:Details tabInstance NameAssign a name to the virtual machine.
 
-Note
-
-The name you assign here becomes the initial host name of the server. If the name is longer than 63 characters, the Compute service truncates it automatically to ensure dnsmasq works correctly.
-
-After the server is built, if you change the server name in the API or change the host name directly, the names are not updated in the dashboard.
-
-Server names are not guaranteed to be unique when created so you could have two instances with the same host name.
+> Note- The name you assign here becomes the initial host name of the server. If the name is longer than 63 characters, the Compute service truncates it automatically to ensure dnsmasq works correctly.
+>
+> - After the server is built, if you change the server name in the API or change the host name directly, the names are not updated in the dashboard.
+>
+> - Server names are not guaranteed to be unique when created so you could have two instances with the same host name.
 
 Description
 
@@ -65,17 +60,13 @@ Flavor tabFlavor
 
 Specify the size of the instance to launch.
 
-Note
+> Note
+> The flavor is selected based on the size of the image selected for launching an instance. For example, while creating an image, if you have entered the value in the Minimum RAM (MB) field as 2048, then on selecting the image, the default flavor is `m1.small`.
+> 1) Networks tabSelected NetworksTo add a network to the instance, click the + in the Available field.Network Ports tabPortsActivate the ports that you want to assign to the instance.Security Groups tabSecurity GroupsActivate the security groups that you want to assign to the instance.Security groups are a kind of cloud firewall that define which incoming network traffic is forwarded to instances.If you have not created any security groups, you can assign only the default security group to the instance.Key Pair tabKey PairSpecify a key pair.If the image uses a static root password or a static key set (neither is recommended), you do not need to provide a key pair to launch the instance.Configuration tabCustomization Script SourceSpecify a customization script that runs after your instance launches.Metadata tabAvailable MetadataAdd Metadata items to your instance.
+> 2) Click Launch Instance.The instance starts on a compute node in the cloud.
 
-The flavor is selected based on the size of the image selected for launching an instance. For example, while creating an image, if you have entered the value in the Minimum RAM (MB) field as 2048, then on selecting the image, the default flavor is `m1.small`.
-
-1. Networks tabSelected NetworksTo add a network to the instance, click the + in the Available field.Network Ports tabPortsActivate the ports that you want to assign to the instance.Security Groups tabSecurity GroupsActivate the security groups that you want to assign to the instance.Security groups are a kind of cloud firewall that define which incoming network traffic is forwarded to instances.If you have not created any security groups, you can assign only the default security group to the instance.Key Pair tabKey PairSpecify a key pair.If the image uses a static root password or a static key set (neither is recommended), you do not need to provide a key pair to launch the instance.Configuration tabCustomization Script SourceSpecify a customization script that runs after your instance launches.Metadata tabAvailable MetadataAdd Metadata items to your instance.
-
-2. Click Launch Instance.The instance starts on a compute node in the cloud.
-
-Note
-
-If you did not provide a key pair, security groups, or rules, users can access the instance only from inside the cloud through VNC. Even pinging the instance is not possible without an ICMP rule configured.
+> Note
+> If you did not provide a key pair, security groups, or rules, users can access the instance only from inside the cloud through VNC. Even pinging the instance is not possible without an ICMP rule configured.
 
 You can also launch an instance from the Images or Volumes category when you launch an instance from an image or a volume respectively.
 
@@ -89,32 +80,34 @@ When you launch an instance from a volume, note the following steps:
 
 * Select the volume or volume snapshot from which to boot. Enter a device name. Enter `vda` for KVM images or `xvda` for Xen images.
 
-Note
+> Note
+> When running QEMU without support for the hardware virtualization, set `cpu_mode="none"` alongside `virt_type=qemu` in `/etc/nova/nova-compute.conf` to solve the following error:
 
-When running QEMU without support for the hardware virtualization, set `cpu_mode="none"` alongside `virt_type=qemu` in `/etc/nova/nova-compute.conf` to solve the following error:
+```
+libvirtError: unsupported configuration: CPU mode 'host-model'
+for ``x86_64`` qemu domain on ``x86_64`` host is not supported by hypervisor
+```
 
-`libvirtError: unsupported configuration: CPU mode 'host-model'`
-`for ``x86_64`` qemu domain on ``x86_64`` host is not supported by hypervisor`
-
-## Connect to your instance by using SSH
+# Connect to your instance by using SSH
 
 To use SSH to connect to your instance, use the downloaded keypair file.
 
-Note
-
-The user name is `ubuntu` for the Ubuntu cloud images on TryStack.
+> Note
+> The user name is `ubuntu` for the Ubuntu cloud images on TryStack.
 
 1. Copy the IP address for your instance.
 
 2. Use the **ssh** command to make a secure connection to the instance. For example:
 
-`$ ssh -i MyKey.pem ubuntu@10.0.0.2`
+```
+$ ssh -i MyKey.pem ubuntu@10.0.0.2
+```
 
 1. At the prompt, type `yes`.
 
 It is also possible to SSH into an instance without an SSH keypair, if the administrator has enabled root password injection. For more information about root password injection, see [Injecting the administrator password](https://docs.openstack.org/nova/latest/admin/admin-password-injection.html) in the *OpenStack Administrator Guide*.
 
-## Track usage for instances
+# Track usage for instances
 
 You can track usage for instances for each project. You can track costs per month by showing meters like number of vCPUs, disks, RAM, and uptime for all your instances.
 
