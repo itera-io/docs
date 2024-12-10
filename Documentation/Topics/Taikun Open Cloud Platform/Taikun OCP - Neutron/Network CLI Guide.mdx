@@ -13,326 +13,328 @@ Compute v2, Network v2
 Create new network
 
 openstack network create
-&#x20;   \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>]
-&#x20;   \[--share | --no-share]
-&#x20;   \[--enable | --disable]
-&#x20;   \[--project \<project>]
-&#x20;   \[--description \<description>]
-&#x20;   \[--mtu \<mtu>]
-&#x20;   \[--project-domain \<project-domain>]
-&#x20;   \[--availability-zone-hint \<availability-zone>]
-&#x20;   \[--enable-port-security | --disable-port-security]
-&#x20;   \[--external | --internal]
-&#x20;   \[--default | --no-default]
-&#x20;   \[--qos-policy \<qos-policy>]
-&#x20;   \[--transparent-vlan | --no-transparent-vlan]
-&#x20;   \[--provider-network-type \<provider-network-type>]
-&#x20;   \[--provider-physical-network \<provider-physical-network>]
-&#x20;   \[--provider-segment \<provider-segment>]
-&#x20;   \[--dns-domain \<dns-domain>]
-&#x20;   \[--tag \<tag> | --no-tag]
-&#x20;   \--subnet \<subnet>
-&#x20;   \<name>
 
-–extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
+* &#x20;   \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>]
+  &#x20;   \[--share | --no-share]
+  &#x20;   \[--enable | --disable]
+  &#x20;   \[--project \<project>]
+  &#x20;   \[--description \<description>]
+  &#x20;   \[--mtu \<mtu>]
+  &#x20;   \[--project-domain \<project-domain>]
+  &#x20;   \[--availability-zone-hint \<availability-zone>]
+  &#x20;   \[--enable-port-security | --disable-port-security]
+  &#x20;   \[--external | --internal]
+  &#x20;   \[--default | --no-default]
+  &#x20;   \[--qos-policy \<qos-policy>]
+  &#x20;   \[--transparent-vlan | --no-transparent-vlan]
+  &#x20;   \[--provider-network-type \<provider-network-type>]
+  &#x20;   \[--provider-physical-network \<provider-physical-network>]
+  &#x20;   \[--provider-segment \<provider-segment>]
+  &#x20;   \[--dns-domain \<dns-domain>]
+  &#x20;   \[--tag \<tag> | --no-tag]
+  &#x20;   \--subnet \<subnet>
+  &#x20;   \<name>
 
-Additional parameters can be passed using this property. Default type of the extra property is string (‘str’), but other types can be used as well. Available types are: ‘dict’, ‘list’, ‘str’, ‘bool’, ‘int’. In case of ‘list’ type, ‘value’ can be semicolon-separated list of values. For ‘dict’ value is semicolon-separated list of the key:value pairs.
+extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
-–share
+* Additional parameters can be passed using this property. Default type of the extra property is string (‘str’), but other types can be used as well. Available types are: ‘dict’, ‘list’, ‘str’, ‘bool’, ‘int’. In case of ‘list’ type, ‘value’ can be semicolon-separated list of values. For ‘dict’ value is semicolon-separated list of the key:value pairs.
 
-Share the network between projects
+share
 
-–no-share
+* Share the network between projects
 
-Do not share the network between projects
+no-share
 
-–enable
+* Do not share the network between projects
 
-Enable network (default)
+enable
 
-*Network version 2 only*
-
-–disable
-
-Disable network
+* Enable network (default)
 
 *Network version 2 only*
 
-–project \<project>
+disable
 
-Owner’s project (name or ID)
-
-*Network version 2 only*
-
-–description \<description>
-
-Set network description
+* Disable network
 
 *Network version 2 only*
 
-–mtu \<mtu>
+project \<project>
 
-Set network mtu
-
-*Network version 2 only*
-
-–project-domain \<project-domain>
-
-Domain the project belongs to (name or ID). This can be used in case collisions between project names exist.
-
-–availability-zone-hint \<availability-zone>
-
-Availability Zone in which to create this network (Network Availability Zone extension required, repeat option to set multiple availability zones)
+* Owner’s project (name or ID)
 
 *Network version 2 only*
 
-–enable-port-security
+description \<description>
 
-Enable port security by default for ports created on this network (default)
-
-*Network version 2 only*
-
-–disable-port-security
-
-Disable port security by default for ports created on this network
+* Set network description
 
 *Network version 2 only*
 
-–external
+mtu \<mtu>
 
-Set this network as an external network (external-net extension required)
-
-*Network version 2 only*
-
-–internal
-
-Set this network as an internal network (default)
+* Set network mtu
 
 *Network version 2 only*
 
-–default
+project-domain \<project-domain>
 
-Specify if this network should be used as the default external network
+* Domain the project belongs to (name or ID). This can be used in case collisions between project names exist.
 
-*Network version 2 only*
+availability-zone-hint \<availability-zone>
 
-–no-default
-
-Do not use the network as the default external network (default)
+* Availability Zone in which to create this network (Network Availability Zone extension required, repeat option to set multiple availability zones)
 
 *Network version 2 only*
 
-–qos-policy \<qos-policy>
+enable-port-security
 
-QoS policy to attach to this network (name or ID)
-
-*Network version 2 only*
-
-–transparent-vlan
-
-Make the network VLAN transparent
+* Enable port security by default for ports created on this network (default)
 
 *Network version 2 only*
 
-–no-transparent-vlan
+disable-port-security
 
-Do not make the network VLAN transparent
-
-*Network version 2 only*
-
-–provider-network-type \<provider-network-type>
-
-The physical mechanism by which the virtual network is implemented. For example: flat, geneve, gre, local, vlan, vxlan.
-
-–provider-physical-network \<provider-physical-network>
-
-Name of the physical network over which the virtual network is implemented
-
-–provider-segment \<provider-segment>
-
-VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
-
-–dns-domain \<dns-domain>
-
-Set DNS domain for this network (requires DNS integration extension)
-
-–tag \<tag>
-
-Tag to be added to the network (repeat option to set multiple tags)
+* Disable port security by default for ports created on this network
 
 *Network version 2 only*
 
-–no-tag
+external
 
-No tags associated with the network
+* Set this network as an external network (external-net extension required)
 
 *Network version 2 only*
 
-–subnet \<subnet>
+internal
 
-IPv4 subnet for fixed IPs (in CIDR notation)
+* Set this network as an internal network (default)
+
+*Network version 2 only*
+
+default
+
+* Specify if this network should be used as the default external network
+
+*Network version 2 only*
+
+no-default
+
+* Do not use the network as the default external network (default)
+
+*Network version 2 only*
+
+qos-policy \<qos-policy>
+
+* QoS policy to attach to this network (name or ID)
+
+*Network version 2 only*
+
+transparent-vlan
+
+* Make the network VLAN transparent
+
+*Network version 2 only*
+
+no-transparent-vlan
+
+* Do not make the network VLAN transparent
+
+*Network version 2 only*
+
+provider-network-type \<provider-network-type>
+
+* The physical mechanism by which the virtual network is implemented. For example: flat, geneve, gre, local, vlan, vxlan.
+
+provider-physical-network \<provider-physical-network>
+
+* Name of the physical network over which the virtual network is implemented
+
+provider-segment \<provider-segment>
+
+* VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
+
+dns-domain \<dns-domain>
+
+* Set DNS domain for this network (requires DNS integration extension)
+
+tag \<tag>
+
+* Tag to be added to the network (repeat option to set multiple tags)
+
+*Network version 2 only*
+
+no-tag
+
+* No tags associated with the network
+
+*Network version 2 only*
+
+subnet \<subnet>
+
+* IPv4 subnet for fixed IPs (in CIDR notation)
 
 *Compute version 2 only*
 
 name
 
-New network name
+* New network name
 
 # network delete
 
 Delete network(s)
 
-openstack network delete \<network> \[\<network> ...]
+* openstack network delete \<network> \[\<network> ...]
 
 network
 
-Network(s) to delete (name or ID)
+* Network(s) to delete (name or ID)
 
 # network list
 
 List networks
 
 openstack network list
-&#x20;   \[--sort-column SORT\_COLUMN]
-&#x20;   \[--sort-ascending | --sort-descending]
-&#x20;   \[--external | --internal]
-&#x20;   \[--long]
-&#x20;   \[--name \<name>]
-&#x20;   \[--enable | --disable]
-&#x20;   \[--project \<project>]
-&#x20;   \[--project-domain \<project-domain>]
-&#x20;   \[--share | --no-share]
-&#x20;   \[--status \<status>]
-&#x20;   \[--provider-network-type \<provider-network-type>]
-&#x20;   \[--provider-physical-network \<provider-physical-network>]
-&#x20;   \[--provider-segment \<provider-segment>]
-&#x20;   \[--agent \<agent-id>]
-&#x20;   \[--tags \<tag>\[,\<tag>,...]]
-&#x20;   \[--any-tags \<tag>\[,\<tag>,...]]
-&#x20;   \[--not-tags \<tag>\[,\<tag>,...]]
-&#x20;   \[--not-any-tags \<tag>\[,\<tag>,...]]
 
-–sort-column SORT\_COLUMN
+* &#x20;   \[--sort-column SORT\_COLUMN]
+  &#x20;   \[--sort-ascending | --sort-descending]
+  &#x20;   \[--external | --internal]
+  &#x20;   \[--long]
+  &#x20;   \[--name \<name>]
+  &#x20;   \[--enable | --disable]
+  &#x20;   \[--project \<project>]
+  &#x20;   \[--project-domain \<project-domain>]
+  &#x20;   \[--share | --no-share]
+  &#x20;   \[--status \<status>]
+  &#x20;   \[--provider-network-type \<provider-network-type>]
+  &#x20;   \[--provider-physical-network \<provider-physical-network>]
+  &#x20;   \[--provider-segment \<provider-segment>]
+  &#x20;   \[--agent \<agent-id>]
+  &#x20;   \[--tags \<tag>\[,\<tag>,...]]
+  &#x20;   \[--any-tags \<tag>\[,\<tag>,...]]
+  &#x20;   \[--not-tags \<tag>\[,\<tag>,...]]
+  &#x20;   \[--not-any-tags \<tag>\[,\<tag>,...]]
 
-specify the column(s) to sort the data (columns specified first have a priority, non-existing columns are ignored), can be repeated
+sort-column SORT\_COLUMN
 
-–sort-ascending
+* specify the column(s) to sort the data (columns specified first have a priority, non-existing columns are ignored), can be repeated
 
-sort the column(s) in ascending order
+sort-ascending
 
-–sort-descending
+* sort the column(s) in ascending order
 
-sort the column(s) in descending order
+sort-descending
 
-–external
+* sort the column(s) in descending order
 
-List external networks
+external
 
-*Network version 2 only*
-
-–internal
-
-List internal networks
+* List external networks
 
 *Network version 2 only*
 
-–long
+internal
 
-List additional fields in output
-
-*Network version 2 only*
-
-–name \<name>
-
-List networks according to their name
+* List internal networks
 
 *Network version 2 only*
 
-–enable
+long
 
-List enabled networks
-
-*Network version 2 only*
-
-–disable
-
-List disabled networks
+* List additional fields in output
 
 *Network version 2 only*
 
-–project \<project>
+name \<name>
 
-List networks according to their project (name or ID)
-
-–project-domain \<project-domain>
-
-Domain the project belongs to (name or ID). This can be used in case collisions between project names exist.
+* List networks according to their name
 
 *Network version 2 only*
 
-–share
+enable
 
-List networks shared between projects
-
-*Network version 2 only*
-
-–no-share
-
-List networks not shared between projects
+* List enabled networks
 
 *Network version 2 only*
 
-–status \<status>
+disable
 
-List networks according to their status (‘ACTIVE’, ‘BUILD’, ‘DOWN’, ‘ERROR’)
-
-*Network version 2 only*
-
-–provider-network-type \<provider-network-type>
-
-List networks according to their physical mechanisms. The supported options are: flat, geneve, gre, local, vlan, vxlan.
+* List disabled networks
 
 *Network version 2 only*
 
-–provider-physical-network \<provider-physical-network>[¶](https://taikun.cloud/docs/network-cli-guide/#cmdoption-openstack-network-list-provider-physical-network "Permalink to this definition")
+project \<project>
 
-List networks according to name of the physical network
+* List networks according to their project (name or ID)
 
-*Network version 2 only*
+project-domain \<project-domain>
 
-–provider-segment \<provider-segment>[¶](https://taikun.cloud/docs/network-cli-guide/#cmdoption-openstack-network-list-provider-segment "Permalink to this definition")
-
-List networks according to VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
+* Domain the project belongs to (name or ID). This can be used in case collisions between project names exist.
 
 *Network version 2 only*
 
-–agent \<agent-id>
+share
 
-List networks hosted by agent (ID only)
-
-*Network version 2 only*
-
-–tags \<tag>\[,\<tag>,…]
-
-List networks which have all given tag(s) (Comma-separated list of tags)
+* List networks shared between projects
 
 *Network version 2 only*
 
-–any-tags \<tag>\[,\<tag>,…]
+no-share
 
-List networks which have any given tag(s) (Comma-separated list of tags)
-
-*Network version 2 only*
-
-–not-tags \<tag>\[,\<tag>,…]
-
-Exclude networks which have all given tag(s) (Comma-separated list of tags)
+* List networks not shared between projects
 
 *Network version 2 only*
 
-–not-any-tags \<tag>\[,\<tag>,…]
+status \<status>
 
-Exclude networks which have any given tag(s) (Comma-separated list of tags)
+* List networks according to their status (‘ACTIVE’, ‘BUILD’, ‘DOWN’, ‘ERROR’)
+
+*Network version 2 only*
+
+provider-network-type \<provider-network-type>
+
+* List networks according to their physical mechanisms. The supported options are: flat, geneve, gre, local, vlan, vxlan.
+
+*Network version 2 only*
+
+provider-physical-network \<provider-physical-network>[¶](https://taikun.cloud/docs/network-cli-guide/#cmdoption-openstack-network-list-provider-physical-network "Permalink to this definition")
+
+* List networks according to name of the physical network
+
+*Network version 2 only*
+
+provider-segment \<provider-segment>[¶](https://taikun.cloud/docs/network-cli-guide/#cmdoption-openstack-network-list-provider-segment "Permalink to this definition")
+
+* List networks according to VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
+
+*Network version 2 only*
+
+agent \<agent-id>
+
+* List networks hosted by agent (ID only)
+
+*Network version 2 only*
+
+tags \<tag>\[,\<tag>,…]
+
+* List networks which have all given tag(s) (Comma-separated list of tags)
+
+*Network version 2 only*
+
+any-tags \<tag>\[,\<tag>,…]
+
+* List networks which have any given tag(s) (Comma-separated list of tags)
+
+*Network version 2 only*
+
+not-tags \<tag>\[,\<tag>,…]
+
+* Exclude networks which have all given tag(s) (Comma-separated list of tags)
+
+*Network version 2 only*
+
+not-any-tags \<tag>\[,\<tag>,…]
+
+* Exclude networks which have any given tag(s) (Comma-separated list of tags)
 
 *Network version 2 only*
 
@@ -341,144 +343,145 @@ Exclude networks which have any given tag(s) (Comma-separated list of tags)
 Set network properties
 
 openstack network set
-&#x20;   \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>]
-&#x20;   \[--name \<name>]
-&#x20;   \[--enable | --disable]
-&#x20;   \[--share | --no-share]
-&#x20;   \[--description \<description]
-&#x20;   \[--mtu \<mtu]
-&#x20;   \[--enable-port-security | --disable-port-security]
-&#x20;   \[--external | --internal]
-&#x20;   \[--default | --no-default]
-&#x20;   \[--qos-policy \<qos-policy> | --no-qos-policy]
-&#x20;   \[--tag \<tag>]
-&#x20;   \[--no-tag]
-&#x20;   \[--provider-network-type \<provider-network-type>]
-&#x20;   \[--provider-physical-network \<provider-physical-network>]
-&#x20;   \[--provider-segment \<provider-segment>]
-&#x20;   \[--dns-domain \<dns-domain>]
-&#x20;   \<network>
 
-–extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
+* &#x20;   \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>]
+  &#x20;   \[--name \<name>]
+  &#x20;   \[--enable | --disable]
+  &#x20;   \[--share | --no-share]
+  &#x20;   \[--description \<description]
+  &#x20;   \[--mtu \<mtu]
+  &#x20;   \[--enable-port-security | --disable-port-security]
+  &#x20;   \[--external | --internal]
+  &#x20;   \[--default | --no-default]
+  &#x20;   \[--qos-policy \<qos-policy> | --no-qos-policy]
+  &#x20;   \[--tag \<tag>]
+  &#x20;   \[--no-tag]
+  &#x20;   \[--provider-network-type \<provider-network-type>]
+  &#x20;   \[--provider-physical-network \<provider-physical-network>]
+  &#x20;   \[--provider-segment \<provider-segment>]
+  &#x20;   \[--dns-domain \<dns-domain>]
+  &#x20;   \<network>
 
-Additional parameters can be passed using this property. Default type of the extra property is string (‘str’), but other types can be used as well. Available types are: ‘dict’, ‘list’, ‘str’, ‘bool’, ‘int’. In case of ‘list’ type, ‘value’ can be semicolon-separated list of values. For ‘dict’ value is semicolon-separated list of the key:value pairs.
+extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
-–name \<name>
+* Additional parameters can be passed using this property. Default type of the extra property is string (‘str’), but other types can be used as well. Available types are: ‘dict’, ‘list’, ‘str’, ‘bool’, ‘int’. In case of ‘list’ type, ‘value’ can be semicolon-separated list of values. For ‘dict’ value is semicolon-separated list of the key:value pairs.
 
-Set network name
+name \<name>
 
-–enable
+* Set network name
 
-Enable network
+enable
 
-–disable
+* Enable network
 
-Disable network
+disable
 
-–share
+* Disable network
 
-Share the network between projects
+share
 
-–no-share
+* Share the network between projects
 
-Do not share the network between projects
+no-share
 
-–description \<description
+* Do not share the network between projects
 
-Set network description
+description \<description
 
-–mtu \<mtu
+* Set network description
 
-Set network mtu
+mtu \<mtu
 
-–enable-port-security
+* Set network mtu
 
-Enable port security by default for ports created on this network
+enable-port-security
 
-–disable-port-security
+* Enable port security by default for ports created on this network
 
-Disable port security by default for ports created on this network
+disable-port-security
 
-–external
+* Disable port security by default for ports created on this network
 
-Set this network as an external network (external-net extension required)
+external
 
-–internal
+* Set this network as an external network (external-net extension required)
 
-Set this network as an internal network
+internal
 
-–default
+* Set this network as an internal network
 
-Set the network as the default external network
+default
 
-–no-default
+* Set the network as the default external network
 
-Do not use the network as the default external network
+no-default
 
-–qos-policy \<qos-policy>
+* Do not use the network as the default external network
 
-QoS policy to attach to this network (name or ID)
+qos-policy \<qos-policy>
 
-–no-qos-policy
+* QoS policy to attach to this network (name or ID)
 
-Remove the QoS policy attached to this network
+no-qos-policy
 
-–tag \<tag>
+* Remove the QoS policy attached to this network
 
-Tag to be added to the network (repeat option to set multiple tags)
+tag \<tag>
 
-–no-tag
+* Tag to be added to the network (repeat option to set multiple tags)
 
-Clear tags associated with the network. Specify both –tag and –no-tag to overwrite current tags
+no-tag
 
-–provider-network-type \<provider-network-type>
+* Clear tags associated with the network. Specify both –tag and –no-tag to overwrite current tags
 
-The physical mechanism by which the virtual network is implemented. For example: flat, geneve, gre, local, vlan, vxlan.
+provider-network-type \<provider-network-type>
 
-–provider-physical-network \<provider-physical-network>
+* The physical mechanism by which the virtual network is implemented. For example: flat, geneve, gre, local, vlan, vxlan.
 
-Name of the physical network over which the virtual network is implemented
+provider-physical-network \<provider-physical-network>
 
-–provider-segment \<provider-segment>
+* Name of the physical network over which the virtual network is implemented
 
-VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
+provider-segment \<provider-segment>
 
-–dns-domain \<dns-domain>
+* VLAN ID for VLAN networks or Tunnel ID for GENEVE/GRE/VXLAN networks
 
-Set DNS domain for this network (requires DNS integration extension)
+dns-domain \<dns-domain>
+
+* Set DNS domain for this network (requires DNS integration extension)
 
 network
 
-Network to modify (name or ID)
+* Network to modify (name or ID)
 
 # network show
 
 Show network details
 
-openstack network show \<network>
+* `openstack network show \<network>`
 
 network
 
-Network to display (name or ID)
+* Network to display (name or ID)
 
 # network unset
 
 Unset network properties
 
 openstack network unset
-&#x20;   \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>]
-&#x20;   \[--tag \<tag> | --all-tag]
-&#x20;   \<network>
 
-–extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
+* \[--extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>           \[--tag \<tag> | --all-tag]
+  &#x20;\<network>
+
+extra-property type=\<property\_type>,name=\<property\_name>,value=\<property\_value>
 
 * Additional parameters can be passed using this property. Default type of the extra property is string (‘str’), but other types can be used as well. Available types are: ‘dict’, ‘list’, ‘str’, ‘bool’, ‘int’. In case of ‘list’ type, ‘value’ can be semicolon-separated list of values. For ‘dict’ value is semicolon-separated list of the key:value pairs.
 
-–tag \<tag>
+tag \<tag>
 
 * Tag to be removed from the network (repeat option to remove multiple tags)
 
-–all-tag
+all-tag
 
 * Clear all tags associated with the network
 
