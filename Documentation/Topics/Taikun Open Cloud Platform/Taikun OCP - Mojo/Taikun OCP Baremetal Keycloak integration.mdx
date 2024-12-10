@@ -1,6 +1,8 @@
-# Taikun OCP Baremetal Keycloak integration
+---
+title: "Taikun OCP Baremetal Keycloak integration"
+---
 
-## Integration with Keycloak Identity Provider
+# Integration with Keycloak Identity Provider
 
 **Introduction:**
 
@@ -14,61 +16,51 @@ Taikun OCP Baremetal possesses the capability to incorporate external Identity P
 
 The integration process involves configuring Taikun OCP Baremetal to communicate with Keycloak’s SAML 2.0 endpoints. This encompasses the establishment of trust between the two systems and mapping of attributes to ensure seamless user authentication and authorization.
 
-### **Steps for Integration:**
+## **Steps for Integration:**
 
-1\. Configuration Setup:
+<Steps>
+  <Step title="Configuration Setup:">
+    – Access the configuration file of Taikun OCP Baremetal.
 
-   – Access the configuration file of Taikun OCP Baremetal.
+       – Navigate to the authentication config section.
 
-   – Navigate to the authentication config section.
+       – Locate the SAML 2.0 integration option and fill Keycloak details as the Identity Provider.
+  </Step>
 
-   – Locate the SAML 2.0 integration option and fill Keycloak details as the Identity Provider.
+  <Step title="Keycloak Configuration:">
+    – Access the Keycloak administration console.
 
+       – Configure a new SAML client for Taikun OCP Baremetal.
 
+       – Define the necessary endpoints and metadata required for SAML 2.0 communication.
+  </Step>
 
-2\. Keycloak Configuration:
+  <Step title="Trust Establishment:">
+    – Exchange metadata between Taikun OCP Baremetal and Keycloak to establish trust.
 
-   – Access the Keycloak administration console.
+       – Verify and validate the trust relationship to ensure secure communication.
+  </Step>
 
-   – Configure a new SAML client for Taikun OCP Baremetal.
+  <Step title="Attribute Mapping:">
+    – Map user attributes between Taikun OCP Baremetal and Keycloak.
 
-   – Define the necessary endpoints and metadata required for SAML 2.0 communication.
+       – Ensure alignment of attribute names and formats to enable proper user authentication and authorization.
+  </Step>
 
+  <Step title="Testing and Validation:">
+    – Conduct thorough testing to verify the functionality of SAML 2.0 integration.
 
+       – Validate user authentication and authorization processes across both systems.
+  </Step>
 
-3\. Trust Establishment:
+  <Step title="Error Handling and Troubleshooting:">
+    – Implement error handling mechanisms to address any issues encountered during integration.
 
-   – Exchange metadata between Taikun OCP Baremetal and Keycloak to establish trust.
+       – Establish troubleshooting procedures to diagnose and resolve integration-related issues efficiently.
+  </Step>
+</Steps>
 
-   – Verify and validate the trust relationship to ensure secure communication.
-
-
-
-4\. Attribute Mapping:
-
-   – Map user attributes between Taikun OCP Baremetal and Keycloak.
-
-   – Ensure alignment of attribute names and formats to enable proper user authentication and authorization.
-
-
-
-5\. Testing and Validation:
-
-   – Conduct thorough testing to verify the functionality of SAML 2.0 integration.
-
-   – Validate user authentication and authorization processes across both systems.
-
-
-
-6\. Error Handling and Troubleshooting:
-
-   – Implement error handling mechanisms to address any issues encountered during integration.
-
-   – Establish troubleshooting procedures to diagnose and resolve integration-related issues efficiently.
-
-
-
-### Benefits:
+## Benefits:
 
 – **Enhanced Security:** Leveraging Keycloak as the Identity Provider enhances security through robust authentication mechanisms and centralized user management.
 
@@ -76,6 +68,6 @@ The integration process involves configuring Taikun OCP Baremetal to communicate
 
 – **Scalability and Flexibility:** The integration provides scalability and flexibility to adapt to evolving authentication requirements and business needs.
 
-### Conclusion:
+## Conclusion:
 
 The integration of Taikun OCP Baremetal with Keycloak as the Identity Provider via SAML 2.0 facilitates secure and seamless user authentication and authorization. By leveraging Keycloak’s capabilities, the solution enhances security, simplifies user management, and provides scalability for future authentication needs.
