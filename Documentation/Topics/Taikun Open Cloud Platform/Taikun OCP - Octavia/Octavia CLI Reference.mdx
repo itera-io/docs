@@ -920,9 +920,7 @@ This command is provided by the python-octaviaclient plugin.
 
 Delete a pool
 
-`
-openstack loadbalancer pool delete [--wait] <pool>
-`
+`openstack loadbalancer pool delete [--wait] <pool>`
 
 **–wait**
 
@@ -2960,6 +2958,7 @@ openstack loadbalancer flavorprofile create
     name>
     --flavor-data <flavor_data>
 ```
+
 **-f** \<FORMATTER>, **–format** \<FORMATTER>
 
 the output format, defaults to tabl&#x65;**-c** COLUMN, **–column** COLUMN
@@ -3172,19 +3171,21 @@ This command is provided by the python-octaviaclient plugin.
 
 List availability zones
 
-`openstack loadbalancer availabilityzone list`
-`    [-f {csv,json,table,value,yaml}]`
-`    [-c COLUMN]`
-`    [--quote {all,minimal,none,nonnumeric}]`
-`    [--noindent]`
-`    [--max-width <integer>]`
-`    [--fit-width]`
-`    [--print-empty]`
-`    [--sort-column SORT_COLUMN]`
-`    [--sort-ascending | --sort-descending]`
-`    [--name <name>]`
-`    [--availabilityzoneprofile <availabilityzone_profile>]`
-`    [--enable | --disable]`
+```
+openstack loadbalancer availabilityzone list
+    [-f {csv,json,table,value,yaml}]
+    [-c COLUMN]
+    [--quote {all,minimal,none,nonnumeric}]
+    [--noindent]
+    [--max-width <integer>]
+    [--fit-width]
+    [--print-empty]
+    [--sort-column SORT_COLUMN]
+    [--sort-ascending | --sort-descending]
+    [--name <name>]
+    [--availabilityzoneprofile <availabilityzone_profile>]
+    [--enable | --disable]
+```
 
 **-f** \<FORMATTER>, **–format** \<FORMATTER>
 
@@ -3222,10 +3223,12 @@ This command is provided by the python-octaviaclient plugin.
 
 Update an availability zone
 
-`openstack loadbalancer availabilityzone set`
-`    [--description <description>]`
-`    [--enable | --disable]`
-`    <availabilityzone>`
+```
+openstack loadbalancer availabilityzone set
+    [--description <description>]
+    [--enable | --disable]
+    <availabilityzone>
+```
 
 **–description** \<description>
 
@@ -3243,15 +3246,17 @@ This command is provided by the python-octaviaclient plugin.
 
 Show the details for a single availability zone
 
-`openstack loadbalancer availabilityzone show`
-`    [-f {json,shell,table,value,yaml}]`
-`    [-c COLUMN]`
-`    [--noindent]`
-`    [--prefix PREFIX]`
-`    [--max-width <integer>]`
-`    [--fit-width]`
-`    [--print-empty]`
-`    <availabilityzone>`
+```
+openstack loadbalancer availabilityzone show
+    [-f {json,shell,table,value,yaml}]
+    [-c COLUMN]
+    [--noindent]
+    [--prefix PREFIX]
+    [--max-width <integer>]
+    [--fit-width]
+    [--print-empty]
+    <availabilityzone>
+```
 
 **-f** \<FORMATTER>, **–format** \<FORMATTER>
 
@@ -3277,9 +3282,11 @@ This command is provided by the python-octaviaclient plugin.
 
 Clear availability zone settings
 
-`openstack loadbalancer availabilityzone unset`
-`    [--description]`
-`    <availabilityzone>`
+```
+openstack loadbalancer availabilityzone unset
+    [--description]
+    <availabilityzone>
+```
 
 **–description**
 
@@ -3295,18 +3302,20 @@ This command is provided by the python-octaviaclient plugin.
 
 Create an octavia availability zone profile
 
-`openstack loadbalancer availabilityzoneprofile create`
-`    [-f {json,shell,table,value,yaml}]`
-`    [-c COLUMN]`
-`    [--noindent]`
-`    [--prefix PREFIX]`
-`    [--max-width <integer>]`
-`    [--fit-width]`
-`    [--print-empty]`
-`    --name <name>`
-`    --provider <provider`
-`    name>`
-`    --availability-zone-data <availability_zone_data>`
+```
+openstack loadbalancer availabilityzoneprofile create
+    [-f {json,shell,table,value,yaml}]
+    [-c COLUMN]
+    [--noindent]
+    [--prefix PREFIX]
+    [--max-width <integer>]
+    [--fit-width]
+    [--print-empty]
+    --name <name>
+    --provider <provider
+    name>
+    --availability-zone-data <availability_zone_data>
+```
 
 **-f** \<FORMATTER>, **–format** \<FORMATTER>
 
@@ -3336,8 +3345,10 @@ This command is provided by the python-octaviaclient plugin.
 
 Delete an availability zone profile
 
-`openstack loadbalancer availabilityzoneprofile delete`
-`    <availabilityzone_profile>`
+```
+openstack loadbalancer availabilityzoneprofile delete
+    <availabilityzone_profile>
+```
 
 **availabilityzone\_profile**
 
@@ -3349,18 +3360,20 @@ This command is provided by the python-octaviaclient plugin.
 
 List availability zone profiles
 
-`openstack loadbalancer availabilityzoneprofile list`
-`    [-f {csv,json,table,value,yaml}]`
-`    [-c COLUMN]`
-`    [--quote {all,minimal,none,nonnumeric}]`
-`    [--noindent]`
-`    [--max-width <integer>]`
-`    [--fit-width]`
-`    [--print-empty]`
-`    [--sort-column SORT_COLUMN]`
-`    [--sort-ascending | --sort-descending]`
-`    [--name <name>]`
-`    [--provider <provider_name>]`
+```
+openstack loadbalancer availabilityzoneprofile list
+    [-f {csv,json,table,value,yaml}]
+    [-c COLUMN]
+    [--quote {all,minimal,none,nonnumeric}]
+    [--noindent]
+    [--max-width <integer>]
+    [--fit-width]
+    [--print-empty]
+    [--sort-column SORT_COLUMN]
+    [--sort-ascending | --sort-descending]
+    [--name <name>]
+    [--provider <provider_name>]
+```
 
 -f \<FORMATTER>, –format \<FORMATTER>
 
@@ -3412,11 +3425,13 @@ List availability zone profiles according to their provider.
 
 This command is provided by the python-octaviaclient plugin.loadbalancer availabilityzoneprofile setUpdate an availability zone profile
 
-`openstack loadbalancer availabilityzoneprofile set`
-`    [--name <name>]`
-`    [--provider <provider_name>]`
-`    [--availability-zone-data <availability_zone_data>]`
-`    <availabilityzone_profile>`
+```
+openstack loadbalancer availabilityzoneprofile set
+    [--name <name>]
+    [--provider <provider_name>]
+    [--availability-zone-data <availability_zone_data>]
+    <availabilityzone_profile>
+```
 
 **–name** \<name>
 
@@ -3434,15 +3449,17 @@ This command is provided by the python-octaviaclient plugin.
 
 Show the details of a single availability zone profile
 
-`openstack loadbalancer availabilityzoneprofile show`
-`    [-f {json,shell,table,value,yaml}]`
-`    [-c COLUMN]`
-`    [--noindent]`
-`    [--prefix PREFIX]`
-`    [--max-width <integer>]`
-`    [--fit-width]`
-`    [--print-empty]`
-`    <availabilityzone_profile>`
+```
+openstack loadbalancer availabilityzoneprofile show
+    [-f {json,shell,table,value,yaml}]
+    [-c COLUMN]
+    [--noindent]
+    [--prefix PREFIX]
+    [--max-width <integer>]
+    [--fit-width]
+    [--print-empty]
+    <availabilityzone_profile>
+```
 
 **-f** \<FORMATTER>, **–format** \<FORMATTER>
 
