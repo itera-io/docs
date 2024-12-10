@@ -12,9 +12,9 @@ Steps to update `cinder-api` servers:
 
 1\. Edit the `/etc/cinder/cinder.conf` file to use Key management service as follows:
 
-   * Look for the `[key_manager]` section.
+* Look for the `[key_manager]` section.
 
-   * Enter a new line directly below `[key_manager]` with the following
+* Enter a new line directly below `[key_manager]` with the following
 
 ```
 backend = barbican
@@ -33,7 +33,7 @@ Update `nova-compute` servers:
 backend = barbican
 ```
 
-> Note 
+> Note
 > Use a ‘#’ prefix to comment out the line in this section that begins with ‘fixed\_key’.
 
 3\. Restart `nova-compute`.
@@ -110,7 +110,7 @@ $ openstack role add --project PROJECT --user USER creator
 
 For details, see the [Barbican Access Control page](https://docs.openstack.org/barbican/latest/admin/access_control.html).
 
-## Testing volume encryption
+# Testing volume encryption
 
 This is a simple test scenario to help validate your encryption. It assumes an LVM based Block Storage server.
 
