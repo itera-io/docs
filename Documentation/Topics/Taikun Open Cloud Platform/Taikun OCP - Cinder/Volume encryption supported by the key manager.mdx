@@ -10,7 +10,7 @@ Configuration changes need to be made to any nodes running the `cinder-api` or
 
 Steps to update `cinder-api` servers:
 
-1. Edit the `/etc/cinder/cinder.conf` file to use Key management service as follows:
+1\. Edit the `/etc/cinder/cinder.conf` file to use Key management service as follows:
 
    * Look for the `[key_manager]` section.
 
@@ -20,20 +20,21 @@ Steps to update `cinder-api` servers:
 backend = barbican
 ```
 
-1. Restart `cinder-api`, `cinder-volume` and `cinder-backup`.
+2\. Restart `cinder-api`, `cinder-volume` and `cinder-backup`.
 
 Update `nova-compute` servers:
 
-1. Install the `python-barbicanclient` Python package.
+1\. Install the `python-barbicanclient` Python package.
 
-2. Set up the Key Manager service by editing `/etc/nova/nova.conf`:
+2\. Set up the Key Manager service by editing `/etc/nova/nova.conf`:
 
 ```
 [key_manager]
 backend = barbican
 ```
 
-> Note Use a ‘#’ prefix to comment out the line in this section that begins with ‘fixed\_key’.
+> Note 
+> Use a ‘#’ prefix to comment out the line in this section that begins with ‘fixed\_key’.
 
 3\. Restart `nova-compute`.
 
@@ -131,8 +132,8 @@ $ openstack server add volume --device /dev/vdb TESTVM 'unencrypted volume'
 $ openstack server add volume --device /dev/vdc TESTVM 'encrypted volume'
 ```
 
-> Note 
-The `--device` option to specify the mountpoint for the attached volume may not be where the block device is actually attached in the guest VM, it is used here for illustration purposes.
+> Note
+> The `--device` option to specify the mountpoint for the attached volume may not be where the block device is actually attached in the guest VM, it is used here for illustration purposes.
 
 1. On the VM, send some text to the newly attached volumes and synchronize them:
 
