@@ -1,6 +1,8 @@
-# Emulated Trusted Platform Module (vTPM)
+---
+title: "Emulated Trusted Platform Module (vTPM)"
+---
 
-## Enabling vTPM
+# Enabling vTPM
 
 The following are required on each compute host wishing to support the vTPM feature:
 
@@ -14,34 +16,29 @@ The following are required on each compute host wishing to support the vTPM feat
 
 With the above requirements satisfied, verify vTPM support by inspecting the traits on the compute node’s resource provider:
 
-`$ COMPUTE_UUID=$(openstack resource provider list --name $HOST -f value -c uuid)`
-`$ openstack resource provider trait list $COMPUTE_UUID | grep SECURITY_TPM`
-`| COMPUTE_SECURITY_TPM_1_2 |`
-`| COMPUTE_SECURITY_TPM_2_0 |`
+```
+$ COMPUTE_UUID=$(openstack resource provider list --name $HOST -f value -c uuid)
+$ openstack resource provider trait list $COMPUTE_UUID | grep SECURITY_TPM
+| COMPUTE_SECURITY_TPM_1_2 |
+| COMPUTE_SECURITY_TPM_2_0 |
+```
 
-## Configuring a flavor or image
+# Configuring a flavor or image
 
 A vTPM can be requested on a server via flavor extra specs or image metadata properties. There are two versions supported – 1.2 and 2.0 – and two models – TPM Interface Specification (TIS) and Command-Response Buffer (CRB). The CRB model is only supported with version 2.0.
 
-Flavor extra\_specsImage metadataDescription
-
-`hw:tpm_version`
-
-`hw_tpm_version`
-
-Specify the TPM version, `1.2` or `2.0`. Required if requesting a vTPM.
-
-`hw:tpm_model`
-
-`hw_tpm_model`
-
-Specify the TPM model, `tpm-tis` (the default) or `tpm-crb` (only valid with version `2.0`.
+| Flavor extra_specs | Image metadata  | Description                                                                 |
+|--------------------|-----------------|-----------------------------------------------------------------------------|
+| hw:tpm_version     | hw_tpm_version | Specify the TPM version, `1.2` or `2.0`. Required if requesting a vTPM.     |
+| hw:tpm_model       | hw_tpm_model   | Specify the TPM model, `tpm-tis` (the default) or `tpm-crb` (only valid with version `2.0`). |
 
 For example, to configure a flavor to use the TPM 2.0 with the CRB model:
 
-`$ openstack flavor set $FLAVOR \`
-`    --property hw:tpm_version=2.0 \`
-`    --property hw:tpm_model=tpm-crb`
+```
+$ openstack flavor set $FLAVOR \
+    --property hw:tpm_version=2.0 \
+    --property hw:tpm_model=tpm-crb
+```
 
 $ openstack flavor set $FLAVOR \ –property hw:tpm\_version=2.0 \ –property hw:tpm\_model=tpm-crb
 
@@ -49,13 +46,13 @@ Scheduling will fail if flavor and image supply conflicting values, or if model�
 
 Upon successful boot, the server should see a TPM device such as `/dev/tpm0` which can be used in the same manner as a hardware TPM.
 
-## Limitations
+# Limitations
 
 * Only server operations performed by the server owner are supported, as the user’s credentials are required to unlock the virtual device files on the host. Thus the admin may need to decide whether to grant the user additional policy roles; if not, those operations are effectively disabled.
 
 * Live migration, evacuation, shelving and rescuing of servers with vTPMs is not currently supported.
 
-## Security
+# Security
 
 With a hardware TPM, the root of trust is a secret known only to the TPM user. In contrast, an emulated TPM comprises a file on disk which the libvirt daemon must be able to present to the guest. At rest, this file is encrypted using a passphrase stored in a key manager service. The passphrase in the key manager is associated with the credentials of the owner of the server (the user who initially created it). The passphrase is retrieved and used by libvirt to unlock the emulated TPM data any time the server is booted.
 
@@ -63,7 +60,7 @@ Although the above mechanism uses a libvirt [secret](https://libvirt.org/format
 
 A full analysis and discussion of security issues related to emulated TPM is beyond the scope of this document.
 
-## References
+# References
 
 * [TCG PC Client Specific TPM Interface Specification (TIS)](https://trustedcomputinggroup.org/resource/pc-client-work-group-pc-client-specific-tpm-interface-specification-tis/)
 
