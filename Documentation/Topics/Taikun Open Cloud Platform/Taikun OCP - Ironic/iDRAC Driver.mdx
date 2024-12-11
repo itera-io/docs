@@ -1,6 +1,8 @@
-# iDRAC Driver
+---
+title: "iDRAC Driver"
+---
 
-## Overview
+# Overview
 
 The integrated Dell Remote Access Controller ([iDRAC](https://www.dell.com/idracmanuals)) is an out-of-band management platform on Dell EMC servers, and is supported directly by the `idrac` hardware type. This driver uses the Dell Web Services for Management (WSMAN) protocol and the standard Distributed Management Task Force (DMTF) Redfish protocol to perform all of its functions.
 
@@ -18,7 +20,7 @@ Key features of the Dell iDRAC driver include:
 
 * BIOS settings configuration
 
-### Ironic Features
+## Ironic Features
 
 The `idrac` hardware type supports the following Ironic interfaces:
 
@@ -185,8 +187,6 @@ The following command enrolls a bare metal node with the `idrac` hardware type
 `    --inspect-interface idrac-redfish \`
 `    --management-interface idrac-redfish \`
 `    --power-interface idrac-redfish`
-
-
 
 > NoteIf using WSMAN for the management interface, then WSMAN must be used for the power interface. The same applies to Redfish. It is currently not possible to use Redfish for one and WSMAN for the other.
 
@@ -499,7 +499,6 @@ When the physical disk names or controller names are not known, the following Py
 
 `import dracclient.client`
 
-
 `client = dracclient.client.DRACClient(`
 `    host="192.168.1.1",`
 `    username="root",`
@@ -513,7 +512,6 @@ When the physical disk names or controller names are not known, the following Py
 Or using `sushy` with Redfish:
 
 `import sushy`
-
 
 `client = sushy.Sushy('https://192.168.1.1', username='root', password='calvin', verify=False)`
 `for s in client.get_system_collection().get_members():`
