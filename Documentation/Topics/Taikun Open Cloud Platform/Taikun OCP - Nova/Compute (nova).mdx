@@ -1,6 +1,8 @@
-# Compute (nova)
+---
+title: "Compute (nova)"
+---
 
-## What is nova?
+# What is nova?
 
 Nova is the OpenStack project that provides a way to provision compute instances (aka virtual servers). Nova supports creating virtual machines, baremetal servers (through the use of ironic), and has limited support for system containers. Nova runs as a set of daemons on top of existing Linux servers to provide that service.
 
@@ -16,11 +18,11 @@ It requires the following additional OpenStack services for basic function:
 
 It can also integrate with other services to include: persistent block storage, encrypted disks, and baremetal compute instances.
 
-## For End Users
+# For End Users
 
 As an end user of nova, you’ll use nova to create and manage servers with either tools or the API directly.
 
-### Tools for using Nova
+## Tools for using Nova
 
 * [Horizon](https://docs.openstack.org/horizon/zed/user/launch-instances.html): The official web UI for the OpenStack Project.
 
@@ -28,7 +30,7 @@ As an end user of nova, you’ll use nova to create and manage servers with eith
 
 * [Nova Client](https://docs.openstack.org/python-novaclient/zed/user/shell.html): For some very advanced features (or administrative commands) of nova you may need to use nova client. It is still supported, but the `openstack` cli is recommended.
 
-### Writing to the API
+## Writing to the API
 
 All end user (and some administrative) features of nova are exposed via a REST API, which can be used to build more complicated logic or automation with nova. This can be consumed directly, or via various SDKs. The following resources will help you get started with consuming the API directly.
 
@@ -48,13 +50,13 @@ Nova can be configured to emit notifications over RPC.
 
 Other end-user guides can be found under [User Documentation](https://docs.openstack.org/nova/zed/user/index.html).
 
-## For Operators
+# For Operators
 
-### Architecture Overview
+## Architecture Overview
 
 * [Nova architecture](https://docs.openstack.org/nova/zed/admin/architecture.html): An overview of how all the parts in nova fit together.
 
-### Installation
+## Installation
 
 The detailed install guide for nova. A functioning nova will also require having installed [keystone](https://docs.openstack.org/keystone/zed/install/), [glance](https://docs.openstack.org/glance/zed/install/), [neutron](https://docs.openstack.org/neutron/zed/install/), and [placement](https://docs.openstack.org/placement/zed/install/). Ensure that you follow their install guides first.
 
@@ -70,7 +72,7 @@ The detailed install guide for nova. A functioning nova will also require having
 
   * [Verify operation](https://docs.openstack.org/nova/zed/install/verify.html)
 
-### Deployment Considerations
+## Deployment Considerations
 
 There is information you might want to consider before doing your deployment, especially if it is going to be a larger deployment. For smaller deployments the defaults from the [install guide](https://docs.openstack.org/nova/zed/install/index.html) will be sufficient.
 
@@ -84,7 +86,7 @@ There is information you might want to consider before doing your deployment, es
 
 * [Running nova-api on wsgi](https://docs.openstack.org/nova/zed/user/wsgi.html): Considerations for using a real WSGI container instead of the baked-in eventlet web server.
 
-### Maintenance
+## Maintenance
 
 Once you are running nova, the following information is extremely useful.
 
@@ -102,13 +104,13 @@ Once you are running nova, the following information is extremely useful.
 
 * [Exposing custom metadata to compute instances](https://docs.openstack.org/nova/zed/admin/vendordata.html): How and when you might want to extend the basic metadata exposed to compute instances (either via metadata server or config drive) for your specific purposes.
 
-### Reference Material
+## Reference Material
 
 * [Nova CLI Command References](https://docs.openstack.org/nova/zed/cli/index.html): the complete command reference for all the daemons and admin tools that come with nova.
 
 * [Configuration Guide](https://docs.openstack.org/nova/zed/configuration/index.html): Information on configuring the system, including role-based access control policy rules.
 
-## For Contributors
+# For Contributors
 
 * [So You Want to Contribute…](https://docs.openstack.org/nova/zed/contributor/contributing.html): If you are a new contributor this should help you to start contributing to Nova.
 
@@ -116,7 +118,7 @@ Once you are running nova, the following information is extremely useful.
 
 * [Technical Reference Deep Dives](https://docs.openstack.org/nova/zed/reference/index.html): There are also a number of technical references on both current and future looking parts of our architecture. These are collected here.
 
-## Search
+# Search
 
 * [Nova document search](https://docs.openstack.org/nova/zed/search.html): Search the contents of this document.
 
