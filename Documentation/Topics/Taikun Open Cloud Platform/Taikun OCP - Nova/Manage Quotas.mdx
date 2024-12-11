@@ -100,6 +100,7 @@ To list quotas for a project, run:
 ```
 $ openstack quota show PROJECT
 ```
+
 Note
 
 This lists project quotas for all services and not just nova.
@@ -116,9 +117,8 @@ To update quotas for a class, run:
 $ openstack quota set --class --QUOTA QUOTA_VALUE CLASS
 ```
 
-Note
-
-Only the `default` class is supported by nova.
+> Note
+> Only the `default` class is supported by nova.
 
 For example:
 
