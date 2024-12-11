@@ -1,4 +1,6 @@
-# Ansible Deploy Interface
+---
+title: "Ansible Deploy Interface"
+---
 
 [Ansible](https://docs.ansible.com/ansible/latest/index.html) is a mature and popular automation tool, written in Python and requiring no agents running on the node being configured. All communications with the node are by default performed over secure SSH transport.
 
@@ -66,7 +68,7 @@ Their priority can be overridden via `[deploy]\erase_devices_metadata_priority`
 
 As in the case of this driver all cleaning steps are known to the ironic-conductor service, booting the deploy ramdisk is completely skipped when there are no cleaning steps to perform.
 
-> NoteAborting cleaning steps is not supported.
+> Note Aborting cleaning steps is not supported.
 
 #### Logging
 
