@@ -1,6 +1,8 @@
-# Configuring Keystone for Federation
+---
+title: "Configuring Keystone for Federation"
+---
 
-### Prerequisites
+## Prerequisites
 
 If you are not familiar with the idea of federated identity, see the [Introduction to Keystone Federation](https://docs.openstack.org/keystone/zed/admin/federation/introduction.html#federation-introduction) first.
 
@@ -20,11 +22,7 @@ Throughout the rest of the guide, you will need to decide on three pieces of inf
 
 You will also need to decide what HTTPD module to use as a Service Provider. This guide provides examples for `mod_shib` and `mod_auth_mellon` as SAML service providers, and `mod_auth_openidc` as an OpenID Connect Service Provider.
 
-
-
 Note
-
-
 
 In this guide, the keystone Service Provider is configured on a host called sp.keystone.example.org listening on the standard HTTPS port. All keystone paths will start with the keystone version prefix, `/v3`. If you have configured keystone to listen on port 5000, or to respond on the path `/identity` (for example), take this into account in your own configuration.
 
@@ -178,7 +176,6 @@ The path must exactly match the path that will be used to access the keystone se
 `  AuthType [...]`
 `  ...`
 `</Location>`
-
 
 However, if you have configured the keystone service to use a virtual path such as `/identity`, that part of the path should be included:
 
