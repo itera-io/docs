@@ -6,7 +6,7 @@ title: "Ansible Deploy Interface"
 
 The `ansible` deploy interface uses Ansible playbooks to define the deployment logic. It is not based on [Ironic Python Agent (IPA)](https://docs.openstack.org/ironic-python-agent/zed/) and does not generally need IPA to be running in the deploy ramdisk.
 
-## Overview
+# Overview
 
 The main advantage of this deploy interface is extended flexibility in regards to changing and adapting node deployment logic for specific use cases, via Ansible tooling that is already familiar to operators.
 
@@ -32,13 +32,13 @@ The main disadvantage of this deploy interface is the synchronous manner of perf
 
 Each action (deploy, clean) is described by a single playbook with roles, which is run whole during deployment, or tag-wise during cleaning. Control of cleaning steps is through tags and auxiliary clean steps file. The playbooks for actions can be set per-node, as can the clean steps file.
 
-### Features
+## Features
 
 Similar to deploy interfaces relying on [Ironic Python Agent (IPA)](https://docs.openstack.org/ironic-python-agent/zed/), this deploy interface also depends on the deploy ramdisk calling back to ironic API’s `heartbeat` endpoint.
 
 However, the driver is currently synchronous, so only the first heartbeat is processed and is used as a signal to start `ansible-playbook` process.
 
-#### User images
+### User images
 
 Supports whole-disk images and partition images:
 
@@ -48,15 +48,15 @@ Supports whole-disk images and partition images:
 
 For partition images the driver will create root partition, and, if requested, ephemeral and swap partitions as set in node’s `instance_info` by the Compute service or operator. The create partition table will be of `msdos` type by default, the node’s `disk_label` capability is honored if set in node’s `instance_info` (see also [Choosing the disk label](https://docs.openstack.org/ironic/zed/install/advanced.html#choosing-the-disk-label)).
 
-#### Configdrive partition
+### Configdrive partition
 
 Creating a configdrive partition is supported for both whole disk and partition images, on both `msdos` and `GPT` labeled disks.
 
-#### Root device hints
+### Root device hints
 
 Root device hints are currently supported in their basic form only, with exact matches (see [Specifying the disk for deployment (root device hints)](https://docs.openstack.org/ironic/zed/install/advanced.html#root-device-hints) for more details). If no root device hint is provided for the node, the first device returned as part of `ansible_devices` fact is used as root device to create partitions on or write the whole disk image to.
 
-#### Node cleaning
+### Node cleaning
 
 Cleaning is supported, both automated and manual. The driver has two default clean steps:
 
@@ -68,21 +68,22 @@ Their priority can be overridden via `[deploy]\erase_devices_metadata_priority`
 
 As in the case of this driver all cleaning steps are known to the ironic-conductor service, booting the deploy ramdisk is completely skipped when there are no cleaning steps to perform.
 
-> Note Aborting cleaning steps is not supported.
+>Note 
+>Aborting cleaning steps is not supported.
 
-#### Logging
+### Logging
 
 Logging is implemented as custom Ansible callback module, that makes use of `oslo.log` and `oslo.config` libraries and can re-use logging configuration defined in the main ironic configuration file to set logging for Ansible events, or use a separate file for this purpose.
 
 It works best when `journald` support for logging is enabled.
 
-## Requirements
+# Requirements
 
 Ansible
 
 Tested with, and targets, Ansible 2.5.x
 
-### Bootstrap image requirements
+## Bootstrap image requirements
 
 * password-less sudo permissions for the user used by Ansible
 
@@ -106,7 +107,7 @@ Tested with, and targets, Ansible 2.5.x
 
 A set of scripts to build a suitable deploy ramdisk based on TinyCore Linux and `tinyipa` ramdisk, and an element for `diskimage-builder` can be found in [ironic-staging-drivers](https://opendev.org/x/ironic-staging-drivers/src/branch/master/ironic_staging_drivers) project but will be eventually migrated to the new [ironic-python-agent-builder](https://opendev.org/openstack/ironic-python-agent-builder) project.
 
-## Setting up your environment
+# Setting up your environment
 
 1. Install ironic (either as part of OpenStack or standalone)
 
@@ -132,13 +133,13 @@ A set of scripts to build a suitable deploy ramdisk based on TinyCore Linux and�
 
 8. Deploy the node as usual.
 
-### Ansible-deploy options
+## Ansible-deploy options
 
-#### Configuration file
+### Configuration file
 
 Driver options are configured in `[ansible]` section of ironic configuration file, for their descriptions and default values please see [configuration file sample](https://docs.openstack.org/ironic/zed/configuration/config.html#ansible).
 
-#### Driver properties for the Node
+### Driver properties for the Node
 
 Set them per-node via `baremetal node set` command, for example:
 
@@ -175,9 +176,9 @@ Auxiliary YAML file that holds description of cleaning steps used by this node, 
 
 Absolute path to the python interpreter on the managed machine. Default is taken from `[ansible]/default_python_interpreter` option of the ironic configuration file. Ansible uses `/usr/bin/python` by default.
 
-## Customizing the deployment logic
+# Customizing the deployment logic
 
-### Expected playbooks directory layout
+## Expected playbooks directory layout
 
 The `[ansible]\playbooks_path` option in the ironic configuration file is expected to have a standard layout for an Ansible project with some additions:
 
@@ -222,7 +223,7 @@ Some more included roles are:
 
 * `clean` – defines cleaning procedure, with each clean step defined as separate playbook tag.
 
-### Extending playbooks
+## Extending playbooks
 
 Most probably you’d start experimenting like this:
 
@@ -244,7 +245,7 @@ Most probably you’d start experimenting like this:
 
    2. A new deploy ramdisk must be built and assigned to nodes only when you want to use a command/script/package not present in the current deploy ramdisk and you can not or do not want to install those at runtime.
 
-### Variables you have access to
+## Variables you have access to
 
 This driver will pass the single JSON-ified extra var argument to Ansible (as in `ansible-playbook -e ..`). Those values are then accessible in your plays as well (some of them are optional and might not be defined):
 
@@ -322,7 +323,7 @@ Taken from the `target_raid_config` if not empty, it specifies the RAID config
 
 As usual for Ansible playbooks, you also have access to standard Ansible facts discovered by `setup` module.
 
-### Included custom Ansible modules
+## Included custom Ansible modules
 
 The provided `playbooks_path/library` folder includes several custom Ansible modules used by default implementation of `deploy` and `prepare` roles. You can use these modules in your playbooks as well.
 
