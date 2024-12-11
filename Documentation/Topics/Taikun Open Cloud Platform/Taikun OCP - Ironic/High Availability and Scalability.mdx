@@ -1,22 +1,23 @@
-# High Availability and Scalability
+---
+title: "High Availability and Scalability"
+---
 
-## [HA and Scalability](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id12)
+# [HA and Scalability](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id12)
 
-### [ironic-api](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id13)
+## [ironic-api](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id13)
 
 The Bare Metal API service is stateless, and thus can be easily scaled horizontally. It is recommended to deploy it as a WSGI application behind e.g. Apache or another WSGI container.
 
-Note
+> Note
+> This service accesses the ironic database for reading entities (e.g. in response to `GET /v1/nodes` request) and in rare cases for writing.
 
-This service accesses the ironic database for reading entities (e.g. in response to `GET /v1/nodes` request) and in rare cases for writing.
+## [ironic-conductor](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id14)
 
-### [ironic-conductor](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id14)
-
-#### [High availability](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id15)
+### [High availability](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id15)
 
 The Bare Metal conductor service utilizes the active/active HA model. Every conductor manages a certain subset of nodes. The nodes are organized in a hash ring that tries to keep the load spread more or less uniformly across the conductors. When a conductor is considered offline, its nodes are taken over by other conductors. As a result of this, you need at least 2 conductor hosts for an HA deployment.
 
-#### [Performance](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id16)
+### [Performance](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id16)
 
 Conductors can be resource intensive, so it is recommended (but not required) to keep all conductors separate from other services in the cloud. The minimum required number of conductors in a deployment depends on several factors:
 
@@ -34,7 +35,7 @@ Conductors can be resource intensive, so it is recommended (but not required) to
 
 We recommend a target of **100** bare metal nodes per conductor for maximum reliability and performance. There is some tolerance for a larger number per conductor. However, it was reported [\[1\]](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id3) [\[2\]](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id4) that reliability degrades when handling approximately 300 bare metal nodes per conductor.
 
-#### [Disk space](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id17)
+### [Disk space](https://docs.openstack.org/ironic/latest/install/refarch/common.html#id17)
 
 Each conductor needs enough free disk space to cache images it uses. Depending on the combination of the deploy interface and the boot option, the space requirements are different:
 
