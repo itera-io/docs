@@ -1,8 +1,10 @@
-# Ironic
+---
+title: "Ironic"
+---
 
 The Bare Metal service, codenamed `ironic`, is a collection of components that provides support to manage and provision physical machines.
 
-## Bare Metal service components
+# Bare Metal service components
 
 The Bare Metal service includes the following components:
 
@@ -26,7 +28,7 @@ Additionally, the Bare Metal service has certain external dependencies, which ar
 
 * An [oslo.messaging](https://docs.openstack.org/oslo.messaging/zed/) compatible queue, such as RabbitMQ. It may use the same implementation as that of the Compute service, but that is not a requirement. Used to implement RPC between ironic-api and ironic-conductor.
 
-## Deployment architecture
+# Deployment architecture
 
 The Bare Metal RESTful API service is used to enroll hardware that the Bare Metal service will manage. A cloud administrator usually registers it, specifying their attributes such as MAC addresses and IPMI credentials. There can be multiple instances of the API service.
 
@@ -38,7 +40,7 @@ There can be multiple instances of the conductor service to support various clas
 
 The API exposes a list of supported drivers and the names of conductor hosts servicing them.
 
-## Interaction with OpenStack components
+# Interaction with OpenStack components
 
 The Bare Metal service may, depending upon configuration, interact with several other OpenStack services. This includes:
 
@@ -54,7 +56,7 @@ The Bare Metal service may, depending upon configuration, interact with several 
 
 * the OpenStack Object Storage (`swift`) provides temporary storage for the configdrive, user images, deployment logs and inspection data.
 
-## Logical architecture
+# Logical architecture
 
 The diagram below shows the logical architecture. It shows the basic components that form the Bare Metal service, the relation of the Bare Metal service with other OpenStack services and the logical flow of a boot instance request resulting in the provisioning of a physical server.
 
