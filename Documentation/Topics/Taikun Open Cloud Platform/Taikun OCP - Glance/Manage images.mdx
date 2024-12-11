@@ -178,67 +178,34 @@ The valid model values depend on the `libvirt_type` setting, as shown in the f
 
 **Disk and CD-ROM bus model values**
 
-libvirt\_type setting
-
-Supported model values
-
-qemu or kvm
-
-* fdc
-
-* ide
-
-* scsi
-
-* sata
-
-* virtio
-
-* usb
-
-xen
-
-* ide
-
-* xen
+| libvirt\_type setting | Supported model values |
+| --------------------- | ---------------------- |
+| **qemu or kvm**       | - fdc                  |
+|                       | - ide                  |
+|                       | - scsi                 |
+|                       | - sata                 |
+|                       | - virtio               |
+|                       | - usb                  |
+| **xen**               | - ide                  |
+|                       | - xen                  |
 
 **VIF model values**
 
-libvirt\_type setting
-
-Supported model values
-
-qemu or kvm
-
-* e1000
-
-* ne2k\_pci
-
-* pcnet
-
-* rtl8139
-
-* virtio
-
-xen
-
-* e1000
-
-* netfront
-
-* ne2k\_pci
-
-* pcnet
-
-* rtl8139
-
-vmware
-
-* VirtualE1000
-
-* VirtualPCNet32
-
-* VirtualVmxnet
+| libvirt\_type setting | Supported model values |
+| --------------------- | ---------------------- |
+| **qemu or kvm**       | - e1000                |
+|                       | - ne2k\_pci            |
+|                       | - pcnet                |
+|                       | - rtl8139              |
+|                       | - virtio               |
+| **xen**               | - e1000                |
+|                       | - netfront             |
+|                       | - ne2k\_pci            |
+|                       | - pcnet                |
+|                       | - rtl8139              |
+| **vmware**            | - VirtualE1000         |
+|                       | - VirtualPCNet32       |
+|                       | - VirtualVmxnet        |
 
 > Note
 > By default, hardware properties are retrieved from the image properties. However, if this information is not available, the `libosinfo` database provides an alternative source for these values.
