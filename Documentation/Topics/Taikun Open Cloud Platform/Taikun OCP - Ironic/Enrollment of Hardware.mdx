@@ -62,8 +62,8 @@ In the examples below we will use version 1.11 of the Bare metal API. This gives
 To set the API version for all commands, you can set the environment variable `IRONIC_API_VERSION`. For the OpenStackClient baremetal plugin, set the `OS_BAREMETAL_API_VERSION` variable to the same value. For example:
 
 ```
-`$ export IRONIC_API_VERSION=1.11`
-`$ export OS_BAREMETAL_API_VERSION=1.11`
+$ export IRONIC_API_VERSION=1.11
+$ export OS_BAREMETAL_API_VERSION=1.11
 ```
 
 # Enrollment process
@@ -190,9 +190,9 @@ $ baremetal port create $MAC_ADDRESS --node $NODE_UUID
 ### Adding scheduling information
 
 1\. Assign a *resource class* to the node. A *resource class* should represent a class of hardware in your data center, that corresponds to a Compute flavor.For example, let’s split hardware into these three groups:
-   We can define three resource classes to reflect these hardware groups, named `large-cpu`, `large-gpu` and `small` respectively. Then, for each node in each of the hardware groups, we’ll set their `resource_class` appropriately via:
+We can define three resource classes to reflect these hardware groups, named `large-cpu`, `large-gpu` and `small` respectively. Then, for each node in each of the hardware groups, we’ll set their `resource_class` appropriately via:
 
-   1\. nodes with a lot of RAM and powerful CPU for computational tasks,nodes with powerful GPU for OpenCL computing,smaller nodes for development and testing.
+1\. nodes with a lot of RAM and powerful CPU for computational tasks,nodes with powerful GPU for OpenCL computing,smaller nodes for development and testing.
 
 ```
 $ baremetal node set $NODE_UUID --resource-class $CLASS_NAME
