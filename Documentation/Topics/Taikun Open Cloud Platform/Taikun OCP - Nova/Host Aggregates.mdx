@@ -161,76 +161,88 @@ Some scheduling filter operations can be performed by placement for increased sp
 
 In order to use placement to isolate tenants, there must be placement aggregates that match the membership and UUID of nova host aggregates that you want to use for isolation. The same key pattern in aggregate metadata used by the [AggregateMultiTenancyIsolation](https://docs.openstack.org/nova/zed/admin/scheduling.html#aggregatemultitenancyisolation) filter controls this function, and is enabled by setting [`scheduler.limit_tenants_to_placement_aggregate`](https://docs.openstack.org/nova/zed/configuration/config.html#scheduler.limit_tenants_to_placement_aggregate) to `True`.
 
-`$ openstack --os-compute-api-version=2.53 aggregate create myagg`
-`+-------------------+--------------------------------------+`
-`| Field             | Value                                |`
-`+-------------------+--------------------------------------+`
-`| availability_zone | None                                 |`
-`| created_at        | 2018-03-29T16:22:23.175884           |`
-`| deleted           | False                                |`
-`| deleted_at        | None                                 |`
-`| id                | 4                                    |`
-`| name              | myagg                                |`
-`| updated_at        | None                                 |`
-`| uuid              | 019e2189-31b3-49e1-aff2-b220ebd91c24 |`
-`+-------------------+--------------------------------------+`
+```
+$ openstack --os-compute-api-version=2.53 aggregate create myagg
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| availability_zone | None                                 |
+| created_at        | 2018-03-29T16:22:23.175884           |
+| deleted           | False                                |
+| deleted_at        | None                                 |
+| id                | 4                                    |
+| name              | myagg                                |
+| updated_at        | None                                 |
+| uuid              | 019e2189-31b3-49e1-aff2-b220ebd91c24 |
++-------------------+--------------------------------------+
 
-`$ openstack --os-compute-api-version=2.53 aggregate add host myagg node1`
-`+-------------------+--------------------------------------+`
-`| Field             | Value                                |`
-`+-------------------+--------------------------------------+`
-`| availability_zone | None                                 |`
-`| created_at        | 2018-03-29T16:22:23.175884           |`
-`| deleted           | False                                |`
-`| deleted_at        | None                                 |`
-`| hosts             | [u'node1']                           |`
-`| id                | 4                                    |`
-`| name              | myagg                                |`
-`| updated_at        | None                                 |`
-`| uuid              | 019e2189-31b3-49e1-aff2-b220ebd91c24 |`
-`+-------------------+--------------------------------------+`
+$ openstack --os-compute-api-version=2.53 aggregate add host myagg node1
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| availability_zone | None                                 |
+| created_at        | 2018-03-29T16:22:23.175884           |
+| deleted           | False                                |
+| deleted_at        | None                                 |
+| hosts             | [u'node1']                           |
+| id                | 4                                    |
+| name              | myagg                                |
+| updated_at        | None                                 |
+| uuid              | 019e2189-31b3-49e1-aff2-b220ebd91c24 |
++-------------------+--------------------------------------+
 
-`$ openstack project list -f value | grep 'demo'`
-`9691591f913949818a514f95286a6b90 demo`
+$ openstack project list -f value | grep 'demo'
+9691591f913949818a514f95286a6b90 demo
 
-`$ openstack aggregate set \`
-`    --property filter_tenant_id=9691591f913949818a514f95286a6b90 myagg`
+$ openstack aggregate set \
+    --property filter_tenant_id=9691591f913949818a514f95286a6b90 myagg
 
-`$ openstack --os-placement-api-version=1.2 resource provider aggregate set \`
-`    --aggregate 019e2189-31b3-49e1-aff2-b220ebd91c24 \`
-`    815a5634-86fb-4e1e-8824-8a631fee3e06`
+$ openstack --os-placement-api-version=1.2 resource provider aggregate set \
+    --aggregate 019e2189-31b3-49e1-aff2-b220ebd91c24 \
+    815a5634-86fb-4e1e-8824-8a631fee3e06
+```
 
 Note that the `filter_tenant_id` metadata key can be optionally suffixed with any string for multiple tenants, such as `filter_tenant_id3=$tenantid`.
 
-## Usage
+# Usage
 
 Much of the configuration of host aggregates is driven from the API or command-line clients. For example, to create a new aggregate and add hosts to it using the **openstack** client, run:
 
-`$ openstack aggregate create my-aggregate`
-`$ openstack aggregate add host my-aggregate my-host`
+```
+$ openstack aggregate create my-aggregate
+$ openstack aggregate add host my-aggregate my-host
+```
 
 To list all aggregates and show information about a specific aggregate, run:
 
-`$ openstack aggregate list`
-`$ openstack aggregate show my-aggregate`
+```
+$ openstack aggregate list
+$ openstack aggregate show my-aggregate
+```
 
 To set and unset a property on the aggregate, run:
 
-`$ openstack aggregate set --property pinned=true my-aggregrate`
-`$ openstack aggregate unset --property pinned my-aggregate`
+```
+$ openstack aggregate set --property pinned=true my-aggregrate
+$ openstack aggregate unset --property pinned my-aggregate
+```
 
 To rename the aggregate, run:
 
-`$ openstack aggregate set --name my-awesome-aggregate my-aggregate`
+```
+$ openstack aggregate set --name my-awesome-aggregate my-aggregate
+```
 
 To remove a host from an aggregate and delete the aggregate, run:
 
-`$ openstack aggregate remove host my-aggregate my-host`
-`$ openstack aggregate delete my-aggregate`
+```
+$ openstack aggregate remove host my-aggregate my-host
+$ openstack aggregate delete my-aggregate
+```
 
 For more information, refer to the [OpenStack Client documentation](https://docs.openstack.org/python-openstackclient/zed/cli/command-objects/aggregate.html).
 
-## Configuration
+# Configuration
 
 In addition to CRUD operations enabled by the API and clients, the following configuration options can be used to configure how host aggregates and the related availability zones feature operate under the hood:
 
@@ -266,20 +278,21 @@ The following configuration options are applicable to the scheduler configuratio
 
 * [`filter_scheduler.aggregate_image_properties_isolation_namespace`](https://docs.openstack.org/nova/zed/configuration/config.html#filter_scheduler.aggregate_image_properties_isolation_namespace)
 
-## Image Caching
+# Image Caching
 
 Aggregates can be used as a way to target multiple compute nodes for the purpose of requesting that images be pre-cached for performance reasons.
 
-Note
-
-[Some of the virt drivers](https://docs.openstack.org/nova/latest/user/support-matrix.html#operation_cache_images) provide image caching support, which improves performance of second-and-later boots of the same image by keeping the base image in an on-disk cache. This avoids the need to re-download the image from Glance, which reduces network utilization and time-to-boot latency. Image pre-caching is the act of priming that cache with images ahead of time to improve performance of the first boot.
+> Note
+> [Some of the virt drivers](https://docs.openstack.org/nova/latest/user/support-matrix.html#operation_cache_images) provide image caching support, which improves performance of second-and-later boots of the same image by keeping the base image in an on-disk cache. This avoids the need to re-download the image from Glance, which reduces network utilization and time-to-boot latency. Image pre-caching is the act of priming that cache with images ahead of time to improve performance of the first boot.
 
 Assuming an aggregate called `my-aggregate` where two images should be pre-cached, running the following command will initiate the request:
 
-`$ nova aggregate-cache-images my-aggregate image1 image2`
+```
+$ nova aggregate-cache-images my-aggregate image1 image2
+```
 
 Note that image pre-caching happens asynchronously in a best-effort manner. The images and aggregate provided are checked by the server when the command is run, but the compute nodes are not checked to see if they support image caching until the process runs. Progress and results are logged by each compute, and the process sends `aggregate.cache_images.start`, `aggregate.cache_images.progress`, and `aggregate.cache_images.end` notifications, which may be useful for monitoring the operation externally.
 
-## References
+# References
 
 * [Curse your bones, Availability Zones! (Openstack Summit Vancouver 2018)](https://www.openstack.org/videos/vancouver-2018/curse-your-bones-availability-zones-1)
