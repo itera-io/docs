@@ -1,6 +1,6 @@
-# Manage Projects, Users, and Roles
-
-
+---
+title: "Manage Projects, Users, and Roles"
+---
 
 # Manage projects, users, and roles
 
@@ -38,7 +38,6 @@ $ openstack project list
 \| 80cab5e1f02045abad92a2864cfd76cb | test\_project       |
 +----------------------------------+--------------------+
 
-
 ### Create a project[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#create-a-project "Permalink to this headline")
 
 Create a project named `new-project`:
@@ -58,7 +57,6 @@ $ openstack project create --description 'my new project' new-project \\
 \| tags        | \[]                               |
 +-------------+----------------------------------+
 
-
 * Creating a project without using a domain scoped token, i.e. using a project scoped token or a system scoped token, and also without specifying a domain or domain\_id, the project will automatically be created on the default domain.
 
 ### Update a project[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#update-a-project "Permalink to this headline")
@@ -68,14 +66,11 @@ Specify the project ID to update a project. You can update the name, description
 * To temporarily disable a project:
   $ openstack project set PROJECT\_ID --disable
 
-
 * To enable a disabled project:
   $ openstack project set PROJECT\_ID --enable
 
-
 * To update the name of a project:
   $ openstack project set PROJECT\_ID --name project-new
-
 
 * To verify your changes, show information for the updated project:
   $ openstack project show PROJECT\_ID
@@ -92,13 +87,11 @@ Specify the project ID to update a project. You can update the name, description
   \| tags        | \[]                               |
   +-------------+----------------------------------+
 
-
 ### Delete a project[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#delete-a-project "Permalink to this headline")
 
 Specify the project ID to delete a project:
 
 $ openstack project delete PROJECT\_ID
-
 
 ## Users[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#users "Permalink to this headline")
 
@@ -115,7 +108,6 @@ $ openstack user list
 \| 32ec34aae8ea432e8af560a1cec0e881 | glance   |
 \| 7047fcb7908e420cb36e13bbd72c972c | nova     |
 +----------------------------------+----------+
-
 
 ### Create a user[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#create-a-user "Permalink to this headline")
 
@@ -135,31 +127,25 @@ $ openstack user create --project new-project --password PASSWORD new-user
 \| username   | new-user                         |
 +------------+----------------------------------+
 
-
 ### Update a user[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#update-a-user "Permalink to this headline")
 
 You can update the name, email address, and enabled status for a user.
 
 * To temporarily disable a user account:
-  $ openstack user set USER\_NAME --disable
-
-  If you disable a user account, the user cannot log in to the dashboard. However, data for the user account is maintained, so you can enable the user at any time.
+  $ openstack user set USER\_NAME --disableIf you disable a user account, the user cannot log in to the dashboard. However, data for the user account is maintained, so you can enable the user at any time.
 
 * To enable a disabled user account:
   $ openstack user set USER\_NAME --enable
 
-
 * To change the name and description for a user account:
   $ openstack user set USER\_NAME --name user-new --email [new-user@example.com](mailto:new-user@example.com)
   User has been updated.
-
 
 ### Delete a user[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#delete-a-user "Permalink to this headline")
 
 Delete a specified user account:
 
 $ openstack user delete USER\_NAME
-
 
 ## Roles and role assignments[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#roles-and-role-assignments "Permalink to this headline")
 
@@ -178,7 +164,6 @@ $ openstack role list
 \| deb4fffd123c4d02a907c2c74559dccf | anotherrole   |
 +----------------------------------+---------------+
 
-
 ### Create a role[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#create-a-role "Permalink to this headline")
 
 Users can be members of multiple projects. To assign users to multiple projects, define a role and assign that role to a user-project pair.
@@ -195,14 +180,9 @@ $ openstack role create new-role
 \| name        | new-role                         |
 +-------------+----------------------------------+
 
-
-
-
  
 
 Note
-
-
 
 If you are using identity v3, you may need to use the `--domain` option with a specific domain name.
 
@@ -211,11 +191,8 @@ If you are using identity v3, you may need to use the `--domain` option with a
 To assign a user to a project, you must assign the role to a user-project pair.
 
 1. Assign a role to a user-project pair:
-   $ openstack role add --user USER\_NAME --project PROJECT\_NAME ROLE\_NAME
-
-   For example, assign the `new-role` role to the `demo` user and `test-project` project pair:
+   $ openstack role add --user USER\_NAME --project PROJECT\_NAME ROLE\_NAMEFor example, assign the `new-role` role to the `demo` user and `test-project` project pair:
    $ openstack role add --user demo --project test-project new-role
-
 
 2. Verify the role assignment:
    $ openstack role assignment list --user USER\_NAME \\
@@ -228,14 +205,9 @@ To assign a user to a project, you must assign the role to a user-project pair.
    \| anotherrole | demo@Default |       | demo@Default |        |        | False     |
    +-------------+--------------+-------+--------------+--------+--------+-----------+
 
-
-
-
  
 
 Note
-
-
 
 Before the Newton release, users would run the **openstack role list –user USER\_NAME –project TENANT\_ID** command to verify the role assignment.
 
@@ -253,7 +225,6 @@ $ openstack role show ROLE\_NAME
 \| name        | new-role                         |
 +-------------+----------------------------------+
 
-
 ### Remove a role[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#remove-a-role "Permalink to this headline")
 
 Remove a role from a user-project pair:
@@ -261,11 +232,8 @@ Remove a role from a user-project pair:
 1. Run the **openstack role remove** command:
    $ openstack role remove --user USER\_NAME --project PROJECT\_NAME ROLE\_NAME
 
-
 2. Verify the role removal:
-   $ openstack role assignment list --user USER\_NAME --project PROJECT\_NAME --names
-
-   If the role was removed, the command output omits the removed role.
+   $ openstack role assignment list --user USER\_NAME --project PROJECT\_NAME --namesIf the role was removed, the command output omits the removed role.
 
 ### Creating implied roles[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#creating-implied-roles "Permalink to this headline")
 
@@ -281,14 +249,9 @@ $ openstack implied role create admin --implied-role member
 \| prior\_role | 29c09e68e6f741afa952a837e29c700b |
 +------------+----------------------------------+
 
-
-
-
  
 
 Note
-
-
 
 Role implications only go one way, from a “prior” role to an “implied” role. Therefore assigning a user the `member` will not grant them the `admin` role.
 
@@ -305,21 +268,15 @@ $ openstack implied role list
 \| 29c09e68e6f741afa952a837e29c700b | admin           | 71ccc37d41c8491c975ae72676db687f | member            |
 +----------------------------------+-----------------+----------------------------------+-------------------+
 
-
 ### Deleting implied roles[¶](https://taikun.cloud/docs/manage-projects-users-and-roles/#deleting-implied-roles "Permalink to this headline")
 
 To delete a role inference rule:
 
 $ openstack implied role delete admin --implied-role member
 
-
-
-
  
 
 Note
-
-
 
 Deleting an implied role removes the role inference rule. It does not delete the prior or implied role. Therefore if a user was assigned the prior role, they will no longer have the roles that it implied.
 
