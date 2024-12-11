@@ -68,8 +68,8 @@ Their priority can be overridden via `[deploy]\erase_devices_metadata_priority`
 
 As in the case of this driver all cleaning steps are known to the ironic-conductor service, booting the deploy ramdisk is completely skipped when there are no cleaning steps to perform.
 
->Note 
->Aborting cleaning steps is not supported.
+> Note
+> Aborting cleaning steps is not supported.
 
 ### Logging
 
@@ -143,10 +143,12 @@ Driver options are configured in `[ansible]` section of ironic configuration f
 
 Set them per-node via `baremetal node set` command, for example:
 
-`baremetal node set <node> \`
-`    --deploy-interface ansible \`
-`    --driver-info ansible_username=stack \`
-`    --driver-info ansible_key_file=/etc/ironic/id_rsa`
+```
+baremetal node set <node> \
+    --deploy-interface ansible \
+    --driver-info ansible_username=stack \
+    --driver-info ansible_key_file=/etc/ironic/id_rsa
+```
 
 **ansible\_username**
 
@@ -182,20 +184,22 @@ Absolute path to the python interpreter on the managed machine. Default is taken
 
 The `[ansible]\playbooks_path` option in the ironic configuration file is expected to have a standard layout for an Ansible project with some additions:
 
-`<playbooks_path>`
-`|`
-`\_ inventory`
-`\_ add-ironic-nodes.yaml`
-`\_ roles`
-` \_ role1`
-` \_ role2`
-` \_ ...`
-`|`
-`\_callback_plugins`
-` \_ ...`
-`|`
-`\_ library`
-` \_ ...`
+```
+<playbooks_path>
+|
+\_ inventory
+\_ add-ironic-nodes.yaml
+\_ roles
+ \_ role1
+ \_ role2
+ \_ ...
+|
+\_callback_plugins
+ \_ ...
+|
+\_ library
+ \_ ...
+```
 
 The extra files relied by this driver are:
 
@@ -249,29 +253,31 @@ Most probably you’d start experimenting like this:
 
 This driver will pass the single JSON-ified extra var argument to Ansible (as in `ansible-playbook -e ..`). Those values are then accessible in your plays as well (some of them are optional and might not be defined):
 
-`ironic:`
-`  nodes:`
-`  - ip: "<IPADDRESS>"`
-`    name: "<NODE_UUID>"`
-`    user: "<USER ANSIBLE WILL USE>"`
-`    extra: "<COPY OF NODE's EXTRA FIELD>"`
-`  image:`
-`    url: "<URL TO FETCH THE USER IMAGE FROM>"`
-`    disk_format: "<qcow2|raw|...>"`
-`    container_format: "<bare|...>"`
-`    checksum: "<hash-algo:hashstring>"`
-`    mem_req: "<REQUIRED FREE MEMORY TO DOWNLOAD IMAGE TO RAM>"`
-`    tags: "<LIST OF IMAGE TAGS AS DEFINED IN GLANCE>"`
-`    properties: "<DICT OF IMAGE PROPERTIES AS DEFINED IN GLANCE>"`
-`  configdrive:`
-`    type: "<url|file>"`
-`    location: "<URL OR PATH ON CONDUCTOR>"`
-`  partition_info:`
-`    label: "<msdos|gpt>"`
-`    preserve_ephemeral: "<bool>"`
-`    ephemeral_format: "<FILESYSTEM TO CREATE ON EPHEMERAL PARTITION>"`
-`    partitions: "<LIST OF PARTITIONS IN FORMAT EXPECTED BY PARTED MODULE>"`
-`  raid_config: "<COPY OF NODE's TARGET_RAID_CONFIG FIELD>"`
+```
+ironic:
+  nodes:
+  - ip: "<IPADDRESS>"
+    name: "<NODE_UUID>"
+    user: "<USER ANSIBLE WILL USE>"
+    extra: "<COPY OF NODE's EXTRA FIELD>"
+  image:
+    url: "<URL TO FETCH THE USER IMAGE FROM>"
+    disk_format: "<qcow2|raw|...>"
+    container_format: "<bare|...>"
+    checksum: "<hash-algo:hashstring>"
+    mem_req: "<REQUIRED FREE MEMORY TO DOWNLOAD IMAGE TO RAM>"
+    tags: "<LIST OF IMAGE TAGS AS DEFINED IN GLANCE>"
+    properties: "<DICT OF IMAGE PROPERTIES AS DEFINED IN GLANCE>"
+  configdrive:
+    type: "<url|file>"
+    location: "<URL OR PATH ON CONDUCTOR>"
+  partition_info:
+    label: "<msdos|gpt>"
+    preserve_ephemeral: "<bool>"
+    ephemeral_format: "<FILESYSTEM TO CREATE ON EPHEMERAL PARTITION>"
+    partitions: "<LIST OF PARTITIONS IN FORMAT EXPECTED BY PARTED MODULE>"
+  raid_config: "<COPY OF NODE's TARGET_RAID_CONFIG FIELD>"
+```
 
 `ironic.nodes`
 
@@ -297,15 +303,17 @@ All fields of node’s `instance_info` that start with `image_` are passed i
 
 Optional. List of dictionaries defining partitions to create on the node in the form:
 
-`partitions:`
-`- name: "<NAME OF PARTITION>"`
-`  unit: "<UNITS FOR SIZE>"`
-`  size: "<SIZE OF THE PARTITION>"`
-`  type: "<primary|extended|logical>"`
-`  align: "<ONE OF PARTED_SUPPORTED OPTIONS>"`
-`  format: "<PARTITION TYPE TO SET>"`
-`  flags:`
-`    flag_name: "<bool>"`
+```
+partitions:
+- name: "<NAME OF PARTITION>"
+  unit: "<UNITS FOR SIZE>"
+  size: "<SIZE OF THE PARTITION>"
+  type: "<primary|extended|logical>"
+  align: "<ONE OF PARTED_SUPPORTED OPTIONS>"
+  format: "<PARTITION TYPE TO SET>"
+  flags:
+    flag_name: "<bool>"
+```
 
 The driver will populate this list from `root_gb`, `swap_mb` and `ephemeral_gb` fields of `instance_info`. The driver will also prepend the `bios_grub`-labeled partition when deploying on GPT-labeled disk, and pre-create a 64 MiB partition for configdrive if it is set in `instance_info`.
 
