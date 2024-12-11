@@ -1,4 +1,6 @@
-# Host Aggregates
+---
+title: "Host Aggregates"
+---
 
 Host aggregates are a mechanism for partitioning hosts in an OpenStack cloud, or a region of an OpenStack cloud, based on arbitrary characteristics. Examples where an administrator may want to do this include where a group of hosts have additional hardware or performance characteristics.
 
@@ -8,145 +10,154 @@ Host aggregates are not explicitly exposed to users. Instead administrators map 
 
 Administrators are able to optionally expose a host aggregate as an [Availability Zone](https://docs.openstack.org/nova/zed/reference/glossary.html#term-Availability-Zone). Availability zones are different from host aggregates in that they are explicitly exposed to the user, and hosts can only be in a single availability zone. Administrators can configure a default availability zone where instances will be scheduled when the user fails to specify one. For more information on how to do this, refer to [Availability Zones](https://docs.openstack.org/nova/zed/admin/availability-zones.html).
 
-## Configure scheduler to support host aggregates
+# Configure scheduler to support host aggregates
 
 One common use case for host aggregates is when you want to support scheduling instances to a subset of compute hosts because they have a specific capability. For example, you may want to allow users to request compute hosts that have SSD drives if they need access to faster disk I/O, or access to compute hosts that have GPU cards to take advantage of GPU-accelerated code.
 
 To configure the scheduler to support host aggregates, the [`filter_scheduler.enabled_filters`](https://docs.openstack.org/nova/zed/configuration/config.html#filter_scheduler.enabled_filters) configuration option must contain the `AggregateInstanceExtraSpecsFilter` in addition to the other filters used by the scheduler. Add the following line to `nova.conf` on the host that runs the `nova-scheduler` service to enable host aggregates filtering, as well as the other filters that are typically enabled:
 
+```
+[filter_scheduler]
+enabled_filters=...,AggregateInstanceExtraSpecsFilter
+```
 
-
-`[filter_scheduler]`
-`enabled_filters=...,AggregateInstanceExtraSpecsFilter`
-
-### Example: Specify compute hosts with SSDs
+## Example: Specify compute hosts with SSDs
 
 This example configures the Compute service to enable users to request nodes that have solid-state drives (SSDs). You create a `fast-io` host aggregate in the `nova` availability zone and you add the `ssd=true` key-value pair to the aggregate. Then, you add the `node1`, and `node2` compute nodes to it.
 
-`$ openstack aggregate create --zone nova fast-io`
-`+-------------------+----------------------------+`
-`| Field             | Value                      |`
-`+-------------------+----------------------------+`
-`| availability_zone | nova                       |`
-`| created_at        | 2016-12-22T07:31:13.013466 |`
-`| deleted           | False                      |`
-`| deleted_at        | None                       |`
-`| id                | 1                          |`
-`| name              | fast-io                    |`
-`| updated_at        | None                       |`
-`+-------------------+----------------------------+`
+```
+$ openstack aggregate create --zone nova fast-io
++-------------------+----------------------------+
+| Field             | Value                      |
++-------------------+----------------------------+
+| availability_zone | nova                       |
+| created_at        | 2016-12-22T07:31:13.013466 |
+| deleted           | False                      |
+| deleted_at        | None                       |
+| id                | 1                          |
+| name              | fast-io                    |
+| updated_at        | None                       |
++-------------------+----------------------------+
 
-`$ openstack aggregate set --property ssd=true 1`
-`+-------------------+----------------------------+`
-`| Field             | Value                      |`
-`+-------------------+----------------------------+`
-`| availability_zone | nova                       |`
-`| created_at        | 2016-12-22T07:31:13.000000 |`
-`| deleted           | False                      |`
-`| deleted_at        | None                       |`
-`| hosts             | []                         |`
-`| id                | 1                          |`
-`| name              | fast-io                    |`
-`| properties        | ssd='true'                 |`
-`| updated_at        | None                       |`
-`+-------------------+----------------------------+`
+$ openstack aggregate set --property ssd=true 1
++-------------------+----------------------------+
+| Field             | Value                      |
++-------------------+----------------------------+
+| availability_zone | nova                       |
+| created_at        | 2016-12-22T07:31:13.000000 |
+| deleted           | False                      |
+| deleted_at        | None                       |
+| hosts             | []                         |
+| id                | 1                          |
+| name              | fast-io                    |
+| properties        | ssd='true'                 |
+| updated_at        | None                       |
++-------------------+----------------------------+
 
-`$ openstack aggregate add host 1 node1`
-`+-------------------+--------------------------------------------------+`
-`| Field             | Value                                            |`
-`+-------------------+--------------------------------------------------+`
-`| availability_zone | nova                                             |`
-`| created_at        | 2016-12-22T07:31:13.000000                       |`
-`| deleted           | False                                            |`
-`| deleted_at        | None                                             |`
-`| hosts             | [u'node1']                                       |`
-`| id                | 1                                                |`
-`| metadata          | {u'ssd': u'true', u'availability_zone': u'nova'} |`
-`| name              | fast-io                                          |`
-`| updated_at        | None                                             |`
-`+-------------------+--------------------------------------------------+`
+$ openstack aggregate add host 1 node1
++-------------------+--------------------------------------------------+
+| Field             | Value                                            |
++-------------------+--------------------------------------------------+
+| availability_zone | nova                                             |
+| created_at        | 2016-12-22T07:31:13.000000                       |
+| deleted           | False                                            |
+| deleted_at        | None                                             |
+| hosts             | [u'node1']                                       |
+| id                | 1                                                |
+| metadata          | {u'ssd': u'true', u'availability_zone': u'nova'} |
+| name              | fast-io                                          |
+| updated_at        | None                                             |
++-------------------+--------------------------------------------------+
 
-`$ openstack aggregate add host 1 node2`
-`+-------------------+--------------------------------------------------+`
-`| Field             | Value                                            |`
-`+-------------------+--------------------------------------------------+`
-`| availability_zone | nova                                             |`
-`| created_at        | 2016-12-22T07:31:13.000000                       |`
-`| deleted           | False                                            |`
-`| deleted_at        | None                                             |`
-`| hosts             | [u'node1', u'node2']                             |`
-`| id                | 1                                                |`
-`| metadata          | {u'ssd': u'true', u'availability_zone': u'nova'} |`
-`| name              | fast-io                                          |`
-`| updated_at        | None                                             |`
-`+-------------------+--------------------------------------------------+`
+$ openstack aggregate add host 1 node2
++-------------------+--------------------------------------------------+
+| Field             | Value                                            |
++-------------------+--------------------------------------------------+
+| availability_zone | nova                                             |
+| created_at        | 2016-12-22T07:31:13.000000                       |
+| deleted           | False                                            |
+| deleted_at        | None                                             |
+| hosts             | [u'node1', u'node2']                             |
+| id                | 1                                                |
+| metadata          | {u'ssd': u'true', u'availability_zone': u'nova'} |
+| name              | fast-io                                          |
+| updated_at        | None                                             |
++-------------------+--------------------------------------------------+
+```
 
 Use the **openstack flavor create** command to create the `ssd.large` flavor called with an ID of 6, 8 GB of RAM, 80 GB root disk, and 4 vCPUs.
 
-`$ openstack flavor create --id 6 --ram 8192 --disk 80 --vcpus 4 ssd.large`
-`+----------------------------+-----------+`
-`| Field                      | Value     |`
-`+----------------------------+-----------+`
-`| OS-FLV-DISABLED:disabled   | False     |`
-`| OS-FLV-EXT-DATA:ephemeral  | 0         |`
-`| disk                       | 80        |`
-`| id                         | 6         |`
-`| name                       | ssd.large |`
-`| os-flavor-access:is_public | True      |`
-`| ram                        | 8192      |`
-`| rxtx_factor                | 1.0       |`
-`| swap                       |           |`
-`| vcpus                      | 4         |`
-`+----------------------------+-----------+`
+```
+$ openstack flavor create --id 6 --ram 8192 --disk 80 --vcpus 4 ssd.large
++----------------------------+-----------+
+| Field                      | Value     |
++----------------------------+-----------+
+| OS-FLV-DISABLED:disabled   | False     |
+| OS-FLV-EXT-DATA:ephemeral  | 0         |
+| disk                       | 80        |
+| id                         | 6         |
+| name                       | ssd.large |
+| os-flavor-access:is_public | True      |
+| ram                        | 8192      |
+| rxtx_factor                | 1.0       |
+| swap                       |           |
+| vcpus                      | 4         |
++----------------------------+-----------+
+```
 
 Once the flavor is created, specify one or more key-value pairs that match the key-value pairs on the host aggregates with scope `aggregate_instance_extra_specs`. In this case, that is the `aggregate_instance_extra_specs:ssd=true` key-value pair. Setting a key-value pair on a flavor is done using the **openstack flavor set** command.
 
-`$ openstack flavor set \`
-`    --property aggregate_instance_extra_specs:ssd=true ssd.large`
+```
+$ openstack flavor set \
+    --property aggregate_instance_extra_specs:ssd=true ssd.large
+```
 
 Once it is set, you should see the `extra_specs` property of the `ssd.large` flavor populated with a key of `ssd` and a corresponding value of `true`.
 
-`$ openstack flavor show ssd.large`
-`+----------------------------+-------------------------------------------+`
-`| Field                      | Value                                     |`
-`+----------------------------+-------------------------------------------+`
-`| OS-FLV-DISABLED:disabled   | False                                     |`
-`| OS-FLV-EXT-DATA:ephemeral  | 0                                         |`
-`| disk                       | 80                                        |`
-`| id                         | 6                                         |`
-`| name                       | ssd.large                                 |`
-`| os-flavor-access:is_public | True                                      |`
-`| properties                 | aggregate_instance_extra_specs:ssd='true' |`
-`| ram                        | 8192                                      |`
-`| rxtx_factor                | 1.0                                       |`
-`| swap                       |                                           |`
-`| vcpus                      | 4                                         |`
-`+----------------------------+-------------------------------------------+`
+```
+$ openstack flavor show ssd.large
++----------------------------+-------------------------------------------+
+| Field                      | Value                                     |
++----------------------------+-------------------------------------------+
+| OS-FLV-DISABLED:disabled   | False                                     |
+| OS-FLV-EXT-DATA:ephemeral  | 0                                         |
+| disk                       | 80                                        |
+| id                         | 6                                         |
+| name                       | ssd.large                                 |
+| os-flavor-access:is_public | True                                      |
+| properties                 | aggregate_instance_extra_specs:ssd='true' |
+| ram                        | 8192                                      |
+| rxtx_factor                | 1.0                                       |
+| swap                       |                                           |
+| vcpus                      | 4                                         |
++----------------------------+-------------------------------------------+
+```
 
 Now, when a user requests an instance with the `ssd.large` flavor, the scheduler only considers hosts with the `ssd=true` key-value pair. In this example, these are `node1` and `node2`.
 
-## Aggregates in Placement
+# Aggregates in Placement
 
 Aggregates also exist in placement and are not the same thing as host aggregates in nova. These aggregates are defined (purely) as groupings of related resource providers. Since compute nodes in nova are represented in placement as resource providers, they can be added to a placement aggregate as well. For example, get the UUID of the compute node using **openstack hypervisor list** and add it to an aggregate in placement using **openstack resource provider aggregate set**.
 
-`$ openstack --os-compute-api-version=2.53 hypervisor list`
-`+--------------------------------------+---------------------+-----------------+-----------------+-------+`
-`| ID                                   | Hypervisor Hostname | Hypervisor Type | Host IP         | State |`
-`+--------------------------------------+---------------------+-----------------+-----------------+-------+`
-`| 815a5634-86fb-4e1e-8824-8a631fee3e06 | node1               | QEMU            | 192.168.1.123   | up    |`
-`+--------------------------------------+---------------------+-----------------+-----------------+-------+`
+```
+$ openstack --os-compute-api-version=2.53 hypervisor list
++--------------------------------------+---------------------+-----------------+-----------------+-------+
+| ID                                   | Hypervisor Hostname | Hypervisor Type | Host IP         | State |
++--------------------------------------+---------------------+-----------------+-----------------+-------+
+| 815a5634-86fb-4e1e-8824-8a631fee3e06 | node1               | QEMU            | 192.168.1.123   | up    |
++--------------------------------------+---------------------+-----------------+-----------------+-------+
 
-`$ openstack --os-placement-api-version=1.2 resource provider aggregate set \`
-`    --aggregate df4c74f3-d2c4-4991-b461-f1a678e1d161 \`
-`    815a5634-86fb-4e1e-8824-8a631fee3e06`
+$ openstack --os-placement-api-version=1.2 resource provider aggregate set \
+    --aggregate df4c74f3-d2c4-4991-b461-f1a678e1d161 \
+    815a5634-86fb-4e1e-8824-8a631fee3e06
+```
 
 Some scheduling filter operations can be performed by placement for increased speed and efficiency.
 
-Note
+> Note
+> The nova-api service attempts (as of nova 18.0.0) to automatically mirror the association of a compute host with an aggregate when an administrator adds or removes a host to/from a nova host aggregate. This should alleviate the need to manually create those association records in the placement API using the `openstack resource provider aggregate set` CLI invocation.
 
-The nova-api service attempts (as of nova 18.0.0) to automatically mirror the association of a compute host with an aggregate when an administrator adds or removes a host to/from a nova host aggregate. This should alleviate the need to manually create those association records in the placement API using the `openstack resource provider aggregate set` CLI invocation.
-
-## Tenant Isolation with Placement
+# Tenant Isolation with Placement
 
 In order to use placement to isolate tenants, there must be placement aggregates that match the membership and UUID of nova host aggregates that you want to use for isolation. The same key pattern in aggregate metadata used by the [AggregateMultiTenancyIsolation](https://docs.openstack.org/nova/zed/admin/scheduling.html#aggregatemultitenancyisolation) filter controls this function, and is enabled by setting [`scheduler.limit_tenants_to_placement_aggregate`](https://docs.openstack.org/nova/zed/configuration/config.html#scheduler.limit_tenants_to_placement_aggregate) to `True`.
 
