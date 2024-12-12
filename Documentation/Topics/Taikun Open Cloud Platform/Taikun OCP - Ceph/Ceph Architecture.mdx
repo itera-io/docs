@@ -1,4 +1,6 @@
-# Ceph Architecture
+---
+title: "Ceph Architecture"
+---
 
 # ARCHITECTURE
 
@@ -6,7 +8,7 @@
 
 ![../\_images/stack.png](https://docs.ceph.com/en/latest/_images/stack.png)
 
-## THE CEPH STORAGE CLUSTER
+# THE CEPH STORAGE CLUSTER
 
 Ceph provides an infinitely scalable [Ceph Storage Cluster](https://docs.ceph.com/en/latest/glossary/#term-Ceph-Storage-Cluster) based upon RADOS, a reliable, distributed storage service that uses the intelligence in each of its nodes to secure the data it stores and to provide that data to client. See Sage Weil’s “[The RADOS Object Store](https://ceph.io/en/news/blog/2009/the-rados-distributed-object-store/)” blog post for a brief explanation of RADOS and see [RADOS – A Scalable, Reliable Storage Service for Petabyte-scale Storage Clusters](https://ceph.io/assets/pdfs/weil-rados-pdsw07.pdf) for an exhaustive explanation of [RADOS](https://docs.ceph.com/en/latest/glossary/#term-RADOS).
 
@@ -30,7 +32,7 @@ A Ceph Metadata Server (MDS) manages file metadata when CephFS is used to provid
 
 Storage cluster clients and [Ceph OSD Daemon](https://docs.ceph.com/en/latest/glossary/#term-Ceph-OSD-Daemon)s use the CRUSH algorithm to compute information about the location of data. Use of the CRUSH algoritm means that clients and OSDs are not bottlenecked by a central lookup table. Ceph’s high-level features include a native interface to the Ceph Storage Cluster via `librados`, and a number of service interfaces built on top of `librados`.
 
-### STORING DATA
+## STORING DATA
 
 The Ceph Storage Cluster receives data from [Ceph Client](https://docs.ceph.com/en/latest/glossary/#term-Ceph-Client)s–whether it comes through a [Ceph Block Device](https://docs.ceph.com/en/latest/glossary/#term-Ceph-Block-Device), [Ceph Object Storage](https://docs.ceph.com/en/latest/glossary/#term-Ceph-Object-Storage), the [Ceph File System](https://docs.ceph.com/en/latest/glossary/#term-Ceph-File-System), or a custom implementation that you create by using `librados`. The data received by the Ceph Storage Cluster is stored as RADOS objects. Each object is stored on an [Object Storage Device](https://docs.ceph.com/en/latest/glossary/#term-Object-Storage-Device) (this is also called an “OSD”). Ceph OSDs control read, write, and replication operations on storage drives. The default BlueStore back end stores objects in a monolithic, database-like fashion.
 
@@ -40,19 +42,20 @@ Ceph OSD Daemons store data as objects in a flat namespace. This means that obje
 
 ![](https://docs.ceph.com/en/latest/_images/ditaa-b363b88681891164d307a947109a7d196e259dc8.png)
 
-> NoteAn object ID is unique across the entire cluster, not just the local filesystem.
+> Note
+> An object ID is unique across the entire cluster, not just the local filesystem.
 
-### SCALABILITY AND HIGH AVAILABILITY
+## SCALABILITY AND HIGH AVAILABILITY
 
 In traditional architectures, clients talk to a centralized component. This centralized component might be a gateway, a broker, an API, or a facade. A centralized component of this kind acts as a single point of entry to a complex subsystem. Architectures that rely upon such a centralized component have a single point of failure and incur limits to performance and scalability. If the centralized component goes down, the whole system becomes unavailable.
 
 Ceph eliminates this centralized component. This enables clients to interact with Ceph OSDs directly. Ceph OSDs create object replicas on other Ceph Nodes to ensure data safety and high availability. Ceph also uses a cluster of monitors to ensure high availability. To eliminate centralization, Ceph uses an algorithm called CRUSH.
 
-#### CRUSH INTRODUCTION
+### CRUSH INTRODUCTION
 
 Ceph Clients and Ceph OSD Daemons both use the CRUSH algorithm to compute information about object location instead of relying upon a central lookup table. CRUSH provides a better data management mechanism than do older approaches, and CRUSH enables massive scale by distributing the work to all the OSD daemons in the cluster and all the clients that communicate with them. CRUSH uses intelligent data replication to ensure resiliency, which is better suited to hyper-scale storage. The following sections provide additional details on how CRUSH works. For a detailed discussion of CRUSH, see [CRUSH – Controlled, Scalable, Decentralized Placement of Replicated Data](https://ceph.io/assets/pdfs/weil-crush-sc06.pdf).
 
-#### CLUSTER MAP
+### CLUSTER MAP
 
 In order for a Ceph cluster to function properly, Ceph Clients and Ceph OSDs must have current information about the cluster’s topology. Current information is stored in the “Cluster Map”, which is in fact a collection of five maps. The five maps that constitute the cluster map are:
 
@@ -68,7 +71,7 @@ In order for a Ceph cluster to function properly, Ceph Clients and Ceph OSDs mus
 
 Each map maintains a history of changes to its operating state. Ceph Monitors maintain a master copy of the cluster map. This master copy includes the cluster members, the state of the cluster, changes to the cluster, and information recording the overall health of the Ceph Storage Cluster.
 
-#### HIGH AVAILABILITY MONITORS
+### HIGH AVAILABILITY MONITORS
 
 A Ceph Client must contact a Ceph Monitor and obtain a current copy of the cluster map in order to read data from or to write data to the Ceph cluster.
 
@@ -78,11 +81,12 @@ Ceph leverages a cluster of monitors in order to increase reliability and fault 
 
 See the [Monitor Config Reference](https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref) for more detail on configuring monitors.
 
-#### HIGH AVAILABILITY AUTHENTICATION
+### HIGH AVAILABILITY AUTHENTICATION
 
 The `cephx` authentication system is used by Ceph to authenticate users and daemons and to protect against man-in-the-middle attacks.
 
-> NoteThe `cephx` protocol does not address data encryption in transport (for example, SSL/TLS) or encryption at rest.
+> Note
+> The `cephx` protocol does not address data encryption in transport (for example, SSL/TLS) or encryption at rest.
 
 `cephx` uses shared secret keys for authentication. This means that both the client and the monitor cluster keep a copy of the client’s secret key.
 
@@ -98,7 +102,8 @@ Like Kerberos tickets, `cephx` tickets expire. An attacker cannot use an expir
 
 An administrator must set up users before using `cephx`. In the following diagram, the `client.admin` user invokes `ceph auth get-or-create-key` from the command line to generate a username and secret key. Ceph’s `auth` subsystem generates the username and key, stores a copy on the monitor(s), and transmits the user’s secret back to the `client.admin` user. This means that the client and the monitor share a secret key.
 
-> NoteThe `client.admin` user must provide the user ID and secret key to the user in a secure manner.
+> Note
+> The `client.admin` user must provide the user ID and secret key to the user in a secure manner.
 
 ![](https://docs.ceph.com/en/latest/_images/ditaa-98e822f6a4f486de7dc55635f9fb80d356ad931f.png)
 
@@ -118,7 +123,7 @@ See [User Management](https://docs.ceph.com/en/latest/rados/operations/user-man
 
 See [A Detailed Description of the Cephx Authentication Protocol](https://docs.ceph.com/en/latest/dev/cephx_protocol/#cephx-2012-peter) for more on the distinction between authorization and authentication and for a step-by-step explanation of the setup of `cephx` tickets and session keys.
 
-#### SMART DAEMONS ENABLE HYPERSCALE
+### SMART DAEMONS ENABLE HYPERSCALE
 
 A feature of many storage clusters is a centralized interface that keeps track of the nodes that clients are permitted to access. Such centralized architectures provide services to clients by means of a double dispatch. At the petabyte-to-exabyte scale, such double dispatches are a significant bottleneck.
 
@@ -138,11 +143,11 @@ Because Ceph clients, Ceph monitors, and Ceph OSD daemons interact with one anot
 
 By performing this act of data replication, Ceph OSD Daemons relieve Ceph clients of the burden of replicating data.
 
-### DYNAMIC CLUSTER MANAGEMENT
+## DYNAMIC CLUSTER MANAGEMENT
 
 In the [Scalability and High Availability](https://docs.ceph.com/en/latest/architecture/#scalability-and-high-availability) section, we explained how Ceph uses CRUSH, cluster topology, and intelligent daemons to scale and maintain high availability. Key to Ceph’s design is the autonomous, self-healing, and intelligent Ceph OSD Daemon. Let’s take a deeper look at how CRUSH works to enable modern cloud storage infrastructures to place data, rebalance the cluster, and adaptively place and balance data and recover from faults.
 
-#### ABOUT POOLS
+### ABOUT POOLS
 
 The Ceph storage system supports the notion of ‘Pools’, which are logical partitions for storing objects.
 
@@ -160,7 +165,7 @@ Pools set at least the following parameters:
 
 See [Set Pool Values](https://docs.ceph.com/en/latest/rados/operations/pools#set-pool-values) for details.
 
-#### MAPPING PGS TO OSDS
+### MAPPING PGS TO OSDS
 
 Each pool has a number of placement groups (PGs) within it. CRUSH dynamically maps PGs to OSDs. When a Ceph Client stores objects, CRUSH maps each RADOS object to a PG.
 
@@ -172,7 +177,7 @@ If the Ceph Client “knew” which Ceph OSD Daemons were storing which objects,
 
 The client uses its copy of the cluster map and the CRUSH algorithm to compute precisely which OSD it will use when reading or writing a particular object.
 
-#### CALCULATING PG IDS
+### CALCULATING PG IDS
 
 When a Ceph Client binds to a Ceph Monitor, it retrieves the latest version of the [Cluster Map](https://docs.ceph.com/en/latest/architecture/#cluster-map). When a client has been equipped with a copy of the cluster map, it is aware of all the monitors, OSDs, and metadata servers in the cluster. **However, even equipped with a copy of the latest version of the cluster map, the client doesn’t know anything about object locations.**
 
@@ -194,15 +199,17 @@ Ceph stores data in named pools (for example, “liverpool”). When a client st
 
 It is much faster to compute object locations than to perform object location query over a chatty session. The CRUSH algorithm allows a client to compute where objects are expected to be stored, and enables the client to contact the primary OSD to store or retrieve the objects.
 
-#### PEERING AND SETS
+### PEERING AND SETS
 
 In previous sections, we noted that Ceph OSD Daemons check each other’s heartbeats and report back to Ceph Monitors. Ceph OSD daemons also ‘peer’, which is the process of bringing all of the OSDs that store a Placement Group (PG) into agreement about the state of all of the RADOS objects (and their metadata) in that PG. Ceph OSD Daemons [Report Peering Failure](https://docs.ceph.com/en/latest/rados/configuration/mon-osd-interaction#osds-report-peering-failure) to the Ceph Monitors. Peering issues usually resolve themselves; however, if the problem persists, you may need to refer to the [Troubleshooting Peering Failure](https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg#placement-group-down-peering-failure) section.
 
-> > NotePGs that agree on the state of the cluster do not necessarily have the current data yet.
+> Note
+> PGs that agree on the state of the cluster do not necessarily have the current data yet.
 
 The Ceph Storage Cluster was designed to store at least two copies of an object (that is, `size = 2`), which is the minimum requirement for data safety. For high availability, a Ceph Storage Cluster should store more than two copies of an object (that is, `size = 3` and `min size = 2`) so that it can continue to run in a `degraded` state while maintaining data safety.
 
-> WarningAlthough we say here that R2 (replication with two copies) is the minimum requirement for data safety, R3 (replication with three copies) is recommended. On a long enough timeline, data stored with an R2 strategy will be lost.
+> Warning
+> Although we say here that R2 (replication with two copies) is the minimum requirement for data safety, R3 (replication with three copies) is recommended. On a long enough timeline, data stored with an R2 strategy will be lost.
 
 As explained in the diagram in [Smart Daemons Enable Hyperscale](https://docs.ceph.com/en/latest/architecture/#smart-daemons-enable-hyperscale), we do not name the Ceph OSD Daemons specifically (for example, `osd.0`, `osd.1`, etc.), but rather refer to them as *Primary*, *Secondary*, and so forth. By convention, the *Primary* is the first OSD in the *Acting Set*, and is responsible for orchestrating the peering process for each placement group where it acts as the *Primary*. The *Primary* is the **ONLY** OSD in a given placement group that accepts client-initiated writes to objects.
 
@@ -210,15 +217,16 @@ The set of OSDs that is responsible for a placement group is called the *Acting
 
 The Ceph OSD daemons that are part of an *Acting Set* might not always be `up`. When an OSD in the *Acting Set* is `up`, it is part of the *Up Set*. The *Up Set* is an important distinction, because Ceph can remap PGs to other Ceph OSD Daemons when an OSD fails.
 
-> NoteConsider a hypothetical *Acting Set* for a PG that contains `osd.25`, `osd.32` and `osd.61`. The first OSD (`osd.25`), is the *Primary*. If that OSD fails, the Secondary (`osd.32`), becomes the *Primary*, and `osd.25` is removed from the *Up Set*.
+> Note
+> Consider a hypothetical *Acting Set* for a PG that contains `osd.25`, `osd.32` and `osd.61`. The first OSD (`osd.25`), is the *Primary*. If that OSD fails, the Secondary (`osd.32`), becomes the *Primary*, and `osd.25` is removed from the *Up Set*.
 
-#### REBALANCING
+### REBALANCING
 
 When you add a Ceph OSD Daemon to a Ceph Storage Cluster, the cluster map gets updated with the new OSD. Referring back to [Calculating PG IDs](https://docs.ceph.com/en/latest/architecture/#calculating-pg-ids), this changes the cluster map. Consequently, it changes object placement, because it changes an input for the calculations. The following diagram depicts the rebalancing process (albeit rather crudely, since it is substantially less impactful with large clusters) where some, but not all of the PGs migrate from existing OSDs (OSD 1, and OSD 2) to the new OSD (OSD 3). Even when rebalancing, CRUSH is stable. Many of the placement groups remain in their original configuration, and each OSD gets some added capacity, so there are no load spikes on the new OSD after rebalancing is complete.
 
 ![](https://docs.ceph.com/en/latest/_images/ditaa-cb68a3f796f66334ea3d88390052d4c06d98028b.png)
 
-#### DATA CONSISTENCY
+### DATA CONSISTENCY
 
 As part of maintaining data consistency and cleanliness, Ceph OSDs also scrub objects within placement groups. That is, Ceph OSDs compare object metadata in one placement group with its replicas in placement groups stored in other OSDs. Scrubbing (usually performed daily) catches OSD bugs or filesystem errors, often as a result of hardware issues. OSDs also perform deeper scrubbing by comparing data in objects bit-for-bit. Deep scrubbing (by default performed weekly) finds bad blocks on a drive that weren’t apparent in a light scrub.
 
