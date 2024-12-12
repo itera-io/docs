@@ -513,7 +513,6 @@ Or using `sushy` with Redfish:
 ```
 import sushy
 
-
 client = sushy.Sushy('https://192.168.1.1', username='root', password='calvin', verify=False)
 for s in client.get_system_collection().get_members():
   print("System: %(id)s" % {'id': s.identity})
