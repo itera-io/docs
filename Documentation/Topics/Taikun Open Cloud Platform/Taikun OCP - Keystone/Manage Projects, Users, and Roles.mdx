@@ -70,19 +70,19 @@ Specify the project ID to update a project. You can update the name, description
 * To temporarily disable a project:
 
 ```
-  $ openstack project set PROJECT\_ID --disable
+$ openstack project set PROJECT\_ID --disable
 ```
 
 * To enable a disabled project:
 
 ```
-  $ openstack project set PROJECT\_ID --enable
+$ openstack project set PROJECT\_ID --enable
 ```
 
 * To update the name of a project:
 
 ```
-  $ openstack project set PROJECT\_ID --name project-new
+$ openstack project set PROJECT\_ID --name project-new
 ```
 
 * To verify your changes, show information for the updated project:
@@ -237,7 +237,7 @@ For example, assign the `new-role` role to the `demo` user and `test-projec
 $ openstack role add --user demo --project test-project new-role
 ```
 
-2. Verify the role assignment:
+1. Verify the role assignment:
 
 ```
 $ openstack role assignment list --user USER_NAME \
