@@ -153,17 +153,27 @@ $ openstack user create --project new-project --password PASSWORD new-user
 
 You can update the name, email address, and enabled status for a user.
 
-* To temporarily disable a user account:\`\`\`
-  $ openstack user set USER\_NAME --disableIf```you disable a user account, the user cannot log in to the dashboard. However, data for the user account is maintained, so you can enable the user at any time.
-  ```
+* To temporarily disable a user account:
 
-* To enable a disabled user account:\`\`\`
-  $ openstack user set USER\_NAME --enable```
-  ```
+```
+$ openstack user set USER\_NAME --disable
+```
 
-* To change the name and description for a user account:\`\`\`
-  $ openstack user set USER\_NAME --name user-new --email```User has been updated.
-  ```
+If you disable a user account, the user cannot log in to the dashboard. However, data for the user account is maintained, so you can enable the user at any time.
+
+* To enable a disabled user account:
+
+```
+$ openstack user set USER\_NAME --enable
+```
+
+* To change the name and description for a user account:
+
+```
+$ openstack user set USER\_NAME --name user-new --email new- user@example.com
+```
+
+User has been updated.
 
 ## Delete a user
 
@@ -215,11 +225,17 @@ $ openstack role create new-role
 
 To assign a user to a project, you must assign the role to a user-project pair.
 
-1. Assign a role to a user-project pair:`$ openstack role add --user USER\_NAME --project PROJECT\_NAME ROLE\_NAME`For example, assign the `new-role` role to the `demo` user and `test-project` project pair:\`\`\`
+1. Assign a role to a user-project pair:
 
+```
+$ openstack role add --user USER\_NAME --project PROJECT\_NAME ROLE\_NAME
+```
 
-   $ openstack role add --user demo --project test-project new-role```
-   ```
+For example, assign the `new-role` role to the `demo` user and `test-project` project pair:
+
+```
+$ openstack role add --user demo --project test-project new-role
+```
 
 2. Verify the role assignment:
 
@@ -264,13 +280,13 @@ Remove a role from a user-project pair:
 $ openstack role remove --user USER\_NAME --project PROJECT\_NAME ROLE\_NAME
 ```
 
-2. Verify the role removal:
+1. Verify the role removal:
 
 ```
 $ openstack role assignment list --user USER\_NAME --project PROJECT\_NAME --names
 ```
+
 If the role was removed, the command output omits the removed role.
-   
 
 ## Creating implied roles
 
