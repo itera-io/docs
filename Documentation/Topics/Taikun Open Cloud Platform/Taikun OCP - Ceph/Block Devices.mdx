@@ -315,10 +315,17 @@ qemu-img convert -f qcow2 -O raw precise-cloudimg.img precise-cloudimg.raw
 
 When Glance and Cinder are both using Ceph block devices, the image is a copy-on-write clone, so new volumes are created quickly. In the OpenStack dashboard, you can boot from that volume by performing the following steps:
 
-1. Launch a new instance.
-
-2. Choose the image associated to the copy-on-write clone.
-
-3. Select ‘boot from volume’.
-
-4. Select the volume you created.
+<Steps>
+  <Step title="First Step">
+    Launch a new instance.
+  </Step>
+  <Step title="Second Step">
+    Choose the image associated to the copy-on-write clone.
+  </Step>
+  <Step title="Third Step">
+    Select ‘boot from volume’.
+  </Step>
+  <Step title="Fourth Step">
+    Select the volume you created.
+  </Step>
+</Steps>
