@@ -70,41 +70,47 @@ Keystone is an HTTP front-end to several services. Since the Rocky release Keyst
 
 Keystone defines functions related to [Flask-RESTful](https://flask-restful.readthedocs.io/en/latest/) in [`keystone.server.flask.common`](https://docs.openstack.org/keystone/zed/api/keystone.server.flask.common.html#module-keystone.server.flask.common). Keystone creates API resources which inherit from class [`keystone.server.flask.common.ResourceBase`](https://docs.openstack.org/keystone/zed/api/keystone.server.flask.common.html#keystone.server.flask.common.ResourceBase) and exposes methods for each supported HTTP methods GET, PUT , POST, PATCH and DELETE. For example, the User resource will look like:
 
-`class UserResource(ks_flask.ResourceBase): `
-`   collection_key = 'users'  `
-`   member_key = 'user'  `
-`   get_member_from_driver = PROVIDERS.deferred_provider_lookup( api='identity_api', method='get_user')  `
-`  `
-`   def get(self, user_id=None):  `
-`   """Get a user resource or list users. GET/HEAD /v3/users GET/HEAD /v3/users/{user_id} """  `
-`   ...  `
-`  `
-`   def post(self):  `
-`  """Create a user. POST /v3/users """`
-`  ...`
-`   class UserChangePasswordResource(ks_flask.ResourceBase):  `
-`   @ks_flask.unenforced_api  `
-`    def post(self, user_id):  `
-`   ...`
+```
+class UserResource(ks_flask.ResourceBase): 
+  collection_key = 'users' 
+  member_key = 'user' 
+  get_member_from_driver = PROVIDERS.deferred_provider_lookup( api='identity_api', method='get_user') 
+  
+  def get(self, user_id=None): 
+  """Get a user resource or list users. GET/HEAD /v3/users GET/HEAD /v3/users/{user_id} """ 
+  ... 
+  
+  def post(self): 
+  """Create a user. POST /v3/users """
+  ...
+  class UserChangePasswordResource(ks_flask.ResourceBase): 
+  @ks_flask.unenforced_api 
+   def post(self, user_id): 
+   ...
+```
 
 Routes for each API resource are defined by classes which inherit from [`keystone.server.flask.common.APIBase`](https://docs.openstack.org/keystone/zed/api/keystone.server.flask.common.html#keystone.server.flask.common.APIBase). For example, the UserAPI will look like:
 
-`class UserAPI(ks_flask.APIBase):`
-`    _name = 'users'`
-`    _import_name = __name__`
-`    resources = [UserResource]`
-`    resource_mapping = [`
-`        ks_flask.construct_resource_map(`
-`            resource=UserChangePasswordResource,`
-`            url='/users/<string:user_id>/password',`
-`            resource_kwargs={},`
-`            rel='user_change_password',`
-`            path_vars={'user_id': json_home.Parameters.USER_ID}`
-`        ),`
-`        # Add more resources as needed`
-`    ]`
+```
+class UserAPI(ks_flask.APIBase):
+    _name = 'users'
+    _import_name = __name__
+    resources = [UserResource]
+    resource_mapping = [
+        ks_flask.construct_resource_map(
+            resource=UserChangePasswordResource,
+            url='/users/<string:user_id>/password',
+            resource_kwargs={},
+            rel='user_change_password',
+            path_vars={'user_id': json_home.Parameters.USER_ID}
+        ),
+        # Add more resources as needed
+    ]
 
-The methods `_add_resources()` or `_add_mapped_resources()` in [`keystone.server.flask.common.APIBase`](https://docs.openstack.org/keystone/zed/api/keystone.server.flask.common.html#keystone.server.flask.common.APIBase) bind the resources with the APIs. Within each API, one or more managers are loaded (for example, see [`keystone.catalog.core.Manager`](https://docs.openstack.org/keystone/zed/api/keystone.catalog.core.html#keystone.catalog.core.Manager)), which are thin wrapper classes which load the appropriate service driver based on the keystone configuration.
+```
+
+The
+methods `_add_resources()` or `_add_mapped_resources()` in [`keystone.server.flask.common.APIBase`](https://docs.openstack.org/keystone/zed/api/keystone.server.flask.common.html#keystone.server.flask.common.APIBase) bind the resources with the APIs. Within each API, one or more managers are loaded (for example, see [`keystone.catalog.core.Manager`](https://docs.openstack.org/keystone/zed/api/keystone.catalog.core.html#keystone.catalog.core.Manager)), which are thin wrapper classes which load the appropriate service driver based on the keystone configuration.
 
 * Assignment
 
@@ -226,7 +232,9 @@ Largely designed for a common use case around service catalogs in the keystone p
 
 Example paste.deploy config (uses $ instead of % to avoid ConfigParser’s interpolation)**\[DEFAULT]**
 
-`catalog.RegionOne.identity.publicURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.adminURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.internalURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.name = 'Identity Service'`
+```
+catalog.RegionOne.identity.publicURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.adminURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.internalURL = http://localhost:$(public_port)s/v3 catalog.RegionOne.identity.name = 'Identity Service'
+```
 
 # Data Model
 
@@ -274,16 +282,18 @@ Other systems wishing to use the policy engine will require additional styles of
 
 Given a list of matches to check for, simply verify that the credentials contain the matches. For example:
 
-`credentials = {'user_id': 'foo', 'is_admin': 1, 'roles': ['nova:netadmin']}`
+```
+credentials = {'user_id': 'foo', 'is_admin': 1, 'roles': ['nova:netadmin']}
 
-`# An admin-only call:`
-`policy_api.enforce(('is_admin:1',), credentials)`
+# An admin-only call:
+policy_api.enforce(('is_admin:1',), credentials)
 
-`# An admin or owner call:`
-`policy_api.enforce(('is_admin:1', 'user_id:foo'), credentials)`
+# An admin or owner call:
+policy_api.enforce(('is_admin:1', 'user_id:foo'), credentials)
 
-`# A netadmin call:`
-`policy_api.enforce(('roles:nova:netadmin',), credentials)`
+# A netadmin call:
+policy_api.enforce(('roles:nova:netadmin',), credentials)
+```
 
 Credentials are generally built from the user metadata in the ‘extras’ part of the Identity API. So, adding a ‘role’ to the user just means adding the role to the user metadata.
 
@@ -293,13 +303,15 @@ Credentials are generally built from the user metadata in the ‘extras’ part 
 
 Another approach to authorization can be action-based, with a mapping of roles to which capabilities are allowed for that role. For example:
 
-`credentials = {'user_id': 'foo', 'is_admin': 1, 'roles': ['nova:netadmin']}`
+```
+credentials = {'user_id': 'foo', 'is_admin': 1, 'roles': ['nova:netadmin']}
 
-`# Add a policy`
-`policy_api.add_policy('action:nova:add_network', ('roles:nova:netadmin',))`
+# Add a policy
+policy_api.add_policy('action:nova:add_network', ('roles:nova:netadmin',))
 
-`# Enforce the policy`
-`policy_api.enforce(('action:nova:add_network',), credentials)`
+# Enforce the policy
+policy_api.enforce(('action:nova:add_network',), credentials)
+```
 
 In the backend this would look up the policy for ‘action:nova:add\_network’ and then do what is effectively a ‘Simple Match’ style match against the credentials.
 
@@ -323,67 +335,73 @@ In the most basic plugin `password`, two pieces of information are required to 
 
 Take the following call POST data for instance:
 
-`{`
-`  "auth": {`
-`    "identity": {`
-`      "methods": [`
-`        "password"`
-`      ],`
-`      "password": {`
-`        "user": {`
-`          "id": "0ca8f6",`
-`          "password": "secretsecret"`
-`        }`
-`      }`
-`    },`
-`    "scope": {`
-`      "project": {`
-`        "id": "263fd9"`
-`      }`
-`    }`
-`  }`
-`}`
+```
+{
+  "auth": {
+    "identity": {
+      "methods": [
+        "password"
+      ],
+      "password": {
+        "user": {
+          "id": "0ca8f6",
+          "password": "secretsecret"
+        }
+      }
+    },
+    "scope": {
+      "project": {
+        "id": "263fd9"
+      }
+    }
+  }
+}
+```
 
 The user (ID of 0ca8f6) is attempting to retrieve a token that is scoped to project (ID of 263fd9).
 
 To perform the same call with names instead of IDs, we now need to supply information about the domain. This is because usernames are only unique within a given domain, but user IDs are supposed to be unique across the deployment. Thus, the auth request looks like the following:
 
-`{`
-`  "auth": {`
-`    "identity": {`
-`      "methods": [`
-`        "password"`
-`      ],`
-`      "password": {`
-`        "user": {`
-`          "domain": {`
-`            "name": "acme"`
-`          },`
-`          "name": "userA",`
-`          "password": "secretsecret"`
-`        }`
-`      }`
-`    },`
-`    "scope": {`
-`      "project": {`
-`        "domain": {`
-`          "id": "1789d1"`
-`        },`
-`        "name": "project-x"`
-`      }`
-`    }`
-`  }`
-`}`
+```
+{
+  "auth": {
+    "identity": {
+      "methods": [
+        "password"
+      ],
+      "password": {
+        "user": {
+          "domain": {
+            "name": "acme"
+          },
+          "name": "userA",
+          "password": "secretsecret"
+        }
+      }
+    },
+    "scope": {
+      "project": {
+        "domain": {
+          "id": "1789d1"
+        },
+        "name": "project-x"
+      }
+    }
+  }
+}
+```
 
 For both the user and the project portion, we must supply either a domain ID or a domain name, in order to properly determine the correct user and project.
 
 Alternatively, if we wanted to represent this as environment variables for a command line, it would be:
 
-`export OS_PROJECT_DOMAIN_ID=1789d1`
-`export OS_USER_DOMAIN_NAME=acme`
-`export OS_USERNAME=userA`
-`export OS_PASSWORD=secretsecret`
-`export OS_PROJECT_NAME=project-x`
+```
+export OS_PROJECT_DOMAIN_ID=1789d1
+export OS_USER_DOMAIN_NAME=acme
+export OS_USERNAME=userA
+export OS_PASSWORD=secretsecret
+export OS_PROJECT_NAME=project-x
+```
 
 Note that the project the user is attempting to access must be in the same domain as the user.
 
