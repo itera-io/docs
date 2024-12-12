@@ -36,17 +36,21 @@ The `idrac` hardware type supports the following Ironic interfaces:
 
 * [Vendor Interface](https://docs.openstack.org/ironic/zed/admin/drivers/idrac.html#vendor-interface): BIOS management (WSMAN) and eject virtual media (Redfish)
 
-### Prerequisites
+## Prerequisites
 
 The `idrac` hardware type requires the `python-dracclient` library to be installed on the ironic conductor node(s) if an Ironic node is configured to use an `idrac-wsman` interface implementation, for example:
 
-`sudo pip install 'python-dracclient>=3.1.0'`
+```
+sudo pip install 'python-dracclient>=3.1.0'
+```
 
 Additionally, the `idrac` hardware type requires the `sushy` library to be installed on the ironic conductor node(s) if an Ironic node is configured to use an `idrac-redfish` interface implementation, for example:
 
-`sudo pip install 'python-dracclient>=3.1.0' 'sushy>=2.0.0'`
+```
+sudo pip install 'python-dracclient>=3.1.0' 'sushy>=2.0.0'
+```
 
-### Enabling
+## Enabling
 
 The iDRAC driver supports WSMAN for the bios, inspect, management, power, raid, and vendor interfaces. In addition, it supports Redfish for the bios, inspect, management, power, and raid interfaces. The iDRAC driver allows you to mix and match WSMAN and Redfish interfaces.
 
@@ -54,77 +58,45 @@ The `idrac-wsman` implementation must be enabled to use WSMAN for an interface
 
 To enable the `idrac` hardware type with the minimum interfaces, all using WSMAN, add the following to your `/etc/ironic/ironic.conf`:
 
-`[DEFAULT]`
-`enabled_hardware_types=idrac`
-`enabled_management_interfaces=idrac-wsman`
-`enabled_power_interfaces=idrac-wsman`
+```
+[DEFAULT]
+enabled_hardware_types=idrac
+enabled_management_interfaces=idrac-wsman
+enabled_power_interfaces=idrac-wsman
+```
 
 To enable all optional features (BIOS, inspection, RAID, and vendor passthru) using Redfish where it is supported and WSMAN where not, use the following configuration:
 
-`[DEFAULT]`
-`enabled_hardware_types=idrac`
-`enabled_bios_interfaces=idrac-redfish`
-`enabled_inspect_interfaces=idrac-redfish`
-`enabled_management_interfaces=idrac-redfish`
-`enabled_power_interfaces=idrac-redfish`
-`enabled_raid_interfaces=idrac-redfish`
-`enabled_vendor_interfaces=idrac-redfish`
+```
+[DEFAULT]
+enabled_hardware_types=idrac
+enabled_bios_interfaces=idrac-redfish
+enabled_inspect_interfaces=idrac-redfish
+enabled_management_interfaces=idrac-redfish
+enabled_power_interfaces=idrac-redfish
+enabled_raid_interfaces=idrac-redfish
+enabled_vendor_interfaces=idrac-redfish
+```
 
-Below is the list of supported interface implementations in priority order:
+| Interface  | Supported Implementations                                |
+| ---------- | -------------------------------------------------------- |
+| bios       | idrac-wsman, idrac-redfish, no-bios                      |
+| boot       | ipxe, pxe, idrac-redfish-virtual-media                   |
+| console    | no-console                                               |
+| deploy     | direct, ansible, ramdisk                                 |
+| inspect    | idrac-wsman, idrac, idrac-redfish, inspector, no-inspect |
+| management | idrac-wsman, idrac, idrac-redfish                        |
+| network    | flat, neutron, noop                                      |
+| power      | idrac-wsman, idrac-redfish                               |
+| raid       | idrac-wsman, idrac-redfish, no-raid                      |
+| rescue     | no-rescue, agent                                         |
+| storage    | noop, cinder, external                                   |
+| vendor     | idrac-wsman, idrac-redfish, no-vendor                    |
 
-InterfaceSupported Implementations
+> Note
+> `idrac` is the legacy name of the WSMAN interface. It has been deprecated in favor of `idrac-wsman` and may be removed in a future release.
 
-`bios`
-
-`idrac-wsman`, `idrac-redfish`, `no-bios`
-
-`boot`
-
-`ipxe`, `pxe`, `idrac-redfish-virtual-media`
-
-`console`
-
-`no-console`
-
-`deploy`
-
-`direct`, `ansible`, `ramdisk`
-
-`inspect`
-
-`idrac-wsman`, `idrac`, `idrac-redfish`, `inspector`, `no-inspect`
-
-`management`
-
-`idrac-wsman`, `idrac`, `idrac-redfish`
-
-`network`
-
-`flat`, `neutron`, `noop`
-
-`power`
-
-`idrac-wsman`, `idrac`, `idrac-redfish`
-
-`raid`
-
-`idrac-wsman`, `idrac`, `idrac-redfish`, `no-raid`
-
-`rescue`
-
-`no-rescue`, `agent`
-
-`storage`
-
-`noop`, `cinder`, `external`
-
-`vendor`
-
-`idrac-wsman`, `idrac`, `idrac-redfish`, `no-vendor`
-
-> Note`idrac` is the legacy name of the WSMAN interface. It has been deprecated in favor of `idrac-wsman` and may be removed in a future release.
-
-### Protocol-specific Properties
+## Protocol-specific Properties
 
 The WSMAN and Redfish protocols require different properties to be specified in the Ironic node’s `driver_info` field to communicate with the bare metal system’s iDRAC.
 
@@ -150,79 +122,88 @@ For other Redfish protocol parameters see [Redfish driver](https://docs.opensta
 
 If using only interfaces which use WSMAN (`idrac-wsman`), then only the WSMAN properties must be supplied. If using only interfaces which use Redfish (`idrac-redfish`), then only the Redfish properties must be supplied. If using a mix of interfaces, where some use WSMAN and others use Redfish, both the WSMAN and Redfish properties must be supplied.
 
-### Enrolling
+## Enrolling
 
 The following command enrolls a bare metal node with the `idrac` hardware type using WSMAN for all interfaces:
 
-`baremetal node create --driver idrac \`
-`    --driver-info drac_username=user \`
-`    --driver-info drac_password=pa$$w0rd \`
-`    --driver-info drac_address=drac.host`
+```
+baremetal node create --driver idrac \
+    --driver-info drac_username=user \
+    --driver-info drac_password=pa$$w0rd \
+    --driver-info drac_address=drac.host
+```
 
 The following command enrolls a bare metal node with the `idrac` hardware type using Redfish for all interfaces:
 
-`baremetal node create --driver idrac \`
-`    --driver-info redfish_username=user \`
-`    --driver-info redfish_password=pa$$w0rd \`
-`    --driver-info redfish_address=drac.host \`
-`    --driver-info redfish_system_id=/redfish/v1/Systems/System.Embedded.1 \`
-`    --bios-interface idrac-redfish \`
-`    --inspect-interface idrac-redfish \`
-`    --management-interface idrac-redfish \`
-`    --power-interface idrac-redfish \`
-`    --raid-interface idrac-redfish \`
-`    --vendor-interface idrac-redfish`
+```
+baremetal node create --driver idrac \
+    --driver-info redfish_username=user \
+    --driver-info redfish_password=pa$$w0rd \
+    --driver-info redfish_address=drac.host \
+    --driver-info redfish_system_id=/redfish/v1/Systems/System.Embedded.1 \
+    --bios-interface idrac-redfish \
+    --inspect-interface idrac-redfish \
+    --management-interface idrac-redfish \
+    --power-interface idrac-redfish \
+    --raid-interface idrac-redfish \
+    --vendor-interface idrac-redfish
+```
 
 The following command enrolls a bare metal node with the `idrac` hardware type assuming a mix of Redfish and WSMAN interfaces are used:
 
-`baremetal node create --driver idrac \`
-`    --driver-info drac_username=user \`
-`    --driver-info drac_password=pa$$w0rd`
-`    --driver-info drac_address=drac.host \`
-`    --driver-info redfish_username=user \`
-`    --driver-info redfish_password=pa$$w0rd \`
-`    --driver-info redfish_address=drac.host \`
-`    --driver-info redfish_system_id=/redfish/v1/Systems/System.Embedded.1 \`
-`    --bios-interface idrac-redfish \`
-`    --inspect-interface idrac-redfish \`
-`    --management-interface idrac-redfish \`
-`    --power-interface idrac-redfish`
+```
+baremetal node create --driver idrac \
+    --driver-info drac_username=user \
+    --driver-info drac_password=pa$$w0rd
+    --driver-info drac_address=drac.host \
+    --driver-info redfish_username=user \
+    --driver-info redfish_password=pa$$w0rd \
+    --driver-info redfish_address=drac.host \
+    --driver-info redfish_system_id=/redfish/v1/Systems/System.Embedded.1 \
+    --bios-interface idrac-redfish \
+    --inspect-interface idrac-redfish \
+    --management-interface idrac-redfish \
+    --power-interface idrac-redfish
+```
 
-> NoteIf using WSMAN for the management interface, then WSMAN must be used for the power interface. The same applies to Redfish. It is currently not possible to use Redfish for one and WSMAN for the other.
+> Note
+> If using WSMAN for the management interface, then WSMAN must be used for the power interface. The same applies to Redfish. It is currently not possible to use Redfish for one and WSMAN for the other.
 
-## BIOS Interface
+# BIOS Interface
 
 The BIOS interface implementations supported by the `idrac` hardware type allows BIOS to be configured with the standard clean/deploy step approach.
 
-### Example
+## Example
 
 A clean step to enable `Virtualization` and `SRIOV` in BIOS of an iDRAC BMC would be as follows:
 
-`{`
-`  "target":"clean",`
-`  "clean_steps": [`
-`    {`
-`      "interface": "bios",`
-`      "step": "apply_configuration",`
-`      "args": {`
-`        "settings": [`
-`          {`
-`            "name": "ProcVirtualization",`
-`            "value": "Enabled"`
-`          },`
-`          {`
-`            "name": "SriovGlobalEnable",`
-`            "value": "Enabled"`
-`          }`
-`        ]`
-`      }`
-`    }`
-`  ]`
-`}`
+```
+{
+  "target":"clean",
+  "clean_steps": [
+    {
+      "interface": "bios",
+      "step": "apply_configuration",
+      "args": {
+        "settings": [
+          {
+            "name": "ProcVirtualization",
+            "value": "Enabled"
+          },
+          {
+            "name": "SriovGlobalEnable",
+            "value": "Enabled"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 See the [Known Issues](https://docs.openstack.org/ironic/zed/admin/drivers/idrac.html#known-issues) for a known issue with `factory_reset` clean step. For additional details of BIOS configuration, see [BIOS Configuration](https://docs.openstack.org/ironic/zed/admin/bios.html).
 
-## Inspect Interface
+# Inspect Interface
 
 The Dell iDRAC out-of-band inspection process catalogs all the same attributes of the server as the IPMI driver. Unlike IPMI, it does this without requiring the system to be rebooted, or even to be powered on. Inspection is performed using the Dell WSMAN or Redfish protocol directly without affecting the operation of the system being inspected.
 
@@ -244,7 +225,7 @@ Extra capabilities:
 
 It also creates baremetal ports for each NIC port detected in the system. The `idrac-wsman` inspect interface discovers which NIC ports are configured to PXE boot and sets `pxe_enabled` to `True` on those ports. The `idrac-redfish` inspect interface does not currently set `pxe_enabled` on the ports. The user should ensure that `pxe_enabled` is set correctly on the ports following inspection with the `idrac-redfish` inspect interface.
 
-## Management Interface
+# Management Interface
 
 The management interface for `idrac-redfish` supports:
 
@@ -252,7 +233,7 @@ The management interface for `idrac-redfish` supports:
 
 * updating system and getting its inventory using configuration molds. For more information see [Import and export configuration](https://docs.openstack.org/ironic/zed/admin/drivers/idrac.html#import-and-export-configuration).
 
-### Import and export configuration
+## Import and export configuration
 
 The clean and deploy steps provided in this section allow to configure the system and collect the system inventory using configuration mold files.
 
@@ -270,92 +251,95 @@ The input parameters provided include the URL where the configuration mold is to
 
 Configuration molds are JSON files that contain three top-level sections: `bios`, `raid` and `oem`. The following is an example of a configuration mold:
 
-`{`
-`  "bios": {`
-`    "reset": false,`
-`    "settings": [`
-`      {`
-`        "name": "ProcVirtualization",`
-`        "value": "Enabled"`
-`      },`
-`      {`
-`        "name": "MemTest",`
-`        "value": "Disabled"`
-`      }`
-`    ]`
-`  }`
-`  "raid": {`
-`    "create_nonroot_volumes": true,`
-`    "create_root_volume": true,`
-`    "delete_existing": false,`
-`    "target_raid_config": {`
-`      "logical_disks": [`
-`        {`
-`          "size_gb": 50,`
-`          "raid_level": "1+0",`
-`          "controller": "RAID.Integrated.1-1",`
-`          "volume_name": "root_volume",`
-`          "is_root_volume": true,`
-`          "physical_disks": [`
-`            "Disk.Bay.0:Encl.Int.0-1:RAID.Integrated.1-1",`
-`            "Disk.Bay.1:Encl.Int.0-1:RAID.Integrated.1-1"`
-`          ]`
-`        },`
-`        {`
-`          "size_gb": 100,`
-`          "raid_level": "5",`
-`          "controller": "RAID.Integrated.1-1",`
-`          "volume_name": "data_volume",`
-`          "physical_disks": [`
-`            "Disk.Bay.2:Encl.Int.0-1:RAID.Integrated.1-1",`
-`            "Disk.Bay.3:Encl.Int.0-1:RAID.Integrated.1-1",`
-`            "Disk.Bay.4:Encl.Int.0-1:RAID.Integrated.1-1"`
-`          ]`
-`        }`
-`      ]`
-`    }`
-`  }`
-`  "oem": {`
-`    "interface": "idrac-redfish",`
-`    "data": {`
-`      "SystemConfiguration": {`
-`        "Model": "PowerEdge R640",`
-`        "ServiceTag": "8CY9Z99",`
-`        "TimeStamp": "Fri Jun 26 08:43:15 2020",`
-`        "Components": [`
-`          {`
-`            [...]`
-`            "FQDD": "NIC.Slot.1-1-1",`
-`            "Attributes": [`
-`              {`
-`              "Name": "BlnkLeds",`
-`              "Value": "15",`
-`              "Set On Import": "True",`
-`              "Comment": "Read and Write"`
-`              },`
-`              {`
-`              "Name": "VirtMacAddr",`
-`              "Value": "00:00:00:00:00:00",`
-`              "Set On Import": "False",`
-`              "Comment": "Read and Write"`
-`              },`
-`              {`
-`              "Name": "VirtualizationMode",`
-`              "Value": "NONE",`
-`              "Set On Import": "True",`
-`              "Comment": "Read and Write"`
-`              },`
-`            [...]`
-`            ]`
-`          }`
-`        ]`
-`      }`
-`  }`
-`}`
+```
+{
+  "bios": {
+    "reset": false,
+    "settings": [
+      {
+        "name": "ProcVirtualization",
+        "value": "Enabled"
+      },
+      {
+        "name": "MemTest",
+        "value": "Disabled"
+      }
+    ]
+  }
+  "raid": {
+    "create_nonroot_volumes": true,
+    "create_root_volume": true,
+    "delete_existing": false,
+    "target_raid_config": {
+      "logical_disks": [
+        {
+          "size_gb": 50,
+          "raid_level": "1+0",
+          "controller": "RAID.Integrated.1-1",
+          "volume_name": "root_volume",
+          "is_root_volume": true,
+          "physical_disks": [
+            "Disk.Bay.0:Encl.Int.0-1:RAID.Integrated.1-1",
+            "Disk.Bay.1:Encl.Int.0-1:RAID.Integrated.1-1"
+          ]
+        },
+        {
+          "size_gb": 100,
+          "raid_level": "5",
+          "controller": "RAID.Integrated.1-1",
+          "volume_name": "data_volume",
+          "physical_disks": [
+            "Disk.Bay.2:Encl.Int.0-1:RAID.Integrated.1-1",
+            "Disk.Bay.3:Encl.Int.0-1:RAID.Integrated.1-1",
+            "Disk.Bay.4:Encl.Int.0-1:RAID.Integrated.1-1"
+          ]
+        }
+      ]
+    }
+  }
+  "oem": {
+    "interface": "idrac-redfish",
+    "data": {
+      "SystemConfiguration": {
+        "Model": "PowerEdge R640",
+        "ServiceTag": "8CY9Z99",
+        "TimeStamp": "Fri Jun 26 08:43:15 2020",
+        "Components": [
+          {
+            [...]
+            "FQDD": "NIC.Slot.1-1-1",
+            "Attributes": [
+              {
+              "Name": "BlnkLeds",
+              "Value": "15",
+              "Set On Import": "True",
+              "Comment": "Read and Write"
+              },
+              {
+              "Name": "VirtMacAddr",
+              "Value": "00:00:00:00:00:00",
+              "Set On Import": "False",
+              "Comment": "Read and Write"
+              },
+              {
+              "Name": "VirtualizationMode",
+              "Value": "NONE",
+              "Set On Import": "True",
+              "Comment": "Read and Write"
+              },
+            [...]
+            ]
+          }
+        ]
+      }
+  }
+}
+```
 
 Currently, the OEM section is the only section that is supported. The OEM section uses the iDRAC Server Configuration Profile (SCP) and can be edited as necessary if it complies with the SCP. For more information about SCP and its capabilities, see [SCP\_Reference\_Guide](http://downloads.dell.com/manuals/common/dellemc-server-config-profile-refguide.pdf).
 
-> NoteiDRAC BMC connection settings are not exported to avoid overwriting these in another system when using unmodified exported configuration mold in import step. If need to replicate iDRAC BMC connection settings, then add these settings manually to configuration mold for import step.
+> Note
+> iDRAC BMC connection settings are not exported to avoid overwriting these in another system when using unmodified exported configuration mold in import step. If need to replicate iDRAC BMC connection settings, then add these settings manually to configuration mold for import step.
 
 To replicate the system configuration to that of a similar system, perform the following steps:
 
@@ -369,19 +353,20 @@ To replicate the system configuration to that of a similar system, perform the f
 
 It is not mandatory to use `export_configuration` step to create a configuration mold. Upload the file to a designated storage location without using Ironic if it has been created manually or by other means.
 
-#### Storage setup
+### Storage setup
 
 To start using these steps, configure the storage location. The settings can be found in the `[molds]` section. Configure the storage type from the `[molds]storage` setting. Currently, `swift`, which is enabled by default, and `http` are supported.
 
 In the setup input parameters, the complete HTTP URL is used. This requires that the containers (for `swift`) and the directories (for `http`) are created beforehand, and that read/write access is configured accordingly.
 
-> NoteUse of TLS is strongly advised.
+> Note
+> Use of TLS is strongly advised.
 
 This setup configuration allows a user to access these locations outside of Ironic to list, create, update, and delete the configuration molds.
 
 For more information see [Swift configuration](https://docs.openstack.org/ironic/zed/admin/drivers/idrac.html#swift-configuration) and [HTTP configuration](https://docs.openstack.org/ironic/zed/admin/drivers/idrac.html#http-configuration).
 
-##### Swift configuration
+#### Swift configuration
 
 To use Swift with configuration molds,
 
@@ -389,7 +374,7 @@ To use Swift with configuration molds,
 
 2. For Ironic Swift user that is configured in the `[swift]` section add read/write access to these containers.
 
-##### HTTP configuration
+#### HTTP configuration
 
 To use HTTP server with configuration molds,
 
@@ -401,7 +386,7 @@ To use HTTP server with configuration molds,
 
 The HTTP web server does not support multitenancy and is intended to be used in a stand-alone Ironic, or single-tenant OpenStack environment.
 
-## RAID Interface
+# RAID Interface
 
 See [RAID Configuration](https://docs.openstack.org/ironic/zed/admin/raid.html) for more information on Ironic RAID support.
 
@@ -415,23 +400,25 @@ RAID interface of `redfish` hardware type can be used on iDRAC systems. Compar
 
 The following properties are supported by the iDRAC WSMAN and Redfish RAID interface implementation:
 
-> NoteWhen using `idrac-redfish` for RAID interface iDRAC firmware greater than 4.40.00.00 is required.
+> Note
+> When using `idrac-redfish` for RAID interface iDRAC firmware greater than 4.40.00.00 is required.
 
-### Mandatory properties
+## Mandatory properties
 
 * `size_gb`: Size in gigabytes (integer) for the logical disk. Use `MAX` as `size_gb` if this logical disk is supposed to use the rest of the space available.
 
 * `raid_level`: RAID level for the logical disk. Valid values are `0`, `1`, `5`, `6`, `1+0`, `5+0` and `6+0`.
 
-> Note`JBOD` and `2` are not supported, and will fail with reason: ‘Cannot calculate spans for RAID level.’
+> Note
+> `JBOD` and `2` are not supported, and will fail with reason: ‘Cannot calculate spans for RAID level.’
 
-### Optional properties
+## Optional properties
 
 * `is_root_volume`: Optional. Specifies whether this disk is a root volume. By default, this is `False`.
 
 * `volume_name`: Optional. Name of the volume to be created. If this is not specified, it will be auto-generated.
 
-### Backing physical disk hints
+## Backing physical disk hints
 
 See [RAID Configuration](https://docs.openstack.org/ironic/zed/admin/raid.html) for more information on backing disk hints.
 
@@ -445,7 +432,7 @@ These are machine-independent information. The hints are specified for each logi
 
 * `number_of_physical_disks`
 
-### Backing physical disks
+## Backing physical disks
 
 These are Dell RAID controller-specific values and must match the names provided by the iDRAC.
 
@@ -453,129 +440,125 @@ These are Dell RAID controller-specific values and must match the names provided
 
 * `physical_disks`: Optional. The names of the physical disks to use.
 
-> Note`physical_disks` is a mandatory parameter if the property `size_gb` is set to `MAX`.
+> Note
+> `physical_disks` is a mandatory parameter if the property `size_gb` is set to `MAX`.
 
-### Examples
+## Examples
 
 Creation of RAID `1+0` logical disk with six disks on one controller:
 
-`{ "logical_disks":`
-`  [ { "controller": "RAID.Integrated.1-1",`
-`      "is_root_volume": "True",`
-`      "physical_disks": [`
-`        "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.2:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.3:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.4:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.5:Enclosure.Internal.0-1:RAID.Integrated.1-1"],`
-`      "raid_level": "1+0",`
-`      "size_gb": "MAX"}]}`
+```
+{ "logical_disks":
+  [ { "controller": "RAID.Integrated.1-1",
+      "is_root_volume": "True",
+      "physical_disks": [
+        "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.2:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.3:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.4:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.5:Enclosure.Internal.0-1:RAID.Integrated.1-1"],
+      "raid_level": "1+0",
+      "size_gb": "MAX"}]}
+```
 
-### Manual RAID Invocation
+## Manual RAID Invocation
 
 The following command can be used to delete any existing RAID configuration. It deletes all virtual disks/RAID volumes, unassigns all global and dedicated hot spare physical disks, and clears foreign configuration:
 
-`baremetal node clean --clean-steps \`
-`  '[{"interface": "raid", "step": "delete_configuration"}]' ${node_uuid}`
+```
+baremetal node clean --clean-steps \
+  '[{"interface": "raid", "step": "delete_configuration"}]' ${node_uuid}
+```
 
 The following command shows an example of how to set the target RAID configuration:
 
-`baremetal node set --target-raid-config '{ "logical_disks":`
-`  [ { "controller": "RAID.Integrated.1-1",`
-`      "is_root_volume": true,`
-`      "physical_disks": [`
-`        "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",`
-`        "Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1"],`
-`      "raid_level": "0",`
-`      "size_gb": "MAX"}]}' ${node_uuid}`
+```
+baremetal node set --target-raid-config '{ "logical_disks":
+  [ { "controller": "RAID.Integrated.1-1",
+      "is_root_volume": true,
+      "physical_disks": [
+        "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+        "Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1"],
+      "raid_level": "0",
+      "size_gb": "MAX"}]}' ${node_uuid}
+```
 
 The following command can be used to create a RAID configuration:
 
-`baremetal node clean --clean-steps \`
-`  '[{"interface": "raid", "step": "create_configuration"}]' <node>`
+```
+baremetal node clean --clean-steps \
+  '[{"interface": "raid", "step": "create_configuration"}]' <node>
+```
 
 When the physical disk names or controller names are not known, the following Python code example shows how the `python-dracclient` can be used to fetch the information directly from the Dell bare metal:
 
-`import dracclient.client`
+```
+import dracclient.client
 
-`client = dracclient.client.DRACClient(`
-`    host="192.168.1.1",`
-`    username="root",`
-`    password="calvin")`
-`controllers = client.list_raid_controllers()`
-`print(controllers)`
 
-`physical_disks = client.list_physical_disks()`
-`print(physical_disks)`
+client = dracclient.client.DRACClient(
+    host="192.168.1.1",
+    username="root",
+    password="calvin")
+controllers = client.list_raid_controllers()
+print(controllers)
+
+physical_disks = client.list_physical_disks()
+print(physical_disks)
+```
 
 Or using `sushy` with Redfish:
 
-`import sushy`
+```
+import sushy
 
-`client = sushy.Sushy('https://192.168.1.1', username='root', password='calvin', verify=False)`
-`for s in client.get_system_collection().get_members():`
-`  print("System: %(id)s" % {'id': s.identity})`
-`  for c in system1.storage.get_members():`
-`      print("\tController: %(id)s" % {'id': c.identity})`
-`      for d in c.drives:`
-`        print("\t\tDrive: %(id)s" % {'id': d.identity})`
 
-## Vendor Interface
+client = sushy.Sushy('https://192.168.1.1', username='root', password='calvin', verify=False)
+for s in client.get_system_collection().get_members():
+  print("System: %(id)s" % {'id': s.identity})
+  for c in system1.storage.get_members():
+      print("\tController: %(id)s" % {'id': c.identity})
+      for d in c.drives:
+        print("\t\tDrive: %(id)s" % {'id': d.identity})
+```
 
-### idrac-wsman
+# Vendor Interface
+
+## idrac-wsman
 
 Dell iDRAC BIOS management is available through the Ironic WSMAN vendor passthru interface.
 
-Method NameHTTP MethodDescription
+| Method Name         | HTTP Method | Description                                                                                         |
+|---------------------|-------------|-----------------------------------------------------------------------------------------------------|
+| abandon_bios_config | DELETE      | Abandon a BIOS configuration job.                                                                  |
+| commit_bios_config  | POST        | Commit a BIOS configuration job submitted through set_bios_config. Required argument: reboot – indicates whether a reboot job should be automatically created with the config job. Returns a dictionary containing the job_id key with the ID of the newly created config job, and the reboot_required key indicating whether the node needs to be rebooted to execute the config job. |
+| get_bios_config     | GET         | Returns a dictionary containing the node’s BIOS settings.                                           |
+| list_unfinished_jobs| GET         | Returns a dictionary containing the key unfinished_jobs; its value is a list of dictionaries. Each dictionary represents an unfinished config job object. |
+| set_bios_config     | POST        | Change the BIOS configuration on a node. Required argument: a dictionary of {AttributeName: NewValue}. Returns a dictionary containing the is_commit_required key indicating whether commit_bios_config needs to be called to apply the changes and the is_reboot_required value indicating whether the server must also be rebooted. Possible values are true and false. |
 
-`abandon_bios_config`
 
-`DELETE`
+### Examples
 
-Abandon a BIOS configuration job.
+#### Get BIOS Config
 
-`commit_bios_config`
-
-`POST`
-
-Commit a BIOS configuration job submitted through `set_bios_config`. Required argument: `reboot` – indicates whether a reboot job should be automatically created with the config job. Returns a dictionary containing the `job_id` key with the ID of the newly created config job, and the `reboot_required` key indicating whether the node needs to be rebooted to execute the config job.
-
-`get_bios_config`
-
-`GET`
-
-Returns a dictionary containing the node’s BIOS settings.
-
-`list_unfinished_jobs`
-
-`GET`
-
-Returns a dictionary containing the key `unfinished_jobs`; its value is a list of dictionaries. Each dictionary represents an unfinished config job object.
-
-`set_bios_config`
-
-`POST`
-
-Change the BIOS configuration on a node. Required argument: a dictionary of \{`AttributeName`: `NewValue`}. Returns a dictionary containing the `is_commit_required` key indicating whether `commit_bios_config` needs to be called to apply the changes and the `is_reboot_required` value indicating whether the server must also be rebooted. Possible values are `true` and `false`.
-
-#### Examples
-
-##### Get BIOS Config
-
-`baremetal node passthru call --http-method GET <node> get_bios_config`
+```
+baremetal node passthru call --http-method GET <node> get_bios_config
+```
 
 Snippet of output showing virtualization enabled:
 
-`{"ProcVirtualization": {`
-`      "current_value": "Enabled",`
-`      "instance_id": "BIOS.Setup.1-1:ProcVirtualization",`
-`      "name": "ProcVirtualization",`
-`      "pending_value": null,`
-`      "possible_values": [`
-`          "Enabled",`
-`          "Disabled"],`
-`      "read_only": false }}`
+```
+{"ProcVirtualization": {
+      "current_value": "Enabled",
+      "instance_id": "BIOS.Setup.1-1:ProcVirtualization",
+      "name": "ProcVirtualization",
+      "pending_value": null,
+      "possible_values": [
+          "Enabled",
+          "Disabled"],
+      "read_only": false }}
+```
 
 There are a number of items to note from the above snippet:
 
@@ -589,9 +572,11 @@ There are a number of items to note from the above snippet:
 
 * `read_only`: indicates if the value is capable of being changed.
 
-##### Set BIOS Config
+#### Set BIOS Config
 
-`baremetal node passthru call <node> set_bios_config --arg "name=value"`
+```
+baremetal node passthru call <node> set_bios_config --arg "name=value"
+```
 
 Walkthrough of perfoming a BIOS configuration change:
 
@@ -601,51 +586,65 @@ The following section demonstrates how to change BIOS configuration settings, de
 
 * Globally enable SR-IOV
 
-`baremetal node passthru call <node> set_bios_config \`
-`  --arg "ProcVirtualization=Enabled" \`
-`  --arg "SriovGlobalEnable=Enabled"`
+```
+baremetal node passthru call <node> set_bios_config \
+  --arg "ProcVirtualization=Enabled" \
+  --arg "SriovGlobalEnable=Enabled"
+```
 
 This returns a dictionary indicating what actions are required next:
 
-`{`
-`  "is_reboot_required": true,`
-`  "is_commit_required": true`
-`}`
+```
+{
+  "is_reboot_required": true,
+  "is_commit_required": true
+}
+```
 
-##### Commit BIOS Changes
+#### Commit BIOS Changes
 
 The next step is to commit the pending change to the BIOS. Note that in this example, the `reboot` argument is set to `true`. The response indicates that a reboot is no longer required as it has been scheduled automatically by the `commit_bios_config` call. If the reboot argument is not supplied, the job is still created, however it remains in the `scheduled` state until a reboot is performed. The reboot can be initiated through the Ironic power API.
 
-`baremetal node passthru call <node> commit_bios_config \`
-`  --arg "reboot=true"`
+```
+baremetal node passthru call <node> commit_bios_config \
+  --arg "reboot=true"
+```
 
-`{`
-`  "job_id": "JID_499377293428",`
-`  "reboot_required": false`
-`}`
+```
+{
+  "job_id": "JID_499377293428",
+  "reboot_required": false
+}
+```
 
 The state of any executing job can be queried:
 
-`baremetal node passthru call --http-method GET <node> list_unfinished_jobs`
+```
+baremetal node passthru call --http-method GET <node> list_unfinished_jobs
+```
 
-`{"unfinished_jobs":`
-`    [{"status": "Scheduled",`
-`      "name": "ConfigBIOS:BIOS.Setup.1-1",`
-`      "until_time": "TIME_NA",`
-`      "start_time": "TIME_NOW",`
-`      "message": "Task successfully scheduled.",`
-`      "percent_complete": "0",`
-`      "id": "JID_499377293428"}]}`
+```
+{"unfinished_jobs":
+    [{"status": "Scheduled",
+      "name": "ConfigBIOS:BIOS.Setup.1-1",
+      "until_time": "TIME_NA",
+      "start_time": "TIME_NOW",
+      "message": "Task successfully scheduled.",
+      "percent_complete": "0",
+      "id": "JID_499377293428"}]}
+```
 
-##### Abandon BIOS Changes
+#### Abandon BIOS Changes
 
 Instead of committing, a pending change can be abandoned:
 
-`baremetal node passthru call --http-method DELETE <node> abandon_bios_config`
+```
+baremetal node passthru call --http-method DELETE <node> abandon_bios_config
+```
 
 The abandon command does not provide a response body.
 
-#### Change Boot Mode
+### Change Boot Mode
 
 The boot mode of the iDRAC can be changed to:
 
@@ -669,26 +668,26 @@ The UEFI boot mode offers:
 
 The boot mode can be changed via the WSMAN vendor passthru interface as follows:
 
-`baremetal node passthru call <node> set_bios_config \`
-`  --arg "BootMode=Uefi"`
+```
+baremetal node passthru call <node> set_bios_config \
+  --arg "BootMode=Uefi"
 
-`baremetal node passthru call <node> commit_bios_config \`
-`  --arg "reboot=true"`
+baremetal node passthru call <node> commit_bios_config \
+  --arg "reboot=true"
+```
 
-`baremetal node passthru call <node> set_bios_config \`
-`  --arg "BootMode=Bios"`
+```
+baremetal node passthru call <node> set_bios_config \
+  --arg "BootMode=Bios"
 
-`baremetal node passthru call <node> commit_bios_config \`
-`  --arg "reboot=true"`
+baremetal node passthru call <node> commit_bios_config \
+  --arg "reboot=true"
+```
 
-### idrac-redfish
+## idrac-redfish
 
 Through the `idrac-redfish` vendor passthru interface these methods are available:
 
-Method NameHTTP MethodDescription
-
-`eject_media`
-
-`POST`
-
-Eject a virtual media device. If no device is provided then all attached devices will be ejected. Optional argument: `boot_device` – the boot device to eject, either, `cd`, `dvd`, `usb` or `floppy`.
+| Method Name  | HTTP Method | Description                                                                                                                                            |
+| ------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| eject\_media | POST        | Eject a virtual media device. If no device is provided, all attached devices will be ejected. Optional argument: `boot_device` – cd, dvd, usb, floppy. |
