@@ -28,7 +28,7 @@ The Identity service supports domain-specific Identity drivers. The drivers allo
 Domain-specific Identity configuration options can be stored in domain-specific configuration files, or in the Identity SQL database using API REST calls.
 
 > Note
-Storing and managing configuration options in an SQL database is experimental in Kilo, and added to the Identity service in the Liberty release.
+> Storing and managing configuration options in an SQL database is experimental in Kilo, and added to the Identity service in the Liberty release.
 
 ## Enable drivers for domain-specific configuration files
 
@@ -52,9 +52,8 @@ Any domain-specific configuration options specified through the Identity v3 API 
 
 Unlike the file-based method of specifying domain-specific configurations, options specified via the Identity API will become active without needing to restart the keystone server. For performance reasons, the current state of configuration options for a domain are cached in the keystone server, and in multi-process and multi-threaded keystone configurations, the new configuration options may not become active until the cache has timed out. The cache settings for domain config options can be adjusted in the general keystone configuration file (option `cache_time` in the `domain_config` group).
 
-Note
-
-It is important to notice that when using either of these methods of specifying domain-specific configuration options, the main keystone configuration file is still maintained. Only those options that relate to the Identity driver for users and groups (i.e. specifying whether the driver for this domain is SQL or LDAP, and, if LDAP, the options that define that connection) are supported in a domain-specific manner. Further, when using the configuration options via the Identity API, the driver option must be set to an LDAP driver (attempting to set it to an SQL driver will generate an error when it is subsequently used).
+> Note
+> It is important to notice that when using either of these methods of specifying domain-specific configuration options, the main keystone configuration file is still maintained. Only those options that relate to the Identity driver for users and groups (i.e. specifying whether the driver for this domain is SQL or LDAP, and, if LDAP, the options that define that connection) are supported in a domain-specific manner. Further, when using the configuration options via the Identity API, the driver option must be set to an LDAP driver (attempting to set it to an SQL driver will generate an error when it is subsequently used).
 
 For existing installations that already use file-based domain-specific configurations who wish to migrate to the SQL-based approach, the `keystone-manage` command can be used to upload all configuration files to the SQL database:
 
@@ -64,33 +63,27 @@ Once uploaded, these domain-configuration options will be visible via the Identi
 
 `$ keystone-manage domain_config_upload --domain-name DOMAINA`
 
-Note
+> Note
+> It is important to notice that by enabling either of the domain-specific configuration methods, the operations of listing all users and listing all groups are not supported, those calls will need either a domain filter to be specified or usage of a domain scoped token.
 
-It is important to notice that by enabling either of the domain-specific configuration methods, the operations of listing all users and listing all groups are not supported, those calls will need either a domain filter to be specified or usage of a domain scoped token.
+> Note
+> Keystone does not support moving the contents of a domain (i.e. “its” users and groups) from one backend to another, nor group membership across backend boundaries.
 
-Note
+> Note
+> When using the file-based domain-specific configuration method, to delete a domain that uses a domain specific backend, it’s necessary to first disable it, remove its specific configuration file (i.e. its corresponding keystone.\<domain\_name>.conf) and then restart the Identity server. When managing configuration options via the Identity API, the domain can simply be disabled and deleted via the Identity API; since any domain-specific configuration options will automatically be removed.
 
-Keystone does not support moving the contents of a domain (i.e. “its” users and groups) from one backend to another, nor group membership across backend boundaries.
+>Note
+>Although keystone supports multiple LDAP backends via the above domain-specific configuration methods, it currently only supports one SQL backend. This could be either the default driver or a single domain-specific backend, perhaps for storing service users in a predominantly LDAP installation.
 
-Note
-
-When using the file-based domain-specific configuration method, to delete a domain that uses a domain specific backend, it’s necessary to first disable it, remove its specific configuration file (i.e. its corresponding keystone.\<domain\_name>.conf) and then restart the Identity server. When managing configuration options via the Identity API, the domain can simply be disabled and deleted via the Identity API; since any domain-specific configuration options will automatically be removed.
-
-Note
-
-Although keystone supports multiple LDAP backends via the above domain-specific configuration methods, it currently only supports one SQL backend. This could be either the default driver or a single domain-specific backend, perhaps for storing service users in a predominantly LDAP installation.
-
-Note
-
-Keystone has deprecated the `keystone-manage domain_config_upload` option. The keystone team recommends setting domain config options via the API instead.
+>Note
+>Keystone has deprecated the `keystone-manage domain_config_upload` option. The keystone team recommends setting domain config options via the API instead.
 
 Due to the need for user and group IDs to be unique across an OpenStack installation and for keystone to be able to deduce which domain and backend to use from just a user or group ID, it dynamically builds a persistent identity mapping table from a public ID to the actual domain, local ID (within that backend) and entity type. The public ID is automatically generated by keystone when it first encounters the entity. If the local ID of the entity is from a backend that does not guarantee to generate UUIDs, a hash algorithm will generate a public ID for that entity, which is what will be exposed by keystone.
 
 The use of a hash will ensure that if the public ID needs to be regenerated then the same public ID will be created. This is useful if you are running multiple keystones and want to ensure the same ID would be generated whichever server you hit.
 
-Note
-
-In case of the LDAP backend, the names of users and groups are not hashed. As a result, these are length limited to 255 characters. Longer names will result in an error.
+>Note
+>In case of the LDAP backend, the names of users and groups are not hashed. As a result, these are length limited to 255 characters. Longer names will result in an error.
 
 While keystone will dynamically maintain the identity mapping, including removing entries when entities are deleted via the keystone, for those entities in backends that are managed outside of keystone (e.g. a read-only LDAP), keystone will not know if entities have been deleted and hence will continue to carry stale identity mappings in its table. While benign, keystone provides an ability for operators to purge the mapping table of such stale entries using the keystone-manage command, for example:
 
@@ -116,9 +109,8 @@ Keystone supports a customizable public ID generator and it is specified in the�
 
 * `generator` – identity mapping generator. Defaults to `sha256` (implemented by [`keystone.identity.id_generators.sha256.Generator`](https://docs.openstack.org/keystone/zed/api/keystone.identity.id_generators.sha256.html#keystone.identity.id_generators.sha256.Generator))
 
-Warning
-
-Changing the generator may cause all existing public IDs to be become invalid, so typically the generator selection should be considered immutable for a given installation.
+> Warning
+> Changing the generator may cause all existing public IDs to be become invalid, so typically the generator selection should be considered immutable for a given installation.
 
 ## Migrate domain-specific configuration files to the SQL database
 
@@ -140,15 +132,13 @@ The *identity* feature enables administrators to manage users and groups by ea
 
 The *assignment* feature enables administrators to manage project role authorization using the OpenStack Identity service SQL database, while providing user authentication through the LDAP directory.
 
-Note
-
-It is possible to isolate identity related information to LDAP in a deployment and keep resource information in a separate datastore. It is not possible to do the opposite, where resource information is stored in LDAP and identity information is stored in SQL. If the resource or assignment back ends are integrated with LDAP, the identity back end must also be integrated with LDAP.
+> Note
+> It is possible to isolate identity related information to LDAP in a deployment and keep resource information in a separate datastore. It is not possible to do the opposite, where resource information is stored in LDAP and identity information is stored in SQL. If the resource or assignment back ends are integrated with LDAP, the identity back end must also be integrated with LDAP.
 
 Identity LDAP server set up
 
-Important
-
-If you are using SELinux (enabled by default on RHEL derivatives), then in order for the OpenStack Identity service to access LDAP servers, you must enable the `authlogin_nsswitch_use_ldap` boolean value for SELinux on the server running the OpenStack Identity service. To enable and make the option persistent across reboots, set the following boolean value as the root user:
+> Important
+> If you are using SELinux (enabled by default on RHEL derivatives), then in order for the OpenStack Identity service to access LDAP servers, you must enable the `authlogin_nsswitch_use_ldap` boolean value for SELinux on the server running the OpenStack Identity service. To enable and make the option persistent across reboots, set the following boolean value as the root user:
 
 `# setsebool -P authlogin_nsswitch_use_ldap on`
 
@@ -169,9 +159,8 @@ Although it’s not recommended (see note below), multiple LDAP servers can be s
 `url = "ldap://localhost,ldap://backup.localhost"`
 `randomize_urls = true`
 
-Note
-
-Failover mechanisms in the LDAP backend can cause delays when switching over to the next working LDAP server. Randomizing the order in which the servers are tried only makes the failure behavior not dependent on which of the ordered servers fail. Individual processes can still be delayed or time out, so this doesn’t fix the issue at hand, but only makes the failure mode more gradual. This behavior cannot be easily fixed inside the service, because keystone would have to monitor the status of each LDAP server, which is in fact a task for a load balancer. Because of this, it is recommended to use a load balancer in front of the LDAP servers, which can monitor the state of the cluster and instantly redirect connections to the working LDAP server.
+> Note
+> Failover mechanisms in the LDAP backend can cause delays when switching over to the next working LDAP server. Randomizing the order in which the servers are tried only makes the failure behavior not dependent on which of the ordered servers fail. Individual processes can still be delayed or time out, so this doesn’t fix the issue at hand, but only makes the failure mode more gradual. This behavior cannot be easily fixed inside the service, because keystone would have to monitor the status of each LDAP server, which is in fact a task for a load balancer. Because of this, it is recommended to use a load balancer in front of the LDAP servers, which can monitor the state of the cluster and instantly redirect connections to the working LDAP server.
 
 **Additional LDAP integration settings**
 
@@ -196,9 +185,8 @@ Use `debug_level` to set the LDAP debugging level for LDAP calls. A value of z
 
 This setting sets `OPT_DEBUG_LEVEL` in the underlying python library. This field is a bit mask (integer), and the possible flags are documented in the OpenLDAP manpages. Commonly used values include 255 and 4095, with 4095 being more verbose and 0 being disabled. We recommend consulting the documentation for your LDAP back end when using this option.
 
-Warning
-
-Enabling `debug_level` will negatively impact performance.
+> Warning
+> Enabling `debug_level` will negatively impact performance.
 
 **Connection pooling**
 
@@ -227,9 +215,8 @@ Use `use_auth_pool` to enable LDAP connection pooling for end user authenticat
 
 When you have finished the configuration, restart the OpenStack Identity service.
 
-Warning
-
-During the service restart, authentication and authorization are unavailable.
+> Warning
+> During the service restart, authentication and authorization are unavailable.
 
 **To integrate one Identity back end with LDAP**
 
@@ -248,17 +235,15 @@ Create the organizational units (OU) in the LDAP directory, and define the corre
 `group_tree_dn = ou=Groups,dc=example,dc=org`
 `group_objectclass = groupOfNames`
 
-Note
-
-These schema attributes are extensible for compatibility with various schemas. For example, this entry maps to the person attribute in Active Directory:
+> Note
+> These schema attributes are extensible for compatibility with various schemas. For example, this entry maps to the person attribute in Active Directory:
 
 `user_objectclass = person`
 
 Restart the OpenStack Identity service.
 
-Warning
-
-During service restart, authentication and authorization are unavailable.
+> Warning
+> During service restart, authentication and authorization are unavailable.
 
 **To integrate multiple Identity back ends with LDAP**
 
@@ -280,9 +265,8 @@ b. Enable domain-specific drivers:
 
 2\. Restart the OpenStack Identity service.
 
-Warning
-
-During service restart, authentication and authorization are unavailable.
+> Warning
+> During service restart, authentication and authorization are unavailable.
 
 3\. List the domains using the dashboard, or the OpenStackClient CLI. Refer to the [Command List](https://docs.openstack.org/python-openstackclient/latest/cli/command-list.html) for a list of OpenStackClient commands.
 
@@ -290,9 +274,8 @@ During service restart, authentication and authorization are unavailable.
 
 5\. For each domain, create a domain-specific configuration file in the `/etc/keystone/domains` directory. Use the file naming convention `keystone.DOMAIN_NAME.conf`, where DOMAIN\_NAME is the domain name assigned in the previous step
 
-Note
-
-The options set in the `/etc/keystone/domains/keystone.DOMAIN_NAME.conf` file will override options in the `/etc/keystone/keystone.conf` file.
+> Note
+> The options set in the `/etc/keystone/domains/keystone.DOMAIN_NAME.conf` file will override options in the `/etc/keystone/keystone.conf` file.
 
 6\. Define the destination LDAP server in the `/etc/keystone/domains/keystone.DOMAIN_NAME.conf` file. For example:
 
@@ -311,9 +294,8 @@ The options set in the `/etc/keystone/domains/keystone.DOMAIN_NAME.conf` file 
 `group_tree_dn = ou=Groups,dc=example,dc=org`
 `group_objectclass = groupOfNames`
 
-Note
-
-These schema attributes are extensible for compatibility with various schemas. For example, this entry maps to the person attribute in Active Directory:
+> Note
+> These schema attributes are extensible for compatibility with various schemas. For example, this entry maps to the person attribute in Active Directory:
 
 `user_objectclass = person`
 
@@ -386,9 +368,8 @@ The value of `user_enabled_attribute` is also saved before applying the add op
 
 When you have finished configuration, restart the OpenStack Identity service.
 
-Warning
-
-During service restart, authentication and authorization are unavailable.
+> Warning
+> During service restart, authentication and authorization are unavailable.
 
 ## Secure the OpenStack Identity service connection to an LDAP back end
 
@@ -406,9 +387,8 @@ Once you verify the location of your certificate authority file:
 
 4. Configure the Identity service to use your certificate authorities file. To do so, set the `tls_cacertfile` configuration key in the `ldap` section to the certificate authorities file’s path.
 
-Note
-
-You can also set the `tls_cacertdir` (also in the `ldap` section) to the directory where all certificate authorities files are kept. If both `tls_cacertfile` and `tls_cacertdir` are set, then the latter will be ignored.
+> Note
+> You can also set the `tls_cacertdir` (also in the `ldap` section) to the directory where all certificate authorities files are kept. If both `tls_cacertfile` and `tls_cacertdir` are set, then the latter will be ignored.
 
 5\. Specify what client certificate checks to perform on incoming TLS sessions from the LDAP server. To do so, set the `tls_req_cert` configuration key in the `[ldap]` section to `demand`, `allow`, or `never`:
 
@@ -420,9 +400,8 @@ You can also set the `tls_cacertdir` (also in the `ldap` section) to the dir
 
 When you have finished configuration, restart the OpenStack Identity service
 
-Note
-
-If you are unable to connect to LDAP via OpenStack Identity, or observe a *SERVER DOWN* error, set the `TLS_CACERT` in `/etc/ldap/ldap.conf` to the same value specified in the `[ldap] tls_certificate` section of `keystone.conf`.
+>Note
+>If you are unable to connect to LDAP via OpenStack Identity, or observe a *SERVER DOWN* error, set the `TLS_CACERT` in `/etc/ldap/ldap.conf` to the same value specified in the `[ldap] tls_certificate` section of `keystone.conf`.
 
 On distributions that include openstack-config, you can configure TLS encryption on LDAP traffic by running the following commands instead.
 
@@ -469,9 +448,8 @@ So to enable only the token back end caching, set the values as follows:
 `[token]`
 `caching=true`
 
-Note
-
-Each subsystem is configured to cache by default. However, the global toggle for caching defaults to `False`. A subsystem is only able to cache responses if the global toggle is enabled.
+>Note
+>Each subsystem is configured to cache by default. However, the global toggle for caching defaults to `False`. A subsystem is only able to cache responses if the global toggle is enabled.
 
 Current functional back ends are:`dogpile.cache.null`
 
@@ -545,9 +523,8 @@ The memory back end is not suitable for use in a production environment.
 
 A common concern with caching is relaying inaccurate information after updating or deleting a resource. Most subsystems within OpenStack Identity invalidate specific cache entries once they have changed. In cases where a specific cache entry cannot be invalidated from the cache, the cache region will be invalidated instead. This invalidates all entries within the cache to prevent returning stale or misleading data. A subsequent request for the resource will be fully processed and cached.
 
-Warning
-
-Be aware that if a read-only back end is in use for a particular subsystem, the cache will not immediately reflect changes performed through the back end. Any given change may take up to the `cache_time` (if set in the subsystem section of the configuration) or the global `expiration_time` (set in the `[cache]` section of the configuration) before it is reflected. If this type of delay is an issue, we recommend disabling caching for that particular subsystem.
+> Warning
+> Be aware that if a read-only back end is in use for a particular subsystem, the cache will not immediately reflect changes performed through the back end. Any given change may take up to the `cache_time` (if set in the subsystem section of the configuration) or the global `expiration_time` (set in the `[cache]` section of the configuration) before it is reflected. If this type of delay is an issue, we recommend disabling caching for that particular subsystem.
 
 ## Configure the Memcached back end example
 
@@ -614,9 +591,8 @@ PCI-DSS 8.2.6 requires users to change their password for first time use and upo
 
 Prior to enabling this feature, you may want to exempt some users that you do not wish to be required to change their password. You can mark a user as exempt by setting the user options attribute [ignore\_change\_password\_upon\_first\_use](https://docs.openstack.org/keystone/zed/admin/resource-options.html#ignore-change-password-upon-first-use).
 
-Warning
-
-Failure to mark service users as exempt from this requirement will result in your service account passwords becoming expired after being reset.
+>Warning
+>Failure to mark service users as exempt from this requirement will result in your service account passwords becoming expired after being reset.
 
 When ready, you can configure it so that users are forced to change their password upon first use by setting `change_password_upon_first_use`:
 
@@ -658,9 +634,8 @@ If you do set the `password_regex`, you should provide text that describes your
 
 It is imperative that the `password_regex_description` matches the actual regex. If the `password_regex` and the `password_regex_description` do not match, it will cause user experience to suffer since this description will be returned to users to explain why their requested password was insufficient.
 
-Note
-
-You must ensure the `password_regex_description` accurately and completely describes the `password_regex`. If the two options are out of sync, the help text could inaccurately describe the password requirements being applied to the password. This would lead to a poor user experience.
+>Note
+>You must ensure the `password_regex_description` accurately and completely describes the `password_regex`. If the two options are out of sync, the help text could inaccurately describe the password requirements being applied to the password. This would lead to a poor user experience.
 
 ## Requiring a unique password history
 
@@ -678,9 +653,8 @@ Similarly, you can set the number of days that a password must be used before th
 
 In the above example, once a user changes their password, they would not be able to change it again for one day. This prevents users from changing their passwords immediately in order to wipe out their password history and reuse an old password.
 
-Note
-
-When you set `password_expires_days`, the value for the `minimum_password_age` should be less than the `password_expires_days`. Otherwise, users would not be able to change their passwords before they expire.
+>Note
+>When you set `password_expires_days`, the value for the `minimum_password_age` should be less than the `password_expires_days`. Otherwise, users would not be able to change their passwords before they expire.
 
 ### Prevent Self-Service Password Changes
 
