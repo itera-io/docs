@@ -4,35 +4,33 @@ title: "Keystone Configuration"
 
 Information and recommendations for general configuration of keystone for keystone administrators. See the main [Configuration](https://docs.openstack.org/keystone/zed/configuration/index.html#keystone-configuration-options) section for complete keystone configuration documentation and sample config files.
 
-## Troubleshoot the Identity service
+# Troubleshoot the Identity service
 
 To troubleshoot the Identity service, review the logs in the `/var/log/keystone/keystone.log` file.
 
 Use the `/etc/keystone/logging.conf` file to configure the location of log files.
 
-Note
-
-The `insecure_debug` flag is unique to the Identity service. If you enable `insecure_debug`, error messages from the API change to return security-sensitive information. For example, the error message on failed authentication includes information on why your authentication failed.
+> Note
+> The `insecure_debug` flag is unique to the Identity service. If you enable `insecure_debug`, error messages from the API change to return security-sensitive information. For example, the error message on failed authentication includes information on why your authentication failed.
 
 The logs show the components that have come in to the WSGI request, and ideally show an error that explains why an authorization request failed. If you do not see the request in the logs, run keystone with the `--debug` parameter. Pass the `--debug` parameter before the command parameters.
 
-## Logging
+# Logging
 
 You configure logging externally to the rest of Identity. The name of the file specifying the logging configuration is set using the `log_config_append` option in the `[DEFAULT]` section of the `/etc/keystone/keystone.conf` file. To route logging through syslog, set `use_syslog=true` in the `[DEFAULT]` section.
 
 A sample logging configuration file is available with the project in `etc/logging.conf.sample`. Like other OpenStack projects, Identity uses the [Python logging module](https://docs.python.org/library/logging.html), which provides extensive configuration options that let you define the output levels and formats.
 
-## Domain-specific configuration
+# Domain-specific configuration
 
 The Identity service supports domain-specific Identity drivers. The drivers allow a domain to have its own LDAP or SQL back end. By default, domain-specific drivers are disabled.
 
 Domain-specific Identity configuration options can be stored in domain-specific configuration files, or in the Identity SQL database using API REST calls.
 
-Note
-
+> Note
 Storing and managing configuration options in an SQL database is experimental in Kilo, and added to the Identity service in the Liberty release.
 
-### Enable drivers for domain-specific configuration files
+## Enable drivers for domain-specific configuration files
 
 To enable domain-specific drivers, set these options in the `/etc/keystone/keystone.conf` file:
 
@@ -42,7 +40,7 @@ To enable domain-specific drivers, set these options in the `/etc/keystone/keys
 
 When you enable domain-specific drivers, Identity looks in the `domain_config_dir` directory for configuration files that are named as `keystone.DOMAIN_NAME.conf`. A domain without a domain-specific configuration file uses options in the primary configuration file.
 
-### Enable drivers for storing configuration options in SQL database
+## Enable drivers for storing configuration options in SQL database
 
 To enable domain-specific drivers, set these options in the `/etc/keystone/keystone.conf` file:
 
@@ -112,7 +110,7 @@ Generating public IDs in the first run may take a while, and most probably first
 
 `$ keystone-manage mapping_populate --domain DOMAINA`
 
-### Public ID Generators
+## Public ID Generators
 
 Keystone supports a customizable public ID generator and it is specified in the `[identity_mapping]` section of the configuration file. Keystone provides a sha256 generator as default, which produces regenerable public IDs. The generator algorithm for public IDs is a balance between key size (i.e. the length of the public ID), the probability of collision and, in some circumstances, the security of the public ID. The maximum length of public ID supported by keystone is 64 characters, and the default generator (sha256) uses this full capability. Since the public ID is what is exposed externally by keystone and potentially stored in external systems, some installations may wish to make use of other generator algorithms that have a different trade-off of attributes. A different generator can be installed by configuring the following property:
 
@@ -122,7 +120,7 @@ Warning
 
 Changing the generator may cause all existing public IDs to be become invalid, so typically the generator selection should be considered immutable for a given installation.
 
-### Migrate domain-specific configuration files to the SQL database
+## Migrate domain-specific configuration files to the SQL database
 
 You can use the `keystone-manage` command to migrate configuration options in domain-specific configuration files to the SQL database:
 
@@ -132,7 +130,7 @@ To upload options from a specific domain-configuration file, specify the domain 
 
 `# keystone-manage domain_config_upload --domain-name DOMAIN_NAME`
 
-## Integrate Identity with LDAP
+# Integrate Identity with LDAP
 
 The OpenStack Identity service supports integration with existing LDAP directories for authentication and authorization services. LDAP back ends require initialization before configuring the OpenStack Identity service to work with it. For more information, see [Setting up LDAP for use with Keystone](https://wiki.openstack.org/wiki/OpenLDAP).
 
@@ -392,7 +390,7 @@ Warning
 
 During service restart, authentication and authorization are unavailable.
 
-### Secure the OpenStack Identity service connection to an LDAP back end
+## Secure the OpenStack Identity service connection to an LDAP back end
 
 We recommend securing all connections between OpenStack Identity and LDAP. The Identity service supports the use of TLS to encrypt LDAP traffic. Before configuring this, you must first verify where your certificate authority file is located. For more information, see the [OpenStack Security Guide SSL introduction](https://docs.openstack.org/security-guide/secure-communication/introduction-to-ssl-and-tls.html).
 
@@ -441,7 +439,7 @@ Where:
 
 * `CERT_BEHAVIOR` specifies what client certificate checks to perform on an incoming TLS session from the LDAP server (`demand`, `allow`, or `never`).
 
-## Caching layer
+# Caching layer
 
 OpenStack Identity supports a caching layer that is above the configurable subsystems (for example, token). This gives you the flexibility to setup caching for all or some subsystems. OpenStack Identity uses the [oslo.cache](https://docs.openstack.org/oslo.cache/latest/) library which allows flexible cache back ends. The majority of the caching configuration options are set in the `[cache]` section of the `/etc/keystone/keystone.conf` file. The `enabled` option of the `[cache]` section must be set to `True` in order for any subsystem to cache responses. Each section that has the capability to be cached will have a `caching` boolean value that toggles caching behavior of that particular subsystem.
 
@@ -501,7 +499,7 @@ Uses etcd 3.x for storage.`oslo_cache.dict`
 
 A DictCacheBackend based on dictionary, not suitable for use outside of testing as it does not share cache between processes.This means that caching and cache invalidation will not be consistent or reliable.
 
-### Caching for tokens and tokens validation
+## Caching for tokens and tokens validation
 
 The token subsystem is OpenStack Identity’s most heavily used API. As a result, all types of tokens benefit from caching, including Fernet tokens. Although Fernet tokens do not need to be persisted, they should still be cached for optimal token validation performance.
 
@@ -525,7 +523,7 @@ Token caching is configurable independently of the `revocation_list` caching. 
 
 For cache consistency, all token IDs are transformed into the short token hash at the provider and token driver level. Some methods have access to the full ID (PKI Tokens), and some methods do not. Cache invalidation is inconsistent without token ID normalization.
 
-### Caching for non-token resources
+## Caching for non-token resources
 
 Various other keystone components have a separate `cache_time` configuration option, that can be set to a value above or below the global `expiration_time` default, allowing for different caching behavior from the other systems in Identity service. This option can be set in various sections (for example, `[role]` and `[resource]`) of the configuration file. The create, update, and delete actions for domains, projects and roles will perform proper invalidations of the cached methods listed above.
 
@@ -543,7 +541,7 @@ The memory back end is not suitable for use in a production environment.
 
 * [dogpile.cache.dbm](https://dogpilecache.sqlalchemy.org/en/latest/api.html#file-backends)
 
-### Cache invalidation
+## Cache invalidation
 
 A common concern with caching is relaying inaccurate information after updating or deleting a resource. Most subsystems within OpenStack Identity invalidate specific cache entries once they have changed. In cases where a specific cache entry cannot be invalidated from the cache, the cache region will be invalidated instead. This invalidates all entries within the cache to prevent returning stale or misleading data. A subsequent request for the resource will be fully processed and cached.
 
@@ -551,7 +549,7 @@ Warning
 
 Be aware that if a read-only back end is in use for a particular subsystem, the cache will not immediately reflect changes performed through the back end. Any given change may take up to the `cache_time` (if set in the subsystem section of the configuration) or the global `expiration_time` (set in the `[cache]` section of the configuration) before it is reflected. If this type of delay is an issue, we recommend disabling caching for that particular subsystem.
 
-### Configure the Memcached back end example
+## Configure the Memcached back end example
 
 The following example shows how to configure the memcached back end:
 
@@ -563,7 +561,7 @@ The following example shows how to configure the memcached back end:
 
 You need to specify the URL to reach the `memcached` instance with the `backend_argument` parameter.
 
-### Verbose cache logging
+## Verbose cache logging
 
 We do not recommend using verbose cache logging by default in production systems since it’s extremely noisy. However, you may need to debug cache issues. One way to see how keystone is interacting with a cache backend is to enhance logging. The following configuration will aggregate oslo and dogpile logs into keystone’s log file with increased verbosity:
 
@@ -575,7 +573,7 @@ We do not recommend using verbose cache logging by default in production systems
 
 These logs will include cache hits and misses, making it easier to diagnose cache configuration and connectivity issues.
 
-## Security compliance and PCI-DSS
+# Security compliance and PCI-DSS
 
 As of the Newton release, the Identity service contains additional security compliance features, specifically to satisfy Payment Card Industry – Data Security Standard (PCI-DSS) v3.1 requirements. See [Security Hardening PCI-DSS](https://specs.openstack.org/openstack/keystone-specs/specs/keystone/newton/pci-dss.html) for more information on PCI-DSS.
 
@@ -583,7 +581,7 @@ Security compliance features are disabled by default and most of the features on
 
 Enable these features by changing the configuration settings under the `[security_compliance]` section in `keystone.conf`.
 
-### Setting an account lockout threshold
+## Setting an account lockout threshold
 
 The account lockout feature limits the number of incorrect password attempts. If a user fails to authenticate after the maximum number of attempts, the service disables the user. Users can be re-enabled by explicitly setting the enable user attribute with the update user [v3](https://docs.openstack.org/api-ref/identity/v3/index.html#update-user) API call.
 
@@ -601,7 +599,7 @@ If you do not set the `lockout_duration`, users will be locked out indefinitely
 
 You can ensure specific users are never locked out. This can be useful for service accounts or administrative users. You can do this by setting the user option for [ignore\_lockout\_failure\_attempts](https://docs.openstack.org/keystone/zed/admin/resource-options.html#ignore-lockout-failure-attempts).
 
-### Disabling inactive users
+## Disabling inactive users
 
 PCI-DSS 8.1.4 requires that inactive user accounts be removed or disabled within 90 days. You can achieve this by setting the `disable_user_account_days_inactive`:
 
@@ -610,7 +608,7 @@ PCI-DSS 8.1.4 requires that inactive user accounts be removed or disabled within
 
 This above example means that users that have not authenticated (inactive) for the past 90 days are automatically disabled. Users can be re-enabled by explicitly setting the enable user attribute via the API.
 
-### Force users to change password upon first use
+## Force users to change password upon first use
 
 PCI-DSS 8.2.6 requires users to change their password for first time use and upon an administrative password reset. Within the identity [user API](https://docs.openstack.org/api-ref/identity/v3/index.html#users), create user and update user are considered administrative password changes. Whereas, change password for user is a self-service password change. Once this feature is enabled, new users, and users that have had their password reset, will be required to change their password upon next authentication (first use), before being able to access any services.
 
@@ -625,7 +623,7 @@ When ready, you can configure it so that users are forced to change their passwo
 `[security_compliance]`
 `change_password_upon_first_use = True`
 
-### Configuring password expiration
+## Configuring password expiration
 
 Passwords can be configured to expire within a certain number of days by setting the `password_expires_days`:
 
@@ -636,7 +634,7 @@ Once set, any new password changes have an expiration date based on the date/tim
 
 If there exists a user whose password you do not want to expire, keystone supports setting that via the user option [ignore\_password\_expiry](https://docs.openstack.org/keystone/zed/admin/resource-options.html#ignore-password-expiry).
 
-### Configuring password strength requirements
+## Configuring password strength requirements
 
 You can set password strength requirements, such as requiring numbers in passwords or setting a minimum password length, by adding a regular expression to the `password_regex` setting:
 
@@ -664,7 +662,7 @@ Note
 
 You must ensure the `password_regex_description` accurately and completely describes the `password_regex`. If the two options are out of sync, the help text could inaccurately describe the password requirements being applied to the password. This would lead to a poor user experience.
 
-### Requiring a unique password history
+## Requiring a unique password history
 
 The password history requirements controls the number of passwords for a user that must be unique before an old password can be reused. You can enforce this by setting the `unique_last_password_count`:
 
@@ -690,13 +688,13 @@ If there exists a user who should not be able to change her own password via the
 
 This is typically used in the case where passwords are managed externally to keystone.
 
-## Performance and scaling
+# Performance and scaling
 
 Before you begin tuning Keystone for performance and scalability, you should first know that Keystone is just a two tier horizontally-scalable web application, and the most effective methods for scaling it are going to be the same as for any other similarly designed web application: give it more processes, more memory, scale horizontally, and load balance the result.
 
 With that said, there are many opportunities for tuning the performance of Keystone, many of which are actually trade-offs between performance and security that you need to judge for yourself, and tune accordingly.
 
-### Keystone configuration options that affect performance
+## Keystone configuration options that affect performance
 
 These are all of the options in `keystone.conf` that have a direct impact on performance. See the help descriptions for these options for more specific details on how and why you might want to tune these options for yourself.
 
@@ -710,7 +708,7 @@ These are all of the options in `keystone.conf` that have a direct impact on p
 
 * `[fernet] max_active_keys`: If you’re using Fernet tokens, decrease this option to improve performance, increase this option to support more advanced key rotation strategies.
 
-### Keystonemiddleware configuration options that affect performance
+## Keystonemiddleware configuration options that affect performance
 
 This configuration actually lives in the Paste pipelines of services consuming token validation from keystone (i.e.: nova, cinder, swift, etc.).
 
@@ -726,7 +724,7 @@ This configuration actually lives in the Paste pipelines of services consuming t
 
 * `include_service_catalog`: Disable this option to improve performance, if the protected service does not require a service catalog.
 
-## URL safe naming of projects and domains
+# URL safe naming of projects and domains
 
 In the future, keystone may offer the ability to identify a project in a hierarchy via a URL style of naming from the root of the hierarchy (for example specifying ‘projectA/projectB/projectC’ as the project name in an authentication request). In order to prepare for this, keystone supports the optional ability to ensure both projects and domains are named without including any of the reserved characters specified in section 2.2 of [rfc3986](http://tools.ietf.org/html/rfc3986).
 
@@ -740,7 +738,7 @@ When set to `off` (which is the default), no checking is done on the URL safen
 
 It is recommended that installations take the steps necessary to where they can run with both options set to `strict` as soon as is practical.
 
-## Limiting list return size
+# Limiting list return size
 
 Keystone provides a method of setting a limit to the number of entities returned in a collection, which is useful to prevent overly long response times for list queries that have not specified a sufficiently narrow filter. This limit can be set globally by setting `list_limit` in the default section of `keystone.conf`, with no limit set by default. Individual driver sections may override this global value with a specific limit, for example:
 
@@ -749,7 +747,7 @@ Keystone provides a method of setting a limit to the number of entities returned
 
 If a response to `list_{entity}` call has been truncated, then the response status code will still be 200 (OK), but the `truncated` attribute in the collection will be set to `true`.
 
-## Endpoint Filtering
+# Endpoint Filtering
 
 Endpoint Filtering enables creation of ad-hoc catalogs for each project-scoped token request.
 
@@ -765,7 +763,7 @@ In the `[endpoint_filter]` section, set `return_all_endpoints_if_no_filter` 
 
 See [API Specification for Endpoint Filtering](https://docs.openstack.org/api-ref/identity/v3-ext/#os-ep-filter-api) for the details of API definition.
 
-## Endpoint Policy
+# Endpoint Policy
 
 The Endpoint Policy feature provides associations between service endpoints and policies that are already stored in the Identity server and referenced by a policy ID.
 
