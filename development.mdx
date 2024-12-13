@@ -1,98 +1,117 @@
 ---
-title: 'Development'
-description: 'Learn how to preview changes locally'
+title: "Create a Project"
 ---
 
-<Info>
-  **Prerequisite** You should have installed Node.js (version 18.10.0 or
-  higher).
-</Info>
+#
 
-Step 1. Install Mintlify on your OS:
+## Roles: Manager | Partner
 
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify
-```
-
-```bash yarn
-yarn global add mintlify
-```
-
-</CodeGroup>
-
-Step 2. Go to the docs are located (where you can find `mint.json`) and run the following command:
-
-```bash
-mintlify dev
-```
-
-The documentation website is now available at `http://localhost:3000`.
-
-### Custom Ports
-
-Mintlify uses port 3000 by default. You can use the `--port` flag to customize the port Mintlify runs on. For example, use this command to run in port 3333:
-
-```bash
-mintlify dev --port 3333
-```
-
-You will see an error like this if you try to run Mintlify in a port that's already taken:
-
-```md
-Error: listen EADDRINUSE: address already in use :::3000
-```
-
-## Mintlify Versions
-
-Each CLI is linked to a specific version of Mintlify. Please update the CLI if your local website looks different than production.
-
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify@latest
-```
-
-```bash yarn
-yarn global upgrade mintlify
-```
-
-</CodeGroup>
-
-## Deployment
-
-<Tip>
-  Unlimited editors available under the [Startup
-  Plan](https://mintlify.com/pricing)
-</Tip>
-
-You should see the following if the deploy successfully went through:
-
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
+<Frame caption="Create a Project">
+  <img src="https://mintlify.s3-us-west-1.amazonaws.com/taikuncloud/images/create.a.project.webp" />
 </Frame>
 
-## Troubleshooting
+You can create a new project right after adding your cloud credentials! During project creation, you have the option to specify various settings and configurations to suit your needs.
 
-Here's how to solve some common problems when working with the CLI.
+### Steps to Create a New Project
 
-<AccordionGroup>
-  <Accordion title="Mintlify is not loading">
-    Update to Node v18. Run `mintlify install` and try again.
-  </Accordion>
-  <Accordion title="No such file or directory on Windows">
-Go to the `C:/Users/Username/.mintlify/` directory and remove the `mint`
-folder. Then Open the Git Bash in this location and run `git clone
-https://github.com/mintlify/mint.git`.
+<Accordion title="Steps to Create a New Project" icon="gear">
+  <Steps>
+    <Step title="Go to the Projects menu in Taikun CloudWorks">
+      Open the Projects menu in the Taikun CloudWorks platform.
+    </Step>
 
-Repeat step 3.
+    <Step title="Click the Add Project button">
+      Locate and click the **Add Project** button in the top right corner.
+    </Step>
 
-  </Accordion>
-  <Accordion title="Getting an unknown error">
-    Try navigating to the root of your device and delete the ~/.mintlify folder.
-    Then run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
+    <Step title="Specify Project Name and Cloud">
+      Enter a name for your project and select a **Cloud** provider in the pop-up.
+    </Step>
+  </Steps>
 
-Curious about what changed in a CLI version? [Check out the CLI changelog.](/changelog/command-line)
+  <Tip title="Optional: Configure Profiles">
+    Profiles for **Access**, **Alerting**, **Kubernetes**, and **Policy** are initially set to default. Custom profiles need to be created in advance before using them in your projects.
+  </Tip>
+</Accordion>
+
+<Tip>
+  Certain features in Taikun CloudWorks, such as **Alerting Profiles**, **Monitoring**, **Backup**, and **Expiration Dates**, can be configured or enabled after the project is created.
+</Tip>
+
+***
+
+***
+
+<Warning>
+  If you intend to use a specific **Access Profile** in your project, create it *before* starting the project creation process. This profile can then be selected from the drop-down menu during project creation.
+</Warning>
+
+***
+
+***
+
+### Project Details
+
+* **Project Name**: Enter a unique name for your project. Only lowercase alphanumeric characters and dashes are allowed (3-30 characters; no underscores). Example: `my-project1`
+
+* **Cloud**: Select where to store your project. For instructions on connecting a new cloud, see [Cloud Credentials](#cloud-credentials).
+
+#### Optional Settings
+
+* **Kubernetes Version**: Choose a specific Kubernetes version, if needed.
+
+* **CIDR**: Specify a network or sub-network if required.
+
+* **Access Profile**: Choose a profile for project access. (For setup instructions, see [Access Profiles](#access-profiles)).
+
+* **Alerting Profile**: Select an alerting profile from the dropdown if already created.
+
+* **Kubernetes Profile**: Choose a profile after creating it in Kubernetes Profiles.
+
+  * **For OpenStack**: If you choose a profile with an enabled Taikun Load Balancer, you’ll need to configure the **Taikun Load Balancer Flavor**, **Router Id Start Range**, and **Router Id End Range**.
+
+* **Policy Profile**: Select a policy profile for this project.
+
+* **Monitoring**: Enables monitoring of Kubernetes clusters to help manage containerized infrastructure, track resource utilization (memory, CPU, storage).
+
+* **Backup**: Choose backup credentials, or create new ones in [Backup Credentials](#backup-credentials). You can change this later if needed.
+
+* **Expiration Date**: Set a project expiration date. By default, this is set to infinity. Note: Projects remain unaffected after the expiration date.
+
+* **Serverless**: Enable serverless options to manage events and triggers. DNS setup is required.
+
+* **Spot Features**: Enable spot features (AWS, Azure, Google supported).
+
+  * **Allow Spot VMs**: Enable spots for standalone VMs.
+
+  * **Allow Full Spot Kubernetes**: Enable full spot for Kubernetes.
+
+  * **Allow Spot Workers**: Enable spots for workers only.
+
+  * **No Spot for Kubernetes**: Disable spots for Kubernetes.
+
+* **Flavor**: Bind specific flavors to the project. Multiple flavors can be added and managed in **Flavor Info**.
+
+#### Autoscaler Configuration
+
+Enable autoscaling by specifying server parameters:
+
+* **Name**: Define a name for the server.
+
+* **Minimum Workers**: Set the minimum number of workers.
+
+* **Maximum Workers**: Set the maximum number of workers.
+
+* **Disk Size**: Define disk size.
+
+* **Flavor**: Select a flavor for the server.
+
+***
+
+## Additional Resources
+
+For a comprehensive understanding of the project creation process, watch our instructional video below:
+
+<div style={{ border: '2px solid #ccc', borderRadius: '8px', padding: '5px', width: 'fit-content', margin: 'auto' }}>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/XUFtmCr01Lc?start=54" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+</div>
