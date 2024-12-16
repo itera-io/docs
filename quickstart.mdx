@@ -3,75 +3,55 @@ title: 'Quickstart'
 description: 'Get started with Taikun in minutes'
 ---
 
-## Setup your development
+## Setup your environment
 
-Learn how to update and manage your Taikun documentation.
+Learn how to get started with Taikun CloudWorks platform.
 
-### Edit and preview
+### Prerequisites
 
 <AccordionGroup>
-  <Accordion icon="github" title="Clone the documentation locally">
-    The documentation is maintained in a Git repository. To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
+  <Accordion icon="cloud" title="Cloud Provider Account">
+    You'll need an account with one of our supported cloud providers:
+    - [Google Cloud Platform](/Documentation/Topics/Supported%20Cloud%20Providers/Google%20Cloud%20Platform)
+    - [Amazon Web Services](/Documentation/Topics/Supported%20Cloud%20Providers/Amazon%20Web%20Services)
+    - [Microsoft Azure](/Documentation/Topics/Supported%20Cloud%20Providers/Microsoft%20Azure)
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. 
-    
-    1. Install the documentation CLI to preview changes locally:
-    ```bash
-    npm i -g @taikun/docs-cli
-    ```
-    
-    2. Run the following command at the root of your documentation:
-    ```bash
-    taikun-docs dev
-    ```
+  <Accordion icon="user" title="Taikun Account">
+    1. Visit [Taikun Dashboard](https://app.taikun.cloud)
+    2. Create a new account or sign in with your existing credentials
+    3. Follow our [User Management Guide](/Documentation/Topics/Account%20Management/User%20Types) for role setup
   </Accordion>
 </AccordionGroup>
 
-### Deploy your changes
+### First Steps
 
 <AccordionGroup>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in the documentation site.
+<Accordion icon="rocket" title="Create Your First Project">
+  Follow our step-by-step guide to [create your first project](/Documentation/Topics/Managing%20your%20Projects/Create%20a%20Project).
+  This will help you:
+  1. Set up your cloud credentials
+  2. Configure your project settings
+  3. Deploy your first cluster
+</Accordion>
+<Accordion icon="cube" title="Deploy Kubernetes">
+  Learn how to [create and manage Kubernetes clusters](/Documentation/Topics/Getting%20Started/Creating%20Kubernetes%20cluster)
+  with Taikun's intuitive interface.
 </Accordion>
 </AccordionGroup>
 
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+## Next Steps
 
 <CardGroup>
-
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
+<Card title="Cloud Integration" icon="cloud" href="/Documentation/Topics/Getting%20Started/Connect%20your%20Cloud">
+  Learn how to connect and manage your cloud provider accounts.
 </Card>
-
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
+<Card title="Project Management" icon="folder" href="/Documentation/Topics/Managing%20your%20Projects/Installing%20Applications">
+  Discover how to manage projects and deploy applications.
 </Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
+<Card title="Monitoring" icon="chart-line" href="/Documentation/Topics/Monitoring%20your%20Projects/Available%20Monitoring%20tools">
+  Set up monitoring and alerts for your infrastructure.
 </Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
+<Card title="Advanced Features" icon="wand-magic-sparkles" href="/Documentation/Topics/Taikun%20CloudWorks%20Overview/Taikun%20CloudWorks%20Architecture">
+  Explore advanced features and integrations.
 </Card>
-
 </CardGroup>

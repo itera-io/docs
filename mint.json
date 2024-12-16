@@ -1,11 +1,11 @@
 {
-    "$schema": "https://mintlify.com/schema.json",
+    "$schema": "https://taikun.cloud/schema.json",
     "name": "Taikun Documentation",
     "logo": {
-        "dark": "/Documentation/Images/taikun-logo-dark.svg",
-        "light": "/Documentation/Images/taikun-logo-light.svg"
+        "dark": "/logo/WhitetextLogo.png",
+        "light": "/logo/Frame 3473 (1).png"
     },
-    "favicon": "/Documentation/Images/taikun-favicon.svg",
+    "favicon": "/logo/Frame 2905 (1).png",
     "colors": {
         "primary": "#6043bc",
         "light": "#7a5ee5",
@@ -30,7 +30,7 @@
     "anchors": [{
             "name": "Documentation",
             "icon": "book-open-cover",
-            "url": "docs/introduction"
+            "url": "introduction"
         },
         {
             "name": "Terraform Registry",
@@ -48,12 +48,54 @@
         {
             "group": "Documentation",
             "pages": [
-                "docs/introduction",
+                "Documentation/Topics/Home/Taikun CloudWorks Documentation",
                 {
-                    "group": "Topics",
+                    "group": "Getting Started",
+                    "pages": [
+                        "Documentation/Topics/Getting Started/From Login to Production Cluster",
+                        "Documentation/Topics/Getting Started/Project Creation",
+                        "Documentation/Topics/Getting Started/Creating Kubernetes cluster",
+                        "Documentation/Topics/Getting Started/Connect your Cloud",
+                        "Documentation/Topics/Getting Started/Accessing Cluster with Kubeconfig"
+                    ]
+                },
+                {
+                    "group": "Cloud Providers",
                     "pages": [
                         "Documentation/Topics/Supported Cloud Providers/Google Cloud Platform",
-                        "Documentation/Topics/Profile Management/Policy Profiles"
+                        "Documentation/Topics/Supported Cloud Providers/Amazon Web Services",
+                        "Documentation/Topics/Supported Cloud Providers/Microsoft Azure"
+                    ]
+                },
+                {
+                    "group": "Project Management",
+                    "pages": [
+                        "Documentation/Topics/Managing your Projects/Create a Project",
+                        "Documentation/Topics/Managing your Projects/Create a Server",
+                        "Documentation/Topics/Managing your Projects/Installing Applications",
+                        "Documentation/Topics/Managing your Projects/Backup",
+                        "Documentation/Topics/Managing your Projects/Enable autoscaler",
+                        "Documentation/Topics/Managing your Projects/Kubernetes Upgrades with Taikun"
+                    ]
+                },
+                {
+                    "group": "Account Management",
+                    "pages": [
+                        "Documentation/Topics/Account Management/User Types",
+                        "Documentation/Topics/Account Management/Organizations in Taikun",
+                        "Documentation/Topics/Account Management/Add and Delete Users",
+                        "Documentation/Topics/Account Management/My Profile management",
+                        "Documentation/Topics/Account Management/Email notifications"
+                    ]
+                },
+                {
+                    "group": "CloudWorks Features",
+                    "pages": [
+                        "Documentation/Topics/Taikun CloudWorks Overview/Taikun CloudWorks Architecture",
+                        "Documentation/Topics/Taikun CloudWorks Overview/Kubernetes Persistent Volumes",
+                        "Documentation/Topics/Taikun CloudWorks Overview/Network Policies",
+                        "Documentation/Topics/Taikun CloudWorks Overview/Services, Load Balancing, and Networking in Kubernetes",
+                        "Documentation/Topics/Taikun CloudWorks Overview/Metrics"
                     ]
                 }
             ]
@@ -61,7 +103,7 @@
     ],
     "footerSocials": {
         "x": "https://x.com/taikun_cloud",
-        "github": "https://github.com/itera-io/taikun",
+        "github": "https://github.com/itera-io",
         "linkedin": "https://www.linkedin.com/company/taikun-cloud"
     }
 }
