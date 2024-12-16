@@ -1,39 +1,44 @@
-# Mintlify Starter Kit
+# Taikun Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+Welcome to the Taikun documentation repository. This repository contains the source files for Taikun's official documentation.
 
-* Guide pages
+## What's included
 
-* Navigation
+This documentation includes:
 
-* Customizations
+- Getting started guides
 
-* API Reference pages
+- User guides and tutorials
 
-* Use of popular components
+- Terraform provider documentation
 
-* **ZMĚNA ... :)** A DALŠÍ... a další
+- Best practices and examples
 
-### Development
+- Troubleshooting guides
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+## Local Development
 
-```
-npm i -g mintlify
-```
+To preview the documentation locally:
 
-Run the following command at the root of your documentation (where mint.json is)
-
-```
-mintlify dev
+1. Install the Taikun docs CLI:
+```bash
+npm i -g @taikun/docs-cli
 ```
 
-### Publishing Changes
+2. Run the development server:
+```bash
+taikun-docs dev
+```
 
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard.
+Visit `http://localhost:3000` to preview the documentation.
 
-#### Troubleshooting
+## Troubleshooting
 
-* Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
+If you encounter any issues:
+* Make sure you're using Node.js v18 or later
+* Try running `taikun-docs install` to reinstall dependencies
+* Clear the cache by removing the `~/.taikun-docs` folder
 
-* Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+## Contributing
+
+We welcome contributions! Please see our contributing guidelines for more information.
