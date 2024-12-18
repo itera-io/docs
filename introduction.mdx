@@ -3,8 +3,9 @@ title: "Introduction"
 description: "Welcome to Taikun Documentation"
 ---
 
-<img alt="Hero Light" className="block dark:hidden" src="/logo/Frame 2905 (1).png" />
-<img alt="Hero Dark" className="hidden dark:block" src="/logo/WhitetextLogo.png" />
+<img alt="Hero Light" classname="block dark:hidden" src="/logo/Frame 2905 (1).png" />
+
+<img alt="Hero Dark" classname="hidden dark:block" src="/logo/WhitetextLogo.png" />
 
 ## Welcome to Taikun
 
@@ -14,6 +15,7 @@ Taikun is your comprehensive cloud management platform that simplifies the deplo
   <Card title="Quick Start" icon="rocket" href="/quickstart">
     Get started with Taikun in minutes
   </Card>
+
   <Card title="Cloud Providers" icon="cloud" href="/Documentation/Topics/Supported%20Cloud%20Providers/Google%20Cloud%20Platform">
     Connect your cloud provider
   </Card>
@@ -25,77 +27,28 @@ Taikun is your comprehensive cloud management platform that simplifies the deplo
   <Card title="Project Management" icon="folder" href="/Documentation/Topics/Managing%20your%20Projects/Create%20a%20Project">
     Create and manage your projects
   </Card>
+
   <Card title="Kubernetes" icon="cube" href="/Documentation/Topics/Getting%20Started/Creating%20Kubernetes%20cluster">
     Deploy and manage Kubernetes clusters
   </Card>
+
   <Card title="Monitoring" icon="chart-line" href="/Documentation/Topics/Monitoring%20your%20Projects/Available%20Monitoring%20tools">
     Monitor your infrastructure
   </Card>
+
   <Card title="User Management" icon="users" href="/Documentation/Topics/Account%20Management/User%20Types">
     Manage users and roles
   </Card>
 </CardGroup>
 
-## Managing Users
-
-### Add Users
-
-<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
-
-To add a user to your account:
-1. Navigate to the *Users* section
-2. Click "*Add User*" in the upper-right corner
-3. Provide the required information:
-   - Username
-   - Display name (optional)
-   - Email address
-   - Organization (Partner only)
-   - Role (Partner and Manager)
-4. Click "+ Add" to create the profile
-
-<Frame caption="Add Users">
-  ![Add User Interface](/Documentation/Images/Account%20Management/add.user.webp)
-</Frame>
-
-### Delete Users
-
-<Icon icon="user-tie" iconType="solid" /> Manager | <Icon icon="handshake" iconType="solid" /> Partner
-
-To delete a user:
-1. Go to the *Users* section
-2. Find the user you want to remove
-3. Click the "*Delete*" option
-4. Confirm the deletion when prompted
-
-<Frame caption="Delete Users">
-  ![Delete User Interface](/Documentation/Images/Account%20Management/delete.user.webp)
-</Frame>
-
-## Need Help?
+##
 
 <CardGroup cols={2}>
   <Card title="Contact Support" icon="headset" href="https://taikun.cloud/contact">
     Get help from our support team
   </Card>
+
   <Card title="API Documentation" icon="code" href="https://registry.terraform.io/providers/itera-io/taikun/latest/docs">
     Explore our Terraform provider
   </Card>
 </CardGroup>
-
-```mermaid
-flowchart LR
-subgraph subgraph1
-    direction TB
-    top1[top] --> bottom1[bottom]
-end
-subgraph subgraph2
-    direction TB
-    top2[top] --> bottom2[bottom]
-end
-%% ^ These subgraphs are identical, except for the links to them:
-
-%% Link *to* subgraph1: subgraph1 direction is maintained
-outside --> subgraph1
-%% Link *within* subgraph2:
-%% subgraph2 inherits the direction of the top-level graph (LR)
-outside ---> top2
